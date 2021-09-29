@@ -50,7 +50,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "max-classes-per-file": "off",
     "no-void": "off", // important for void promise
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "no-console": "error",
   },
   "settings": {
     "import/resolver": {

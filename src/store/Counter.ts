@@ -4,7 +4,11 @@ import { Action, Reducer } from 'redux'
 // STATE - This defines the type of data maintained in the Redux store.
 
 export interface CounterState {
-  count: number;
+  count: number
+}
+
+export const initState: CounterState = {
+  count: 0,
 }
 
 // -----------------
@@ -17,7 +21,7 @@ export interface DecrementCountAction { type: 'DECREMENT_COUNT' }
 
 // Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
 // declared type strings (and not any other arbitrary string).
-export type KnownAction = IncrementCountAction | DecrementCountAction;
+export type KnownAction = IncrementCountAction | DecrementCountAction
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.

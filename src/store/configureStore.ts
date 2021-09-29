@@ -3,6 +3,9 @@ import thunk from 'redux-thunk'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { History } from 'history'
 import { ApplicationState, reducers } from './'
+import { stringify } from 'querystring'
+import * as Counter from './Counter'
+import * as Login from './WeatherForecasts'
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
   const middleware = [
@@ -16,14 +19,24 @@ export default function configureStore(history: History, initialState?: Applicat
   })
 
   const enhancers = []
-  const windowIfDefined = typeof window === 'undefined' ? null : window as any // eslint-disable-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment
+  const windowIfDefined = typeof window === 'undefined' ? null : window as any
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     enhancers.push(windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__())
+  }
+
+  const initStates = (): ApplicationState => {
+    return {
+      counter: Counter.initState,
+      login: Login.initState,
+    }
   }
 
   return createStore(
     rootReducer,
-    initialState,
+    initialState ? initialState : initStates(),
     compose(applyMiddleware(...middleware), ...enhancers)
   )
 }
