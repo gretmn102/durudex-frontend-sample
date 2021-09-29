@@ -6,10 +6,10 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import * as Reactstrap from 'reactstrap'
 
 import { ApplicationState } from '../store'
-import * as Login from '../store/WeatherForecasts'
+import * as Login from '../store/SignIn'
 import LogoBackground from './logoBackground.png'
 import Logo from './logo.png'
-import { Deferred, deferredMatch } from '../store/WeatherForecasts'
+import { Deferred, deferredMatch } from '../store/SignIn'
 
 
 const styles = StyleSheet.create({

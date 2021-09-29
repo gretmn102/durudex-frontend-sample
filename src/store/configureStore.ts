@@ -5,7 +5,7 @@ import { History } from 'history'
 import { ApplicationState, reducers } from './'
 import { stringify } from 'querystring'
 import * as Counter from './Counter'
-import * as Login from './WeatherForecasts'
+import * as Login from './SignIn'
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
   const middleware = [
