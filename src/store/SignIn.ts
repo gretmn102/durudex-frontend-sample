@@ -1,32 +1,10 @@
 import { Action, Reducer } from 'redux'
+
+import { Deferred } from '../common'
 import { AppThunkAction } from './'
 
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
-
-export type Deferred<T> =
-  | ['HAS_NOT_STARTED_YET']
-  | ['IN_PROGRESS']
-  | ['RESOLVED', T]
-
-export function deferredMatch<T, Result>(
-  d: Deferred<T>,
-  hasNotStartedYet: () => void,
-  inProgress: () => void,
-  resolved: (result: T) => Result,
-) {
-  switch (d[0]) {
-    case "RESOLVED": {
-      return resolved(d[1])
-    }
-    case 'HAS_NOT_STARTED_YET':
-      hasNotStartedYet()
-      break
-    case "IN_PROGRESS": {
-      inProgress()
-    }
-  }
-}
 
 export type AuthResult = ['OK'] | ['ERROR', string]
 

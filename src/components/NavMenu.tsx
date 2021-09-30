@@ -3,6 +3,7 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link } from 'react-router-dom'
 import './NavMenu.css'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }> {
   public state = {
     isOpen: false,
@@ -25,6 +26,9 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/login">Sign In</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/sign-up">Sign Up</NavLink>
                 </NavItem>
               </ul>
             </Collapse>

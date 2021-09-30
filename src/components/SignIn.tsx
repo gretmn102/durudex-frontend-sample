@@ -9,7 +9,7 @@ import { ApplicationState } from '../store'
 import * as Login from '../store/SignIn'
 import LogoBackground from './logoBackground.png'
 import Logo from './logo.png'
-import { Deferred, deferredMatch } from '../store/SignIn'
+import { Deferred, deferredMatch, Call } from '../common'
 
 
 const styles = StyleSheet.create({
@@ -209,9 +209,6 @@ type LoginProps =
   // eslint-disable-next-line @typescript-eslint/ban-types
   & RouteComponentProps<{}> // ... plus incoming routing parameters
 
-function Call(props: {f: () => (JSX.Element | null )}) {
-  return props.f()
-}
 
 export function SignIn(props: LoginProps) {
   const [ login, setLogin ] = React.useState<string>('')
