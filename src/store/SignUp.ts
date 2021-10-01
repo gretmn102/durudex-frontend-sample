@@ -101,9 +101,33 @@ type UsernameValidate = {
   value: ValidateKnownAction
 }
 
+type PhoneValidate = {
+  type: 'PHONE_VALIDATE_KNOWNACTION'
+  value: ValidateKnownAction
+}
+
+type SetPage = {
+  type: 'SET_PAGE'
+  value: Page
+}
+
+type SetName = {
+  type: 'SET_NAME'
+  newName: string
+}
+
+type SetPassword = {
+  type: 'SET_PASSWORD'
+  newPassword: string
+}
+
 type KnownAction =
   | EmailValidate
   | UsernameValidate
+  | PhoneValidate
+  | SetPage
+  | SetName
+  | SetPassword
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
@@ -124,6 +148,23 @@ export const actionCreators = {
       x => dispatch({ type: 'USERNAME_VALIDATE_KNOWNACTION', value: x }),
       getState
     )
+  },
+  validatePhone: (username: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    validate (
+      username
+    )(
+      x => dispatch({ type: 'PHONE_VALIDATE_KNOWNACTION', value: x }),
+      getState
+    )
+  },
+  setPage: (page: Page): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    dispatch({ type: 'SET_PAGE', value: page })
+  },
+  setName: (name: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    dispatch({ type: 'SET_NAME', newName: name })
+  },
+  setPassword: (password: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
+    dispatch({ type: 'SET_PASSWORD', newPassword: password })
   },
 }
 
@@ -200,6 +241,48 @@ export const reducer: Reducer<LoginState> = (
             }
           }
           break
+      }
+    } break
+    case "PHONE_VALIDATE_KNOWNACTION": {
+      const validateAction = action.value
+      switch (validateAction.type) {
+        case 'REQUEST_VALIDATE':
+          return {
+            ...state,
+            phone: validateAction.value,
+            isValidPhone: ['IN_PROGRESS'],
+          }
+        case 'RECIEVE_VALIDATE':
+          // Only accept the incoming data if it matches the most recent request.
+          // This ensures we correctly handle out-of-order responses.
+          if (state.phone === validateAction.value) {
+            return {
+              ...state,
+              isValidPhone: ['RESOLVED', validateAction.result],
+            }
+          }
+          break
+      }
+    } break
+    case "SET_PAGE": {
+      const page = action.value
+      return {
+        ...state,
+        page: page,
+      }
+    } break
+    case "SET_NAME": {
+      const newName = action.newName
+      return {
+        ...state,
+        name: newName,
+      }
+    } break
+    case "SET_PASSWORD": {
+      const newPassword = action.newPassword
+      return {
+        ...state,
+        password: newPassword,
       }
     } break
   }
