@@ -4,8 +4,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { History } from 'history'
 
 import { ApplicationState, reducers } from './'
-import { stringify } from 'querystring'
-import * as Counter from './Counter'
 import * as Login from './SignIn'
 import * as SignUp from './SignUp'
 
@@ -31,7 +29,6 @@ export default function configureStore(history: History, initialState?: Applicat
 
   const initStates = (): ApplicationState => {
     return {
-      counter: Counter.initState,
       login: Login.initState,
       signUp: SignUp.initState,
     }
