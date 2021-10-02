@@ -18,8 +18,6 @@ const styles = StyleSheet.create({
     // flexDirection: 'column',
     // justifyContent: 'center',
     // alignItems: 'center'
-    minHeight: '100vh',
-    background: 'linear-gradient(291.49deg, rgba(138, 2, 244, 0.2) 0%, #0263F4 0.01%, rgba(157, 12, 245, 0.78) 99.42%)',
   },
   group: {
     display: 'flex',
@@ -39,6 +37,7 @@ const styles = StyleSheet.create({
     },
     background: 'rgb(255,255,255)',
     borderRadius: 20,
+    boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
   },
   flex_layout: {
     position: 'relative',
@@ -300,9 +299,9 @@ export function SignIn(props: LoginProps) {
                   styles.create_account,
                   styles.create_account_layout
                 )}>
-                <a onClick={() => void alert("Not implemented yet")}>
+                <Link to="/sign-up">
                   {'Create Account'}
-                </a>
+                </Link>
               </h3>
             </div>
           </div>
@@ -312,24 +311,7 @@ export function SignIn(props: LoginProps) {
   )
 }
 
-class FetchData extends React.PureComponent<LoginProps> {
-  public render() {
-    return (
-      <SignIn
-        login={this.props.login}
-        password={this.props.password}
-        requestLogin={this.props.requestLogin}
-        state={this.props.state}
-        history={this.props.history}
-        location={this.props.location}
-        staticContext={this.props.staticContext}
-        match={this.props.match}
-      />
-    )
-  }
-}
-
 export default connect(
   (state: ApplicationState) => state.login, // Selects which state properties are merged into the component's props
   Login.actionCreators // Selects which action creators are merged into the component's props
-)(FetchData as any) // eslint-disable-line @typescript-eslint/no-explicit-any
+)(SignIn as any) // eslint-disable-line @typescript-eslint/no-explicit-any
