@@ -2,6 +2,7 @@ import { Action, Reducer } from 'redux'
 
 import { Deferred } from '../common'
 import { AppThunkAction } from './'
+import * as Common from './sessionSlice'
 
 // -----------------
 // STATE - This defines the type of data maintained in the Redux store.
@@ -14,31 +15,24 @@ export type Result =
   | ['AVAILABLE']
   | ['ERROR', Error]
 
-export type Gender =
-  | 'UNDEFINED'
-  | 'MALE'
-  | 'FEMALE'
-
 type Page = 'FIRST' | 'SECOND' | 'THIRD'
 
 export type LoginState = {
   page: Page
+  user: Common.CurrentUser;
 
-  // First page
-  name: string
-  email: string
   isValidEmail: Deferred<Result>
-  username: string
   isValidUsername: Deferred<Result>
-
-  // Second page
-  password: string
-  phone: string
   isValidPhone: Deferred<Result>
+}
 
-  // Third page
-  dateOfBirth: Date
-  gender: Gender
+export const initState: LoginState = {
+  page: 'FIRST',
+  user: Common.userEmpty,
+
+  isValidEmail: ['HAS_NOT_STARTED_YET'],
+  isValidUsername: ['HAS_NOT_STARTED_YET'],
+  isValidPhone: ['HAS_NOT_STARTED_YET'],
 }
 
 // -----------------
@@ -157,35 +151,16 @@ export const actionCreators = {
       getState
     )
   },
-  setPage: (page: Page): AppThunkAction<KnownAction> => (dispatch, getState) => {
-    dispatch({ type: 'SET_PAGE', value: page })
-  },
-  setName: (name: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
-    dispatch({ type: 'SET_NAME', newName: name })
-  },
-  setPassword: (password: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
-    dispatch({ type: 'SET_PASSWORD', newPassword: password })
-  },
 }
 
-export const initState: LoginState = {
-  page: 'FIRST',
-
-  // First page
-  name: '',
-  email: '',
-  isValidEmail: ['HAS_NOT_STARTED_YET'],
-  username: '',
-  isValidUsername: ['HAS_NOT_STARTED_YET'],
-
-  // Second page
-  password: '',
-  phone: '',
-  isValidPhone: ['HAS_NOT_STARTED_YET'],
-
-  // Third page
-  dateOfBirth: new Date(),
-  gender: 'UNDEFINED',
+export const setPage = (page: Page): SetPage => {
+  return { type: 'SET_PAGE', value: page }
+}
+export const setName = (name: string): SetName => {
+  return { type: 'SET_NAME', newName: name }
+}
+export const setPassword = (password: string): SetPassword => {
+  return { type: 'SET_PASSWORD', newPassword: password }
 }
 
 // ----------------
@@ -207,13 +182,16 @@ export const reducer: Reducer<LoginState> = (
         case 'REQUEST_VALIDATE':
           return {
             ...state,
-            email: validateAction.value,
+            user: {
+              ...state.user,
+              email:validateAction.value,
+            },
             isValidEmail: ['IN_PROGRESS'],
           }
         case 'RECIEVE_VALIDATE':
           // Only accept the incoming data if it matches the most recent request.
           // This ensures we correctly handle out-of-order responses.
-          if (state.email === validateAction.value) {
+          if (state.user.email === validateAction.value) {
             return {
               ...state,
               isValidEmail: ['RESOLVED', validateAction.result],
@@ -228,13 +206,16 @@ export const reducer: Reducer<LoginState> = (
         case 'REQUEST_VALIDATE':
           return {
             ...state,
-            username: validateAction.value,
+            user: {
+              ...state.user,
+              username:validateAction.value,
+            },
             isValidUsername: ['IN_PROGRESS'],
           }
         case 'RECIEVE_VALIDATE':
           // Only accept the incoming data if it matches the most recent request.
           // This ensures we correctly handle out-of-order responses.
-          if (state.username === validateAction.value) {
+          if (state.user.username === validateAction.value) {
             return {
               ...state,
               isValidUsername: ['RESOLVED', validateAction.result],
@@ -249,13 +230,16 @@ export const reducer: Reducer<LoginState> = (
         case 'REQUEST_VALIDATE':
           return {
             ...state,
-            phone: validateAction.value,
+            user: {
+              ...state.user,
+              phone:validateAction.value,
+            },
             isValidPhone: ['IN_PROGRESS'],
           }
         case 'RECIEVE_VALIDATE':
           // Only accept the incoming data if it matches the most recent request.
           // This ensures we correctly handle out-of-order responses.
-          if (state.phone === validateAction.value) {
+          if (state.user.phone === validateAction.value) {
             return {
               ...state,
               isValidPhone: ['RESOLVED', validateAction.result],
@@ -275,14 +259,20 @@ export const reducer: Reducer<LoginState> = (
       const newName = action.newName
       return {
         ...state,
-        name: newName,
+        user: {
+          ...state.user,
+          name: newName,
+        },
       }
     } break
     case "SET_PASSWORD": {
       const newPassword = action.newPassword
       return {
         ...state,
-        password: newPassword,
+        user: {
+          ...state.user,
+          password: newPassword,
+        },
       }
     } break
   }

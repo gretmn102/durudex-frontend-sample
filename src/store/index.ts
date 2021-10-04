@@ -1,8 +1,10 @@
 import * as Login from './SignIn'
 import * as SignUp from './SignUp'
+import * as SessionSlice from './sessionSlice'
 
 // The top-level state object
 export interface ApplicationState {
+  session: SessionSlice.Session
   login: Login.LoginState
   signUp: SignUp.LoginState
 }
@@ -11,6 +13,7 @@ export interface ApplicationState {
 // the reducer with the matching name. It's important that the names match exactly, and that the reducer
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
+  session: SessionSlice.reducer,
   login: Login.reducer,
   signUp: SignUp.reducer,
 }

@@ -6,6 +6,7 @@ import { History } from 'history'
 import { ApplicationState, reducers } from './'
 import * as Login from './SignIn'
 import * as SignUp from './SignUp'
+import * as SessionSlice from './sessionSlice'
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
   const middleware = [
@@ -29,6 +30,7 @@ export default function configureStore(history: History, initialState?: Applicat
 
   const initStates = (): ApplicationState => {
     return {
+      session: SessionSlice.sessionEmpty,
       login: Login.initState,
       signUp: SignUp.initState,
     }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
 import { StyleSheet, css } from 'aphrodite/no-important'
@@ -41,11 +41,14 @@ function isAvailable(res: Deferred<SignUpSlicer.Result>) {
 }
 
 function FirstPage(props: SignUpProps) {
+  const dispatch = useDispatch()
+  const user = props.user
+
   const isValid =
-    props.name !== ''
-    && props.email !== ''
+    user.name !== ''
+    && user.email !== ''
     && isAvailable(props.isValidEmail)
-    && props.username !== ''
+    && user.username !== ''
     && isAvailable(props.isValidUsername)
 
   return (
@@ -53,9 +56,9 @@ function FirstPage(props: SignUpProps) {
       <div>
         <div>Name</div>
         <input
-          value={props.name}
+          value={user.name}
           onChange={e => {
-            props.setName(e.target.value)
+            dispatch(SignUpSlicer.setName(e.target.value))
           }}
           // disabled={props.state[0] === 'IN_PROGRESS'}
         />
@@ -63,19 +66,43 @@ function FirstPage(props: SignUpProps) {
       <div>
         <div>Email</div>
         <input
-          value={props.email}
+          value={user.email}
           onChange={e => {
             // setEmail(e.target.value)
             props.validateEmail(e.target.value)
           }}
           // disabled={props.isValidEmail[0] === 'IN_PROGRESS'}
         />
-        <div>{props.isValidEmail}</div>
+        <Call f={() => {
+          const res = props.isValidEmail
+          switch (res[0]) {
+            case "RESOLVED": {
+              const [, val] = res
+              switch (val[0]) {
+                case "ERROR": {
+                  return <div style={{ color:'red' }}>{val[1]}</div>
+                } break
+                case 'AVAILABLE':
+                  return null
+                  break
+              }
+            } break
+            case "HAS_NOT_STARTED_YET": { return null } break
+            case "IN_PROGRESS": {
+              return (
+                <Reactstrap.Spinner role="status">
+                  Loading...
+                </Reactstrap.Spinner>
+              )
+            } break
+          }
+          return null
+        }} />
       </div>
       <div>
         <div>Username</div>
         <input
-          value={props.username}
+          value={user.username}
           onChange={e => {
             props.validateUsername(e.target.value)
           }}
@@ -86,7 +113,7 @@ function FirstPage(props: SignUpProps) {
       <button
         onClick={e => {
           isValid
-          && props.setPage('SECOND')
+          && dispatch(SignUpSlicer.setPage('SECOND'))
         }}
         disabled={!isValid}
       >
@@ -97,21 +124,25 @@ function FirstPage(props: SignUpProps) {
 }
 
 function SecondPage(props: SignUpProps) {
-  const [passwordConfirmation, setPasswordConfirmation] = React.useState(props.password)
+  const dispatch = useDispatch()
+  const user = props.user
+
+  const [passwordConfirmation, setPasswordConfirmation] = React.useState(user.password)
   const isValid =
-    props.password !== ''
-    && props.password === passwordConfirmation
-    && props.phone !== ''
+    user.password !== ''
+    && user.password === passwordConfirmation
+    && user.phone !== ''
     && isAvailable(props.isValidPhone)
 
   return (
     <div>
       <div>
-        <div>Password</div>
+        <label htmlFor="password">Password</label>
         <input
-          value={props.password}
+          id="password"
+          value={user.password}
           onChange={e => {
-            props.setPassword(e.target.value)
+            dispatch(SignUpSlicer.setPassword(e.target.value))
           }}
         />
       </div>
@@ -124,7 +155,7 @@ function SecondPage(props: SignUpProps) {
           }}
         />
         <Call f={() => {
-          if (props.password !== passwordConfirmation) {
+          if (user.password !== passwordConfirmation) {
           // } else {
             return <div style={{ color:'red' }}>Password mismatch</div>
           }
@@ -134,7 +165,7 @@ function SecondPage(props: SignUpProps) {
       <div>
         <div>Phone</div>
         <input
-          value={props.phone}
+          value={user.phone}
           onChange={e => {
             props.validatePhone(e.target.value)
           }}
@@ -143,7 +174,7 @@ function SecondPage(props: SignUpProps) {
       </div>
       <button
         onClick={e => {
-          props.setPage('FIRST')
+          dispatch(SignUpSlicer.setPage('FIRST'))
         }}
       >
         {'Previous'}
@@ -151,7 +182,7 @@ function SecondPage(props: SignUpProps) {
       <button
         onClick={e => {
           isValid
-          && props.setPage('THIRD')
+          && dispatch(SignUpSlicer.setPage('THIRD'))
         }}
         disabled={!isValid}
       >
@@ -162,6 +193,7 @@ function SecondPage(props: SignUpProps) {
 }
 
 function ThirdPage(props: SignUpProps) {
+  const dispatch = useDispatch()
   const isValid = true
 
   return (
@@ -169,7 +201,7 @@ function ThirdPage(props: SignUpProps) {
       <button
         onClick={e => {
           isValid
-          && props.setPage('SECOND')
+          && dispatch(SignUpSlicer.setPage('SECOND'))
         }}
         disabled={!isValid}
       >
