@@ -24,20 +24,18 @@ const App = (props: SessionSlice.Session) => {
             <Route exact path='/' component={Home} />
             <Route path='/login' component={SignIn} />
             <Route path='/sign-up' component={SignUp} />
+            <Route component={Home} />
           </Switch>
         </Container>
       </>
     )
   }
-
-  switch (loc.pathname) {
-    case '/sign-up': {
-      return <SignUp />
-    } break
-    default: {
-      return <SignIn />
-    } break
-  }
+  return (
+    <Switch>
+      <Route path='/sign-up' component={SignUp} />
+      <Route component={SignIn} />
+    </Switch>
+  )
 }
 
 export default connect(
