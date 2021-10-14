@@ -14,6 +14,9 @@ import { Deferred, deferredMatch, Call } from '../common'
 const initHeight = 1050
 const initWidth = 1680
 
+const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
+const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
+
 const styles = StyleSheet.create({
   centerContainer: {
       display: 'flex',
@@ -155,10 +158,10 @@ const styles = StyleSheet.create({
     overflow: 'visible',
     flexGrow: 1,
     // margin: '128px 115px 195px',
-    marginTop: `calc((100vh * 128) / ${initWidth})`,
-    marginRight: `calc((100vw * 115) / ${initWidth})`,
-    marginLeft: `calc((100vw * 115) / ${initWidth})`,
-    marginBottom: `calc((100vh * 195) / ${initWidth})`,
+    marginTop: resizeByHeight(128),
+    marginBottom: resizeByHeight(195),
+    marginRight: resizeByWidth(115),
+    marginLeft: resizeByWidth(115),
     // marginLeft: 'auto',
 
     // '@media (max-width: 991.98px)': {
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
   welcome: {
     font: '700 40px/1.2 "Montserrat", Helvetica, Arial, serif',
     color: 'rgb(3,99,245)',
-    fontSize: `calc((100vw * 40) / ${initWidth})`,
+    fontSize: resizeByHeight(40),
   },
   welcome_layout: {
     position: 'relative',
@@ -181,7 +184,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     font: '700 32px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: `calc((100vw * 32) / ${initWidth})`,
+    fontSize: resizeByHeight(32),
     color: 'rgb(0,0,0)',
     textAlign: 'right',
   },
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
   },
   inputTitle: {
     font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: `calc((100vw * 25) / ${initWidth})`,
+    fontSize: resizeByHeight(25),
     color: 'rgb(0,0,0)',
   },
   inputTitle_layout: {
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: `calc((100vw * 20) / ${initWidth})`,
+    fontSize: resizeByHeight(20),
     color: 'rgb(0,0,0)',
     textAlign: 'right',
   },
@@ -240,7 +243,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     font: '700 30px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: `calc((100vw * 30) / ${initWidth})`,
+    fontSize: resizeByHeight(30),
     color: 'rgb(255,255,255)',
     textAlign: 'right',
   },
@@ -250,7 +253,7 @@ const styles = StyleSheet.create({
   },
   create_account: {
     font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: `calc((100vw * 20) / ${initWidth})`,
+    fontSize: resizeByHeight(20),
     color: 'rgb(0,0,0)',
   },
   create_account_layout: {
@@ -302,8 +305,8 @@ export function SignIn(props: LoginProps) {
 
   return (
     <div className={css(styles.centerContainer)}>
-      <div ref={resizedContainer} className={css(styles.group)}>
-        <div className={css(styles.group2, styles.group_layout)}>
+      <div ref={resizedContainer} className={css(styles.group, styles.group_layout)}>
+        <div className={css(styles.group2)}>
           <div className={css(styles.flex_logo)}>
             <div className={css(styles.cover_group, styles.cover_group_layout)}>
               <div className={css(styles.logo_grid, styles.logo_grid_layout)}>
