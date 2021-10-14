@@ -23,7 +23,7 @@ const App = (props: SessionSlice.Session) => {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/login' component={SignIn} />
-            <Route path='/sign-up' component={SignUp} />
+            <Route path='/sign-up'><SignUp /></Route>
             <Route component={Home} />
           </Switch>
         </Container>

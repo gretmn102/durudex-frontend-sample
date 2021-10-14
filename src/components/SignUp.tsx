@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
 import { StyleSheet, css } from 'aphrodite/no-important'
@@ -40,16 +40,19 @@ function isAvailable(res: Deferred<SignUpSlicer.Result>) {
   return false
 }
 
-function FirstPage(props: SignUpProps) {
+function FirstPage() {
+  const state = useSelector(
+    (state: ApplicationState) => state.signUp,
+  )
   const dispatch = useDispatch()
-  const user = props.user
+  const user = state.user
 
   const isValid =
     user.name !== ''
     && user.email !== ''
-    && isAvailable(props.isValidEmail)
+    && isAvailable(state.isValidEmail)
     && user.username !== ''
-    && isAvailable(props.isValidUsername)
+    && isAvailable(state.isValidUsername)
 
   return (
     <div>
@@ -69,12 +72,12 @@ function FirstPage(props: SignUpProps) {
           value={user.email}
           onChange={e => {
             // setEmail(e.target.value)
-            props.validateEmail(e.target.value)
+            dispatch(SignUpSlicer.actionCreators.validateEmail(e.target.value))
           }}
           // disabled={props.isValidEmail[0] === 'IN_PROGRESS'}
         />
         <Call f={() => {
-          const res = props.isValidEmail
+          const res = state.isValidEmail
           switch (res[0]) {
             case "RESOLVED": {
               const [, val] = res
@@ -104,11 +107,11 @@ function FirstPage(props: SignUpProps) {
         <input
           value={user.username}
           onChange={e => {
-            props.validateUsername(e.target.value)
+            dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
           }}
           // disabled={props.isValidUsername[0] === 'IN_PROGRESS'}
         />
-        <div>{props.isValidUsername}</div>
+        <div>{state.isValidUsername}</div>
       </div>
       <button
         onClick={e => {
@@ -123,16 +126,19 @@ function FirstPage(props: SignUpProps) {
   )
 }
 
-function SecondPage(props: SignUpProps) {
+function SecondPage() {
+  const state = useSelector(
+    (state: ApplicationState) => state.signUp,
+  )
   const dispatch = useDispatch()
-  const user = props.user
+  const user = state.user
 
   const [passwordConfirmation, setPasswordConfirmation] = React.useState(user.password)
   const isValid =
     user.password !== ''
     && user.password === passwordConfirmation
     && user.phone !== ''
-    && isAvailable(props.isValidPhone)
+    && isAvailable(state.isValidPhone)
 
   return (
     <div>
@@ -167,10 +173,11 @@ function SecondPage(props: SignUpProps) {
         <input
           value={user.phone}
           onChange={e => {
-            props.validatePhone(e.target.value)
+            dispatch(SignUpSlicer.actionCreators.validatePhone(e.target.value))
+            // state.validatePhone(e.target.value)
           }}
         />
-        <div>{props.isValidPhone}</div>
+        <div>{state.isValidPhone}</div>
       </div>
       <button
         onClick={e => {
@@ -192,7 +199,10 @@ function SecondPage(props: SignUpProps) {
   )
 }
 
-function ThirdPage(props: SignUpProps) {
+function ThirdPage() {
+  const state = useSelector(
+    (state: ApplicationState) => state.signUp,
+  )
   const dispatch = useDispatch()
   const isValid = true
 
@@ -214,16 +224,15 @@ function ThirdPage(props: SignUpProps) {
   )
 }
 
-export function SignUp(props: SignUpProps) {
-  switch (props.page) {
-    case "FIRST": { return FirstPage(props) } break
-    case "SECOND": { return SecondPage(props) } break
-    case "THIRD": { return ThirdPage(props) } break
+export default function SignUp() {
+  const state = useSelector(
+    (state: ApplicationState) => state.signUp,
+  )
+
+  switch (state.page) {
+    case "FIRST": { return <FirstPage /> } break
+    case "SECOND": { return <SecondPage /> } break
+    case "THIRD": { return <ThirdPage /> } break
   }
+  return null
 }
-
-
-export default connect(
-  (state: ApplicationState) => state.signUp, // Selects which state properties are merged into the component's props
-  SignUpSlicer.actionCreators // Selects which action creators are merged into the component's props
-)(SignUp as any) // eslint-disable-line @typescript-eslint/no-explicit-any
