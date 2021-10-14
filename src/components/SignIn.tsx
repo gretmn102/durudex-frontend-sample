@@ -17,6 +17,8 @@ const initWidth = 1680
 const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
 const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
 
+const breakSize = 450
+
 const styles = StyleSheet.create({
   centerContainer: {
       display: 'flex',
@@ -27,100 +29,34 @@ const styles = StyleSheet.create({
   white: {
     background: 'rgb(255,255,255)',
   },
-
-  root: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center'
-  },
-  group4: {
-    // backgroundColor: 'red',
-    // position: 'relative',
-    // width: '100%',
-    // height: '100%',
-    // // maxHeight: 1050 / 2,
-    // // maxWidth: 1680 / 2,
-
-    // // paddingTop: '56.25%', /* 16:9 Aspect Ratio */
-    // // paddingTop: '62.5%', /* 1680:1050 Aspect Ratio */
-    // paddingLeft: '56.25%',
-    // background: 'rgb(255,255,255)',
-    // width: '50vw',
-    // height: '20vw',
-    // 1680 — 100%
-    //
-
-    // width: '100vmin',
-    // height: '100vmin',
-  },
   group: {
-    // display: 'flex',
-    // padding: 50,
-    padding: '42px 73px 48px',
+
   },
   group_layout: {
-    // position: 'relative',
-    // overflow: 'visible',
-    // height: '100%',
-    // maxHeight: 1050,
-    // minHeight: 1050,
-    // flexGrow: 1,
-    // width: '100%',
-    // maxWidth: 1680,
-    // marginLeft: 'auto',
-    // marginRight: 'auto',
-    // border: '2px solid red',
-    // background: 'rgb(255,255,255)',
-    // padding: 50,
+    width: initWidth,
+    marginTop: resizeByHeight(42),
+    marginRight: resizeByWidth(73),
+    marginBottom: resizeByHeight(48),
+    marginLeft: resizeByWidth(73),
   },
   group2: {
     display: 'flex',
     borderRadius: 20,
     boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
-    height: '100%',
-    // margin: 50,
-    // margin: '42px 73px 48px',
     background: 'rgb(255,255,255)',
-    // flexGrow: 1,
-    // padding: 50,
   },
-  // flex: {
-  //   display: 'flex',
-  //   '@media (max-width: 991.98px)': {
-  //     flexWrap: 'wrap',
-  //   },
-  //   background: 'rgb(255,255,255)',
-  //   borderRadius: 20,
-  //   boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
-  // },
-  // flex_layout: {
-  //   position: 'relative',
-  //   overflow: 'visible',
-  //   flexGrow: 1,
-  //   margin: '42px 73px 48px',
-  // },
   flex_logo: {
     display: 'flex',
     flex: '0 1 584px',
-    // '@media (max-width: 991.98px)': {
-    //   flex: '0 0 100%',
-    // },
   },
   cover_group: {
     display: 'flex',
     background: `url(${LogoBackground}) center center / cover no-repeat`,
     borderRadius: '20px 0px 0px 20px',
-    // '@media (max-width: 991.98px)': {
-    //   borderRadius: '20px 20px 0px 0px',
-    // },
   },
   cover_group_layout: {
-    // position: 'relative',
-    // overflow: 'visible',
-    // minHeight: 960,
+    height: resizeByHeight(960),
     flexGrow: 1,
-    // margin: 0,
   },
   logo: {
     background: `url(${Logo}) center center / contain no-repeat`,
@@ -145,7 +81,7 @@ const styles = StyleSheet.create({
   flex_content: {
     display: 'flex',
     flex: '1 1 694px',
-    '@media (max-width: 991.98px)': {
+    [`@media (max-width:  ${breakSize}px)`]: {
       flex: '0 0 100%',
     },
   },
@@ -157,16 +93,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     overflow: 'visible',
     flexGrow: 1,
-    // margin: '128px 115px 195px',
     marginTop: resizeByHeight(128),
-    marginBottom: resizeByHeight(195),
     marginRight: resizeByWidth(115),
     marginLeft: resizeByWidth(115),
-    // marginLeft: 'auto',
-
-    // '@media (max-width: 991.98px)': {
-    //   margin: '96px 115px 195px',
-    // },
   },
   welcome: {
     font: '700 40px/1.2 "Montserrat", Helvetica, Arial, serif',
@@ -176,7 +105,7 @@ const styles = StyleSheet.create({
   welcome_layout: {
     position: 'relative',
     margin: 0,
-    '@media (max-width: 991.98px)': {
+    [`@media (max-width:  ${breakSize}px)`]: {
       margin: '0px auto 0px',
     },
   },
@@ -190,9 +119,12 @@ const styles = StyleSheet.create({
   },
   sign_in_layout: {
     position: 'relative',
-    margin: '26px auto 0px',
-    '@media (max-width: 991.98px)': {
-      margin: '56px auto 0px',
+    marginTop: resizeByHeight(26),
+    marginRight: 'auto',
+    marginBottom: 0,
+    marginLeft: 'auto',
+    [`@media (max-width:  ${breakSize}px)`]: {
+      marginTop: resizeByHeight(56),
     },
   },
   inputTitle: {
@@ -202,17 +134,18 @@ const styles = StyleSheet.create({
   },
   inputTitle_layout: {
     position: 'relative',
-    margin: '34px 11px 0px',
+    marginTop: resizeByHeight(34),
   },
   input: {
     backgroundColor: 'rgb(255,255,255)',
     border: '1px solid rgb(3,99,245)',
     borderRadius: '5px 5px 5px 5px',
+    fontSize: 40,
   },
   input_layout: {
     position: 'relative',
-    height: 52,
-    margin: '15px 2px 0px 0px',
+    height: resizeByHeight(52),
+    marginTop: resizeByHeight(15),
   },
   subtitle: {
     display: 'flex',
@@ -224,7 +157,7 @@ const styles = StyleSheet.create({
   },
   subtitle_layout: {
     position: 'relative',
-    margin: '35px 0px 0px',
+    marginTop: resizeByHeight(35),
   },
   cover_group1: {
     display: 'flex',
@@ -236,20 +169,20 @@ const styles = StyleSheet.create({
   cover_group1_layout: {
     position: 'relative',
     overflow: 'visible',
-    minHeight: 73,
-    margin: '78px 2px 0px 0px',
+    marginTop: resizeByHeight(78),
   },
   sign_in1: {
     display: 'flex',
-    justifyContent: 'flex-end',
     font: '700 30px/1.2 "Montserrat", Helvetica, Arial, serif',
     fontSize: resizeByHeight(30),
     color: 'rgb(255,255,255)',
-    textAlign: 'right',
   },
   sign_in1_layout: {
     position: 'relative',
-    margin: '18px auto 19px',
+    marginTop: resizeByHeight(18),
+    marginRight: 'auto',
+    marginBottom: resizeByHeight(18),
+    marginLeft: 'auto',
   },
   create_account: {
     font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
@@ -259,7 +192,9 @@ const styles = StyleSheet.create({
   create_account_layout: {
     position: 'relative',
     display: 'block',
-    margin: '28px auto 0px',
+    marginTop: resizeByHeight(28),
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
 })
 
@@ -275,37 +210,9 @@ export function SignIn(props: LoginProps) {
   const [ login, setLogin ] = React.useState<string>('')
   const [ password, setPassword ] = React.useState<string>('')
 
-  const resizedContainer = React.useRef<HTMLDivElement>(null)
-
-  function resizeDiv() {
-    const maxWidth = initWidth
-    const maxHeight = initHeight
-    // const maxWidth = 640
-    // const maxHeight = 480
-    if (resizedContainer.current) {
-      const x = resizedContainer.current
-      const canvasWidth = window.innerWidth
-      const canvasHeight = window.innerHeight
-
-      let coeff = canvasHeight / maxHeight
-      if (canvasWidth < maxWidth * coeff) {
-        coeff = canvasWidth / maxWidth
-      }
-
-      x.style.width = `${maxWidth * coeff}px`
-      x.style.height = `${maxHeight * coeff}px`
-    }
-  }
-
-  React.useEffect(() => {
-    window.onresize = resizeDiv
-
-    resizeDiv()
-  }, [])
-
   return (
     <div className={css(styles.centerContainer)}>
-      <div ref={resizedContainer} className={css(styles.group, styles.group_layout)}>
+      <div className={css(styles.group, styles.group_layout)}>
         <div className={css(styles.group2)}>
           <div className={css(styles.flex_logo)}>
             <div className={css(styles.cover_group, styles.cover_group_layout)}>
