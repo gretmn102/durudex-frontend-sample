@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(255,255,255)',
     border: '1px solid rgb(3,99,245)',
     borderRadius: '5px 5px 5px 5px',
-    fontSize: 40,
+    font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
+    fontSize: resizeByHeight(25),
   },
   input_layout: {
     position: 'relative',
