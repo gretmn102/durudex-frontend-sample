@@ -11,75 +11,134 @@ import LogoBackground from './logoBackground.png'
 import Logo from './logo.png'
 import { Deferred, deferredMatch, Call } from '../common'
 
+const initHeight = 1050
+const initWidth = 1680
 
 const styles = StyleSheet.create({
+  centerContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100%',
+  },
+  white: {
+    background: 'rgb(255,255,255)',
+  },
+
   root: {
     // display: 'flex',
     // flexDirection: 'column',
     // justifyContent: 'center',
     // alignItems: 'center'
   },
+  group4: {
+    // backgroundColor: 'red',
+    // position: 'relative',
+    // width: '100%',
+    // height: '100%',
+    // // maxHeight: 1050 / 2,
+    // // maxWidth: 1680 / 2,
+
+    // // paddingTop: '56.25%', /* 16:9 Aspect Ratio */
+    // // paddingTop: '62.5%', /* 1680:1050 Aspect Ratio */
+    // paddingLeft: '56.25%',
+    // background: 'rgb(255,255,255)',
+    // width: '50vw',
+    // height: '20vw',
+    // 1680 — 100%
+    //
+
+    // width: '100vmin',
+    // height: '100vmin',
+  },
   group: {
-    display: 'flex',
+    // display: 'flex',
+    // padding: 50,
+    padding: '42px 73px 48px',
   },
   group_layout: {
-    position: 'relative',
-    overflow: 'visible',
-    minHeight: 1050,
-    maxWidth: 1680,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    // position: 'relative',
+    // overflow: 'visible',
+    // height: '100%',
+    // maxHeight: 1050,
+    // minHeight: 1050,
+    // flexGrow: 1,
+    // width: '100%',
+    // maxWidth: 1680,
+    // marginLeft: 'auto',
+    // marginRight: 'auto',
+    // border: '2px solid red',
+    // background: 'rgb(255,255,255)',
+    // padding: 50,
   },
-  flex: {
+  group2: {
     display: 'flex',
-    '@media (max-width: 991.98px)': {
-      flexWrap: 'wrap',
-    },
-    background: 'rgb(255,255,255)',
     borderRadius: 20,
     boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
+    height: '100%',
+    // margin: 50,
+    // margin: '42px 73px 48px',
+    background: 'rgb(255,255,255)',
+    // flexGrow: 1,
+    // padding: 50,
   },
-  flex_layout: {
-    position: 'relative',
-    overflow: 'visible',
-    flexGrow: 1,
-    margin: '42px 73px 48px',
-  },
+  // flex: {
+  //   display: 'flex',
+  //   '@media (max-width: 991.98px)': {
+  //     flexWrap: 'wrap',
+  //   },
+  //   background: 'rgb(255,255,255)',
+  //   borderRadius: 20,
+  //   boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
+  // },
+  // flex_layout: {
+  //   position: 'relative',
+  //   overflow: 'visible',
+  //   flexGrow: 1,
+  //   margin: '42px 73px 48px',
+  // },
   flex_logo: {
     display: 'flex',
     flex: '0 1 584px',
-    '@media (max-width: 991.98px)': {
-      flex: '0 0 100%',
-    },
+    // '@media (max-width: 991.98px)': {
+    //   flex: '0 0 100%',
+    // },
   },
   cover_group: {
     display: 'flex',
-    '--src': `url(${LogoBackground})`,
-    background: 'var(--src) center center / cover no-repeat',
-    '@media (min-width: 991.98px)': {
-      borderRadius: '20px 0px 0px 20px',
-    },
-    '@media (max-width: 991.98px)': {
-      borderRadius: '20px 20px 0px 0px',
-    },
+    background: `url(${LogoBackground}) center center / cover no-repeat`,
+    borderRadius: '20px 0px 0px 20px',
+    // '@media (max-width: 991.98px)': {
+    //   borderRadius: '20px 20px 0px 0px',
+    // },
   },
   cover_group_layout: {
-    position: 'relative',
-    overflow: 'visible',
-    minHeight: 960,
+    // position: 'relative',
+    // overflow: 'visible',
+    // minHeight: 960,
     flexGrow: 1,
-    margin: 0,
+    // margin: 0,
   },
-  image: {
-    '--src': `url(${Logo})`,
-    background: 'var(--src) center center / contain no-repeat',
+  logo: {
+    background: `url(${Logo}) center center / contain no-repeat`,
   },
-  image_layout: {
+  logo_grid: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: '2.1fr 0.7fr 0.2fr',
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+    '  "."\n' +
+    '  "logo_layout"\n' +
+    '  "."\n' +
+    '',
+  },
+  logo_grid_layout: {
     position: 'relative',
-    height: 117,
     flexGrow: 1,
-    margin: '706px 51px 137px 52px',
   },
+  logo_layout: { gridArea: 'logo_layout' },
   flex_content: {
     display: 'flex',
     flex: '1 1 694px',
@@ -95,22 +154,25 @@ const styles = StyleSheet.create({
     position: 'relative',
     overflow: 'visible',
     flexGrow: 1,
-    '@media (min-width: 991.98px)': {
-      margin: '128px 115px 195px',
-    },
-    '@media (max-width: 991.98px)': {
-      margin: '96px 115px 195px',
-    },
+    // margin: '128px 115px 195px',
+    marginTop: `calc((100vh * 128) / ${initWidth})`,
+    marginRight: `calc((100vw * 115) / ${initWidth})`,
+    marginLeft: `calc((100vw * 115) / ${initWidth})`,
+    marginBottom: `calc((100vh * 195) / ${initWidth})`,
+    // marginLeft: 'auto',
+
+    // '@media (max-width: 991.98px)': {
+    //   margin: '96px 115px 195px',
+    // },
   },
   welcome: {
     font: '700 40px/1.2 "Montserrat", Helvetica, Arial, serif',
     color: 'rgb(3,99,245)',
+    fontSize: `calc((100vw * 40) / ${initWidth})`,
   },
   welcome_layout: {
     position: 'relative',
-    '@media (min-width: 991.98px)': {
-      margin: 0,
-    },
+    margin: 0,
     '@media (max-width: 991.98px)': {
       margin: '0px auto 0px',
     },
@@ -119,23 +181,23 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     font: '700 32px/1.2 "Montserrat", Helvetica, Arial, serif',
+    fontSize: `calc((100vw * 32) / ${initWidth})`,
     color: 'rgb(0,0,0)',
     textAlign: 'right',
   },
   sign_in_layout: {
     position: 'relative',
-    '@media (min-width: 991.98px)': {
-      margin: '26px auto 0px',
-    },
+    margin: '26px auto 0px',
     '@media (max-width: 991.98px)': {
       margin: '56px auto 0px',
     },
   },
-  email: {
+  inputTitle: {
     font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
+    fontSize: `calc((100vw * 25) / ${initWidth})`,
     color: 'rgb(0,0,0)',
   },
-  email_layout: {
+  inputTitle_layout: {
     position: 'relative',
     margin: '34px 11px 0px',
   },
@@ -149,18 +211,11 @@ const styles = StyleSheet.create({
     height: 52,
     margin: '15px 2px 0px 0px',
   },
-  password: {
-    font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
-    color: 'rgb(0,0,0)',
-  },
-  password_layout: {
-    position: 'relative',
-    margin: '34px 11px 0px',
-  },
   subtitle: {
     display: 'flex',
     justifyContent: 'flex-end',
     font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
+    fontSize: `calc((100vw * 20) / ${initWidth})`,
     color: 'rgb(0,0,0)',
     textAlign: 'right',
   },
@@ -170,6 +225,8 @@ const styles = StyleSheet.create({
   },
   cover_group1: {
     display: 'flex',
+    width: '100%',
+    padding: 0,
     backgroundColor: 'rgb(3,99,245)',
     borderRadius: '7px 7px 7px 7px',
   },
@@ -183,6 +240,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     font: '700 30px/1.2 "Montserrat", Helvetica, Arial, serif',
+    fontSize: `calc((100vw * 30) / ${initWidth})`,
     color: 'rgb(255,255,255)',
     textAlign: 'right',
   },
@@ -192,6 +250,7 @@ const styles = StyleSheet.create({
   },
   create_account: {
     font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
+    fontSize: `calc((100vw * 20) / ${initWidth})`,
     color: 'rgb(0,0,0)',
   },
   create_account_layout: {
@@ -213,13 +272,43 @@ export function SignIn(props: LoginProps) {
   const [ login, setLogin ] = React.useState<string>('')
   const [ password, setPassword ] = React.useState<string>('')
 
+  const resizedContainer = React.useRef<HTMLDivElement>(null)
+
+  function resizeDiv() {
+    const maxWidth = initWidth
+    const maxHeight = initHeight
+    // const maxWidth = 640
+    // const maxHeight = 480
+    if (resizedContainer.current) {
+      const x = resizedContainer.current
+      const canvasWidth = window.innerWidth
+      const canvasHeight = window.innerHeight
+
+      let coeff = canvasHeight / maxHeight
+      if (canvasWidth < maxWidth * coeff) {
+        coeff = canvasWidth / maxWidth
+      }
+
+      x.style.width = `${maxWidth * coeff}px`
+      x.style.height = `${maxHeight * coeff}px`
+    }
+  }
+
+  React.useEffect(() => {
+    window.onresize = resizeDiv
+
+    resizeDiv()
+  }, [])
+
   return (
-    <div className={`${css(styles.root)}`}>
-      <div className={`${css(styles.group, styles.group_layout)}`}>
-        <div className={css(styles.flex, styles.flex_layout)}>
+    <div className={css(styles.centerContainer)}>
+      <div ref={resizedContainer} className={css(styles.group)}>
+        <div className={css(styles.group2, styles.group_layout)}>
           <div className={css(styles.flex_logo)}>
             <div className={css(styles.cover_group, styles.cover_group_layout)}>
-              <div className={css(styles.image, styles.image_layout)} />
+              <div className={css(styles.logo_grid, styles.logo_grid_layout)}>
+                <div className={css(styles.logo, styles.logo_layout)} />
+              </div>
             </div>
           </div>
           <div className={css(styles.flex_content)}>
@@ -230,7 +319,7 @@ export function SignIn(props: LoginProps) {
               <h1 className={css(styles.sign_in, styles.sign_in_layout)}>
                 {'Sign In'}
               </h1>
-              <h2 className={css(styles.email, styles.email_layout)}>
+              <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
                 {'Email or phone'}
               </h2>
               <Reactstrap.Input
@@ -238,7 +327,7 @@ export function SignIn(props: LoginProps) {
                 onChange={e => { setLogin(e.target.value)  }}
                 disabled={props.state[0] === 'IN_PROGRESS'}
               />
-              <h2 className={css(styles.password, styles.password_layout)}>
+              <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
                 {'Password'}
               </h2>
               <Reactstrap.Input
@@ -297,7 +386,7 @@ export function SignIn(props: LoginProps) {
               <h3
                 className={css(
                   styles.create_account,
-                  styles.create_account_layout
+                  styles.create_account_layout,
                 )}>
                 <Link to="/sign-up">
                   {'Create Account'}
@@ -313,5 +402,5 @@ export function SignIn(props: LoginProps) {
 
 export default connect(
   (state: ApplicationState) => state.login, // Selects which state properties are merged into the component's props
-  Login.actionCreators // Selects which action creators are merged into the component's props
+  Login.actionCreators, // Selects which action creators are merged into the component's props
 )(SignIn as any) // eslint-disable-line @typescript-eslint/no-explicit-any
