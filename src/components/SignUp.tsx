@@ -2,21 +2,17 @@ import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { StyleSheet, css, StyleDeclarationValue } from 'aphrodite/no-important'
 import * as Reactstrap from 'reactstrap'
 
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignUp'
-import LogoBackground from './logoBackground.png'
-import Logo from './logo.png'
 import { Call, Deferred, deferredMatch } from '../common'
+import { styles } from './SignIn'
+import LogoBackground2 from './logoBackground2.jpg'
+import LogoBackground3 from './logoBackground3.jpg'
+import LogoBackground4 from './logoBackground4.jpg'
 
-
-type SignUpProps =
-  SignUpSlicer.LoginState
-  & typeof SignUpSlicer.actionCreators // ... plus action creators we've requested
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  & RouteComponentProps<{}> // ... plus incoming routing parameters
 
 function isAvailable(res: Deferred<SignUpSlicer.Result>) {
   switch (res[0]) {
@@ -40,6 +36,60 @@ function isAvailable(res: Deferred<SignUpSlicer.Result>) {
   return false
 }
 
+
+const pageStyle2 = StyleSheet.create({
+  cover_group2: {
+    display: 'flex',
+    background: `url(${LogoBackground2}) center center / cover no-repeat`,
+    borderRadius: '0px 20px 20px 0px',
+  },
+  cover_group3: {
+    display: 'flex',
+    background: `url(${LogoBackground3}) center center / cover no-repeat`,
+    borderRadius: '0px 20px 20px 0px',
+  },
+  cover_group4: {
+    display: 'flex',
+    background: `url(${LogoBackground4}) center center / cover no-repeat`,
+    borderRadius: '0px 20px 20px 0px',
+  },
+  columns: {
+    display: 'flex',
+  },
+  column: {
+    display: 'block',
+    flexBasis: 0,
+    flexGrow: 1,
+    flexShrink: 1,
+    paddingRight: '0.75rem',
+    paddingLeft: '0.75rem',
+  },
+})
+
+
+function Page(props: { coverStyle: StyleDeclarationValue, children?: JSX.Element }) {
+  return (
+    <div className={css(styles.centerContainer)}>
+      <div className={css(styles.group, styles.group_layout)}>
+        <div className={css(styles.group2)}>
+          <div className={css(styles.flex_content)}>
+            <div className={css(styles.flex_content_box, styles.flex_content_box_layout)}>
+              {props.children}
+            </div>
+          </div>
+          <div className={css(styles.flex_logo)}>
+            <div className={css(props.coverStyle, styles.cover_group_layout)}>
+              <div className={css(styles.logo_grid, styles.logo_grid_layout)}>
+                <div className={css(styles.logo, styles.logo_layout)} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function FirstPage() {
   const state = useSelector(
     (state: ApplicationState) => state.signUp,
@@ -55,20 +105,28 @@ function FirstPage() {
     && isAvailable(state.isValidUsername)
 
   return (
-    <div>
+    <>
+      <h1 className={css(styles.sign_in, styles.sign_in_layout)}>
+        {'Sign Up'}
+      </h1>
       <div>
-        <div>Name</div>
-        <input
+        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+          {'Name'}
+        </h2>
+        <Reactstrap.Input
+          className={css(styles.input, styles.input_layout)}
           value={user.name}
           onChange={e => {
             dispatch(SignUpSlicer.setName(e.target.value))
           }}
-          // disabled={props.state[0] === 'IN_PROGRESS'}
         />
       </div>
       <div>
-        <div>Email</div>
-        <input
+        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+          {'Email'}
+        </h2>
+        <Reactstrap.Input
+          className={css(styles.input, styles.input_layout)}
           value={user.email}
           onChange={e => {
             // setEmail(e.target.value)
@@ -103,8 +161,11 @@ function FirstPage() {
         }} />
       </div>
       <div>
-        <div>Username</div>
-        <input
+        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+          {'Username'}
+        </h2>
+        <Reactstrap.Input
+          className={css(styles.input, styles.input_layout)}
           value={user.username}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
@@ -113,16 +174,19 @@ function FirstPage() {
         />
         <div>{state.isValidUsername}</div>
       </div>
-      <button
-        onClick={e => {
+      <Reactstrap.Button
+        className={css(styles.button, styles.button_layout)}
+        onClick={() => {
           isValid
           && dispatch(SignUpSlicer.setPage('SECOND'))
         }}
         disabled={!isValid}
       >
-        {'Next'}
-      </button>
-    </div>
+        <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+          {'Next'}
+        </h1>
+      </Reactstrap.Button>
+    </>
   )
 }
 
@@ -141,10 +205,16 @@ function SecondPage() {
     && isAvailable(state.isValidPhone)
 
   return (
-    <div>
+    <>
+      <h1 className={css(styles.sign_in, styles.sign_in_layout)}>
+        {'Sign Up'}
+      </h1>
       <div>
-        <label htmlFor="password">Password</label>
-        <input
+        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+          {'Password'}
+        </h2>
+        <Reactstrap.Input
+          className={css(styles.input, styles.input_layout)}
           id="password"
           value={user.password}
           onChange={e => {
@@ -153,8 +223,11 @@ function SecondPage() {
         />
       </div>
       <div>
-        <div>Confirm the password</div>
-        <input
+        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+          {'Confirm the password'}
+        </h2>
+        <Reactstrap.Input
+          className={css(styles.input, styles.input_layout)}
           value={passwordConfirmation}
           onChange={e => {
             setPasswordConfirmation(e.target.value)
@@ -162,40 +235,53 @@ function SecondPage() {
         />
         <Call f={() => {
           if (user.password !== passwordConfirmation) {
-          // } else {
             return <div style={{ color:'red' }}>Password mismatch</div>
           }
           return null
         }} />
       </div>
       <div>
-        <div>Phone</div>
-        <input
+        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+          {'Phone'}
+        </h2>
+        <Reactstrap.Input
+          className={css(styles.input, styles.input_layout)}
           value={user.phone}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validatePhone(e.target.value))
-            // state.validatePhone(e.target.value)
           }}
         />
         <div>{state.isValidPhone}</div>
       </div>
-      <button
-        onClick={e => {
-          dispatch(SignUpSlicer.setPage('FIRST'))
-        }}
-      >
-        {'Previous'}
-      </button>
-      <button
-        onClick={e => {
-          isValid
-          && dispatch(SignUpSlicer.setPage('THIRD'))
-        }}
-        disabled={!isValid}
-      >
-        {'Next'}
-      </button>
-    </div>
+      <div className={css(pageStyle2.columns, styles.button_layout)}>
+        <div className={css(pageStyle2.column)}>
+          <Reactstrap.Button
+            className={css(styles.button)}
+            onClick={e => {
+              dispatch(SignUpSlicer.setPage('FIRST'))
+            }}
+          >
+            <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+              {'Previous'}
+            </h1>
+          </Reactstrap.Button>
+        </div>
+        <div className={css(pageStyle2.column)}>
+          <Reactstrap.Button
+            className={css(styles.button)}
+            onClick={e => {
+              isValid
+              && dispatch(SignUpSlicer.setPage('THIRD'))
+            }}
+            disabled={!isValid}
+          >
+            <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+              {'Next'}
+            </h1>
+          </Reactstrap.Button>
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -207,19 +293,31 @@ function ThirdPage() {
   const isValid = true
 
   return (
-    <div>
-      <button
-        onClick={e => {
-          isValid
-          && dispatch(SignUpSlicer.setPage('SECOND'))
-        }}
-        disabled={!isValid}
-      >
-        {'Previous'}
-      </button>
-      <button onClick={() => alert('Not implemented yet')}>
-        {'Done'}
-      </button>
+    <div className={css(pageStyle2.columns, styles.button_layout)}>
+      <div className={css(pageStyle2.column)}>
+        <Reactstrap.Button
+          className={css(styles.button)}
+          onClick={e => {
+            isValid
+            && dispatch(SignUpSlicer.setPage('SECOND'))
+          }}
+          disabled={!isValid}
+        >
+          <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+            {'Previous'}
+          </h1>
+        </Reactstrap.Button>
+      </div>
+      <div className={css(pageStyle2.column)}>
+        <Reactstrap.Button
+          className={css(styles.button)}
+          onClick={() => alert('Not implemented yet')}
+        >
+          <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+            {'Done'}
+          </h1>
+        </Reactstrap.Button>
+      </div>
     </div>
   )
 }
@@ -230,9 +328,9 @@ export default function SignUp() {
   )
 
   switch (state.page) {
-    case "FIRST": { return <FirstPage /> } break
-    case "SECOND": { return <SecondPage /> } break
-    case "THIRD": { return <ThirdPage /> } break
+    case "FIRST": { return <Page coverStyle={pageStyle2.cover_group2}><FirstPage /></Page> } break
+    case "SECOND": { return <Page coverStyle={pageStyle2.cover_group3}><SecondPage /></Page> } break
+    case "THIRD": { return <Page coverStyle={pageStyle2.cover_group4}><ThirdPage /></Page> } break
   }
   return null
 }

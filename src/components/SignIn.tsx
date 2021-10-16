@@ -7,19 +7,19 @@ import * as Reactstrap from 'reactstrap'
 
 import { ApplicationState } from '../store'
 import * as Login from '../store/SignIn'
-import LogoBackground from './logoBackground.png'
+import LogoBackground from './logoBackground.jpg'
 import Logo from './logo.png'
 import { Deferred, deferredMatch, Call } from '../common'
 
-const initHeight = 1050
-const initWidth = 1680
+export const initHeight = 1050
+export const initWidth = 1680
 
-const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
-const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
+export const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
+export const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
 
-const breakSize = 450
+export const breakSize = 450
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   centerContainer: {
       display: 'flex',
       justifyContent: 'center',
@@ -111,11 +111,9 @@ const styles = StyleSheet.create({
   },
   sign_in: {
     display: 'flex',
-    justifyContent: 'flex-end',
     font: '700 32px/1.2 "Montserrat", Helvetica, Arial, serif',
     fontSize: resizeByHeight(32),
     color: 'rgb(0,0,0)',
-    textAlign: 'right',
   },
   sign_in_layout: {
     position: 'relative',
@@ -160,25 +158,25 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginTop: resizeByHeight(35),
   },
-  cover_group1: {
+  button: {
     display: 'flex',
     width: '100%',
     padding: 0,
     backgroundColor: 'rgb(3,99,245)',
     borderRadius: '7px 7px 7px 7px',
   },
-  cover_group1_layout: {
+  button_layout: {
     position: 'relative',
     overflow: 'visible',
     marginTop: resizeByHeight(78),
   },
-  sign_in1: {
+  buttonLabel: {
     display: 'flex',
     font: '700 30px/1.2 "Montserrat", Helvetica, Arial, serif',
     fontSize: resizeByHeight(30),
     color: 'rgb(255,255,255)',
   },
-  sign_in1_layout: {
+  buttonLabel_layout: {
     position: 'relative',
     marginTop: resizeByHeight(18),
     marginRight: 'auto',
@@ -253,7 +251,7 @@ export function SignIn(props: LoginProps) {
               </h3>
               <div>
                 <Reactstrap.Button
-                  className={css(styles.cover_group1, styles.cover_group1_layout)}
+                  className={css(styles.button, styles.button_layout)}
                   onClick={() => {
                     login
                     && password
@@ -262,7 +260,7 @@ export function SignIn(props: LoginProps) {
                   }}
                   disabled={login === '' || password === '' || props.state[0] === 'IN_PROGRESS'}
                 >
-                  <h1 className={css(styles.sign_in1, styles.sign_in1_layout)}>
+                  <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
                     {'Sign In'}
                   </h1>
                 </Reactstrap.Button>
