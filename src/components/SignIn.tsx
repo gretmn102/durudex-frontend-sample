@@ -88,7 +88,7 @@ export default function SignIn() {
               <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
                 {'Email or phone'}
               </h2>
-              <Reactstrap.Input
+              <input
                 className={css(sharedStyles.input, sharedStyles.input_layout)}
                 onChange={e => { setLogin(e.target.value)  }}
                 disabled={loginState.state[0] === 'IN_PROGRESS'}
@@ -96,7 +96,7 @@ export default function SignIn() {
               <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
                 {'Password'}
               </h2>
-              <Reactstrap.Input
+              <input
                 className={css(sharedStyles.input, sharedStyles.input_layout)}
                 onChange={e => { setPassword(e.target.value) }}
                 disabled={loginState.state[0] === 'IN_PROGRESS'}

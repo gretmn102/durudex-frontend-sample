@@ -113,7 +113,7 @@ function FirstPage() {
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Name'}
         </h2>
-        <Reactstrap.Input
+        <input
           className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.name}
           onChange={e => {
@@ -125,7 +125,7 @@ function FirstPage() {
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Email'}
         </h2>
-        <Reactstrap.Input
+        <input
           className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.email}
           onChange={e => {
@@ -164,7 +164,7 @@ function FirstPage() {
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Username'}
         </h2>
-        <Reactstrap.Input
+        <input
           className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.username}
           onChange={e => {
@@ -213,7 +213,7 @@ function SecondPage() {
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Password'}
         </h2>
-        <Reactstrap.Input
+        <input
           className={css(sharedStyles.input, sharedStyles.input_layout)}
           id="password"
           value={user.password}
@@ -226,7 +226,7 @@ function SecondPage() {
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Confirm the password'}
         </h2>
-        <Reactstrap.Input
+        <input
           className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={passwordConfirmation}
           onChange={e => {
@@ -244,7 +244,7 @@ function SecondPage() {
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Phone'}
         </h2>
-        <Reactstrap.Input
+        <input
           className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.phone}
           onChange={e => {

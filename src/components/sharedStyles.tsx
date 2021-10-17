@@ -109,6 +109,17 @@ export const sharedStyles = StyleSheet.create({
     borderRadius: '5px 5px 5px 5px',
     font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
     fontSize: resizeByHeight(25),
+    padding: '0.375rem 0.75rem',
+    color: '#495057',
+    backgroundClip: 'padding-box',
+    width: '100%',
+    ':focus': {
+      color: 'rgb(73, 80, 87)',
+      backgroundColor: 'rgb(255, 255, 255)',
+      borderColor: 'rgb(128, 189, 255)',
+      outline: 'currentcolor none 0px',
+      boxShadow: 'rgba(0, 123, 255, 0.25) 0px 0px 0px 0.2rem',
+    },
   },
   input_layout: {
     position: 'relative',
