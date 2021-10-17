@@ -8,94 +8,17 @@ import * as Reactstrap from 'reactstrap'
 import { ApplicationState } from '../store'
 import * as Login from '../store/SignIn'
 import LogoBackground from './logoBackground.jpg'
-import Logo from './logo.png'
 import { Deferred, deferredMatch, Call } from '../common'
+import { breakSize, resizeByHeight, resizeByWidth, sharedStyles } from './sharedStyles'
 
-export const initHeight = 1050
-export const initWidth = 1680
-
-export const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
-export const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
-
-export const breakSize = 450
-
-export const styles = StyleSheet.create({
-  centerContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100%',
-  },
+const styles = StyleSheet.create({
   white: {
     background: 'rgb(255,255,255)',
-  },
-  group: {
-
-  },
-  group_layout: {
-    width: initWidth,
-    marginTop: resizeByHeight(42),
-    marginRight: resizeByWidth(73),
-    marginBottom: resizeByHeight(48),
-    marginLeft: resizeByWidth(73),
-  },
-  group2: {
-    display: 'flex',
-    borderRadius: 20,
-    boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
-    background: 'rgb(255,255,255)',
-  },
-  flex_logo: {
-    display: 'flex',
-    flex: '0 1 584px',
   },
   cover_group: {
     display: 'flex',
     background: `url(${LogoBackground}) center center / cover no-repeat`,
     borderRadius: '20px 0px 0px 20px',
-  },
-  cover_group_layout: {
-    height: resizeByHeight(960),
-    flexGrow: 1,
-  },
-  logo: {
-    background: `url(${Logo}) center center / contain no-repeat`,
-  },
-  logo_grid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: '2.1fr 0.7fr 0.2fr',
-    gap: '0px 0px',
-    gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-    '  "."\n' +
-    '  "logo_layout"\n' +
-    '  "."\n' +
-    '',
-  },
-  logo_grid_layout: {
-    position: 'relative',
-    flexGrow: 1,
-  },
-  logo_layout: { gridArea: 'logo_layout' },
-  flex_content: {
-    display: 'flex',
-    flex: '1 1 694px',
-    [`@media (max-width:  ${breakSize}px)`]: {
-      flex: '0 0 100%',
-    },
-  },
-  flex_content_box: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  flex_content_box_layout: {
-    position: 'relative',
-    overflow: 'visible',
-    flexGrow: 1,
-    marginTop: resizeByHeight(128),
-    marginRight: resizeByWidth(115),
-    marginLeft: resizeByWidth(115),
   },
   welcome: {
     font: '700 40px/1.2 "Montserrat", Helvetica, Arial, serif',
@@ -109,43 +32,6 @@ export const styles = StyleSheet.create({
       margin: '0px auto 0px',
     },
   },
-  sign_in: {
-    display: 'flex',
-    font: '700 32px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: resizeByHeight(32),
-    color: 'rgb(0,0,0)',
-  },
-  sign_in_layout: {
-    position: 'relative',
-    marginTop: resizeByHeight(26),
-    marginRight: 'auto',
-    marginBottom: 0,
-    marginLeft: 'auto',
-    [`@media (max-width:  ${breakSize}px)`]: {
-      marginTop: resizeByHeight(56),
-    },
-  },
-  inputTitle: {
-    font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: resizeByHeight(25),
-    color: 'rgb(0,0,0)',
-  },
-  inputTitle_layout: {
-    position: 'relative',
-    marginTop: resizeByHeight(34),
-  },
-  input: {
-    backgroundColor: 'rgb(255,255,255)',
-    border: '1px solid rgb(3,99,245)',
-    borderRadius: '5px 5px 5px 5px',
-    font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: resizeByHeight(25),
-  },
-  input_layout: {
-    position: 'relative',
-    height: resizeByHeight(52),
-    marginTop: resizeByHeight(15),
-  },
   subtitle: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -157,31 +43,6 @@ export const styles = StyleSheet.create({
   subtitle_layout: {
     position: 'relative',
     marginTop: resizeByHeight(35),
-  },
-  button: {
-    display: 'flex',
-    width: '100%',
-    padding: 0,
-    backgroundColor: 'rgb(3,99,245)',
-    borderRadius: '7px 7px 7px 7px',
-  },
-  button_layout: {
-    position: 'relative',
-    overflow: 'visible',
-    marginTop: resizeByHeight(78),
-  },
-  buttonLabel: {
-    display: 'flex',
-    font: '700 30px/1.2 "Montserrat", Helvetica, Arial, serif',
-    fontSize: resizeByHeight(30),
-    color: 'rgb(255,255,255)',
-  },
-  buttonLabel_layout: {
-    position: 'relative',
-    marginTop: resizeByHeight(18),
-    marginRight: 'auto',
-    marginBottom: resizeByHeight(18),
-    marginLeft: 'auto',
   },
   create_account: {
     font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
@@ -210,37 +71,37 @@ export function SignIn(props: LoginProps) {
   const [ password, setPassword ] = React.useState<string>('')
 
   return (
-    <div className={css(styles.centerContainer)}>
-      <div className={css(styles.group, styles.group_layout)}>
-        <div className={css(styles.group2)}>
-          <div className={css(styles.flex_logo)}>
-            <div className={css(styles.cover_group, styles.cover_group_layout)}>
-              <div className={css(styles.logo_grid, styles.logo_grid_layout)}>
-                <div className={css(styles.logo, styles.logo_layout)} />
+    <div className={css(sharedStyles.centerContainer)}>
+      <div className={css(sharedStyles.group_layout)}>
+        <div className={css(sharedStyles.window_box)}>
+          <div className={css(sharedStyles.flex_logo)}>
+            <div className={css(styles.cover_group, sharedStyles.cover_group_layout)}>
+              <div className={css(sharedStyles.logo_grid, sharedStyles.logo_grid_layout)}>
+                <div className={css(sharedStyles.logo, sharedStyles.logo_layout)} />
               </div>
             </div>
           </div>
-          <div className={css(styles.flex_content)}>
-            <div className={css(styles.flex_content_box, styles.flex_content_box_layout)}>
+          <div className={css(sharedStyles.flex_content)}>
+            <div className={css(sharedStyles.flex_content_box, sharedStyles.flex_content_box_layout)}>
               <h1 className={css(styles.welcome, styles.welcome_layout)}>
                 {'Welcome'}
               </h1>
-              <h1 className={css(styles.sign_in, styles.sign_in_layout)}>
+              <h1 className={css(sharedStyles.sign_in, sharedStyles.sign_in_layout)}>
                 {'Sign In'}
               </h1>
-              <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+              <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
                 {'Email or phone'}
               </h2>
               <Reactstrap.Input
-                className={css(styles.input, styles.input_layout)}
+                className={css(sharedStyles.input, sharedStyles.input_layout)}
                 onChange={e => { setLogin(e.target.value)  }}
                 disabled={props.state[0] === 'IN_PROGRESS'}
               />
-              <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+              <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
                 {'Password'}
               </h2>
               <Reactstrap.Input
-                className={css(styles.input, styles.input_layout)}
+                className={css(sharedStyles.input, sharedStyles.input_layout)}
                 onChange={e => { setPassword(e.target.value) }}
                 disabled={props.state[0] === 'IN_PROGRESS'}
               />
@@ -251,7 +112,7 @@ export function SignIn(props: LoginProps) {
               </h3>
               <div>
                 <Reactstrap.Button
-                  className={css(styles.button, styles.button_layout)}
+                  className={css(sharedStyles.button, sharedStyles.button_layout)}
                   onClick={() => {
                     login
                     && password
@@ -260,7 +121,7 @@ export function SignIn(props: LoginProps) {
                   }}
                   disabled={login === '' || password === '' || props.state[0] === 'IN_PROGRESS'}
                 >
-                  <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+                  <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
                     {'Sign In'}
                   </h1>
                 </Reactstrap.Button>

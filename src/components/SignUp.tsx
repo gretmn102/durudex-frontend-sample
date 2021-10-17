@@ -8,7 +8,7 @@ import * as Reactstrap from 'reactstrap'
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignUp'
 import { Call, Deferred, deferredMatch } from '../common'
-import { styles } from './SignIn'
+import { sharedStyles } from './sharedStyles'
 import LogoBackground2 from './logoBackground2.jpg'
 import LogoBackground3 from './logoBackground3.jpg'
 import LogoBackground4 from './logoBackground4.jpg'
@@ -37,7 +37,7 @@ function isAvailable(res: Deferred<SignUpSlicer.Result>) {
 }
 
 
-const pageStyle2 = StyleSheet.create({
+const styles = StyleSheet.create({
   cover_group2: {
     display: 'flex',
     background: `url(${LogoBackground2}) center center / cover no-repeat`,
@@ -69,18 +69,18 @@ const pageStyle2 = StyleSheet.create({
 
 function Page(props: { coverStyle: StyleDeclarationValue, children?: JSX.Element }) {
   return (
-    <div className={css(styles.centerContainer)}>
-      <div className={css(styles.group, styles.group_layout)}>
-        <div className={css(styles.group2)}>
-          <div className={css(styles.flex_content)}>
-            <div className={css(styles.flex_content_box, styles.flex_content_box_layout)}>
+    <div className={css(sharedStyles.centerContainer)}>
+      <div className={css(sharedStyles.group_layout)}>
+        <div className={css(sharedStyles.window_box)}>
+          <div className={css(sharedStyles.flex_content)}>
+            <div className={css(sharedStyles.flex_content_box, sharedStyles.flex_content_box_layout)}>
               {props.children}
             </div>
           </div>
-          <div className={css(styles.flex_logo)}>
-            <div className={css(props.coverStyle, styles.cover_group_layout)}>
-              <div className={css(styles.logo_grid, styles.logo_grid_layout)}>
-                <div className={css(styles.logo, styles.logo_layout)} />
+          <div className={css(sharedStyles.flex_logo)}>
+            <div className={css(props.coverStyle, sharedStyles.cover_group_layout)}>
+              <div className={css(sharedStyles.logo_grid, sharedStyles.logo_grid_layout)}>
+                <div className={css(sharedStyles.logo, sharedStyles.logo_layout)} />
               </div>
             </div>
           </div>
@@ -106,15 +106,15 @@ function FirstPage() {
 
   return (
     <>
-      <h1 className={css(styles.sign_in, styles.sign_in_layout)}>
+      <h1 className={css(sharedStyles.sign_in, sharedStyles.sign_in_layout)}>
         {'Sign Up'}
       </h1>
       <div>
-        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Name'}
         </h2>
         <Reactstrap.Input
-          className={css(styles.input, styles.input_layout)}
+          className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.name}
           onChange={e => {
             dispatch(SignUpSlicer.setName(e.target.value))
@@ -122,11 +122,11 @@ function FirstPage() {
         />
       </div>
       <div>
-        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Email'}
         </h2>
         <Reactstrap.Input
-          className={css(styles.input, styles.input_layout)}
+          className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.email}
           onChange={e => {
             // setEmail(e.target.value)
@@ -161,11 +161,11 @@ function FirstPage() {
         }} />
       </div>
       <div>
-        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Username'}
         </h2>
         <Reactstrap.Input
-          className={css(styles.input, styles.input_layout)}
+          className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.username}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
@@ -175,14 +175,14 @@ function FirstPage() {
         <div>{state.isValidUsername}</div>
       </div>
       <Reactstrap.Button
-        className={css(styles.button, styles.button_layout)}
+        className={css(sharedStyles.button, sharedStyles.button_layout)}
         onClick={() => {
           isValid
           && dispatch(SignUpSlicer.setPage('SECOND'))
         }}
         disabled={!isValid}
       >
-        <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+        <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
           {'Next'}
         </h1>
       </Reactstrap.Button>
@@ -206,15 +206,15 @@ function SecondPage() {
 
   return (
     <>
-      <h1 className={css(styles.sign_in, styles.sign_in_layout)}>
+      <h1 className={css(sharedStyles.sign_in, sharedStyles.sign_in_layout)}>
         {'Sign Up'}
       </h1>
       <div>
-        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Password'}
         </h2>
         <Reactstrap.Input
-          className={css(styles.input, styles.input_layout)}
+          className={css(sharedStyles.input, sharedStyles.input_layout)}
           id="password"
           value={user.password}
           onChange={e => {
@@ -223,11 +223,11 @@ function SecondPage() {
         />
       </div>
       <div>
-        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Confirm the password'}
         </h2>
         <Reactstrap.Input
-          className={css(styles.input, styles.input_layout)}
+          className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={passwordConfirmation}
           onChange={e => {
             setPasswordConfirmation(e.target.value)
@@ -241,11 +241,11 @@ function SecondPage() {
         }} />
       </div>
       <div>
-        <h2 className={css(styles.inputTitle, styles.inputTitle_layout)}>
+        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Phone'}
         </h2>
         <Reactstrap.Input
-          className={css(styles.input, styles.input_layout)}
+          className={css(sharedStyles.input, sharedStyles.input_layout)}
           value={user.phone}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validatePhone(e.target.value))
@@ -253,29 +253,29 @@ function SecondPage() {
         />
         <div>{state.isValidPhone}</div>
       </div>
-      <div className={css(pageStyle2.columns, styles.button_layout)}>
-        <div className={css(pageStyle2.column)}>
+      <div className={css(styles.columns, sharedStyles.button_layout)}>
+        <div className={css(styles.column)}>
           <Reactstrap.Button
-            className={css(styles.button)}
+            className={css(sharedStyles.button)}
             onClick={e => {
               dispatch(SignUpSlicer.setPage('FIRST'))
             }}
           >
-            <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+            <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
               {'Previous'}
             </h1>
           </Reactstrap.Button>
         </div>
-        <div className={css(pageStyle2.column)}>
+        <div className={css(styles.column)}>
           <Reactstrap.Button
-            className={css(styles.button)}
+            className={css(sharedStyles.button)}
             onClick={e => {
               isValid
               && dispatch(SignUpSlicer.setPage('THIRD'))
             }}
             disabled={!isValid}
           >
-            <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+            <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
               {'Next'}
             </h1>
           </Reactstrap.Button>
@@ -293,27 +293,27 @@ function ThirdPage() {
   const isValid = true
 
   return (
-    <div className={css(pageStyle2.columns, styles.button_layout)}>
-      <div className={css(pageStyle2.column)}>
+    <div className={css(styles.columns, sharedStyles.button_layout)}>
+      <div className={css(styles.column)}>
         <Reactstrap.Button
-          className={css(styles.button)}
+          className={css(sharedStyles.button)}
           onClick={e => {
             isValid
             && dispatch(SignUpSlicer.setPage('SECOND'))
           }}
           disabled={!isValid}
         >
-          <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+          <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
             {'Previous'}
           </h1>
         </Reactstrap.Button>
       </div>
-      <div className={css(pageStyle2.column)}>
+      <div className={css(styles.column)}>
         <Reactstrap.Button
-          className={css(styles.button)}
+          className={css(sharedStyles.button)}
           onClick={() => alert('Not implemented yet')}
         >
-          <h1 className={css(styles.buttonLabel, styles.buttonLabel_layout)}>
+          <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
             {'Done'}
           </h1>
         </Reactstrap.Button>
@@ -328,9 +328,9 @@ export default function SignUp() {
   )
 
   switch (state.page) {
-    case "FIRST": { return <Page coverStyle={pageStyle2.cover_group2}><FirstPage /></Page> } break
-    case "SECOND": { return <Page coverStyle={pageStyle2.cover_group3}><SecondPage /></Page> } break
-    case "THIRD": { return <Page coverStyle={pageStyle2.cover_group4}><ThirdPage /></Page> } break
+    case "FIRST": { return <Page coverStyle={styles.cover_group2}><FirstPage /></Page> } break
+    case "SECOND": { return <Page coverStyle={styles.cover_group3}><SecondPage /></Page> } break
+    case "THIRD": { return <Page coverStyle={styles.cover_group4}><ThirdPage /></Page> } break
   }
   return null
 }
