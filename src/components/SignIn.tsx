@@ -107,7 +107,7 @@ export default function SignIn() {
                 </a>
               </h3>
               <div>
-                <Reactstrap.Button
+                <button
                   className={css(sharedStyles.button, sharedStyles.button_layout)}
                   onClick={() => {
                     login
@@ -120,7 +120,7 @@ export default function SignIn() {
                   <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
                     {'Sign In'}
                   </h1>
-                </Reactstrap.Button>
+                </button>
                 { loginState.state[0] === 'IN_PROGRESS' && (
                     <Reactstrap.Spinner role="status">
                       Loading...

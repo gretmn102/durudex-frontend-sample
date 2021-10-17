@@ -132,6 +132,24 @@ export const sharedStyles = StyleSheet.create({
     padding: 0,
     backgroundColor: 'rgb(3,99,245)',
     borderRadius: '7px 7px 7px 7px',
+    cursor: 'pointer',
+    border: '1px solid transparent',
+    ':hover': {
+      color: '#fff',
+      backgroundColor: 'rgb(0, 146, 255)',
+      borderColor: 'rgb(0, 146, 255)',
+    },
+    ':focus': {
+      color: '#fff',
+      backgroundColor: 'rgb(0, 146, 255)',
+      borderColor: 'rgb(22, 100, 176)',
+      boxShadow: 'rgba(6, 137, 251, 0.5) 0px 0px 0px 0.2rem',
+    },
+    ':disabled': {
+      color: '#fff',
+      backgroundColor: '#6c757d',
+      borderColor: '#6c757d',
+    },
   },
   button_layout: {
     position: 'relative',

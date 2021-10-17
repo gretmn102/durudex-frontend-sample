@@ -1,7 +1,5 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { RouteComponentProps } from 'react-router'
-import { Link } from 'react-router-dom'
 import { StyleSheet, css, StyleDeclarationValue } from 'aphrodite/no-important'
 import * as Reactstrap from 'reactstrap'
 
@@ -174,7 +172,7 @@ function FirstPage() {
         />
         <div>{state.isValidUsername}</div>
       </div>
-      <Reactstrap.Button
+      <button
         className={css(sharedStyles.button, sharedStyles.button_layout)}
         onClick={() => {
           isValid
@@ -185,7 +183,7 @@ function FirstPage() {
         <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
           {'Next'}
         </h1>
-      </Reactstrap.Button>
+      </button>
     </>
   )
 }
@@ -255,7 +253,7 @@ function SecondPage() {
       </div>
       <div className={css(styles.columns, sharedStyles.button_layout)}>
         <div className={css(styles.column)}>
-          <Reactstrap.Button
+          <button
             className={css(sharedStyles.button)}
             onClick={e => {
               dispatch(SignUpSlicer.setPage('FIRST'))
@@ -264,10 +262,10 @@ function SecondPage() {
             <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
               {'Previous'}
             </h1>
-          </Reactstrap.Button>
+          </button>
         </div>
         <div className={css(styles.column)}>
-          <Reactstrap.Button
+          <button
             className={css(sharedStyles.button)}
             onClick={e => {
               isValid
@@ -278,7 +276,7 @@ function SecondPage() {
             <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
               {'Next'}
             </h1>
-          </Reactstrap.Button>
+          </button>
         </div>
       </div>
     </>
@@ -295,7 +293,7 @@ function ThirdPage() {
   return (
     <div className={css(styles.columns, sharedStyles.button_layout)}>
       <div className={css(styles.column)}>
-        <Reactstrap.Button
+        <button
           className={css(sharedStyles.button)}
           onClick={e => {
             isValid
@@ -306,17 +304,17 @@ function ThirdPage() {
           <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
             {'Previous'}
           </h1>
-        </Reactstrap.Button>
+        </button>
       </div>
       <div className={css(styles.column)}>
-        <Reactstrap.Button
+        <button
           className={css(sharedStyles.button)}
           onClick={() => alert('Not implemented yet')}
         >
           <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
             {'Done'}
           </h1>
-        </Reactstrap.Button>
+        </button>
       </div>
     </div>
   )
