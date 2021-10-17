@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { RouteComponentProps } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import * as Reactstrap from 'reactstrap'
 
 import { ApplicationState } from '../store'
-import * as Login from '../store/SignIn'
+import * as SignUpSlicer from '../store/SignIn'
 import LogoBackground from './logoBackground.jpg'
 import { Deferred, deferredMatch, Call } from '../common'
 import { breakSize, resizeByHeight, resizeByWidth, sharedStyles } from './sharedStyles'
@@ -58,17 +57,14 @@ const styles = StyleSheet.create({
   },
 })
 
-// At runtime, Redux will merge together...
-type LoginProps =
-  Login.LoginState // ... state we've requested from the Redux store
-  & typeof Login.actionCreators // ... plus action creators we've requested
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  & RouteComponentProps<{}> // ... plus incoming routing parameters
-
-
-export function SignIn(props: LoginProps) {
+export default function SignIn() {
   const [ login, setLogin ] = React.useState<string>('')
   const [ password, setPassword ] = React.useState<string>('')
+
+  const loginState = useSelector(
+    (state: ApplicationState) => state.login,
+  )
+  const dispatch = useDispatch()
 
   return (
     <div className={css(sharedStyles.centerContainer)}>
@@ -95,7 +91,7 @@ export function SignIn(props: LoginProps) {
               <Reactstrap.Input
                 className={css(sharedStyles.input, sharedStyles.input_layout)}
                 onChange={e => { setLogin(e.target.value)  }}
-                disabled={props.state[0] === 'IN_PROGRESS'}
+                disabled={loginState.state[0] === 'IN_PROGRESS'}
               />
               <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
                 {'Password'}
@@ -103,7 +99,7 @@ export function SignIn(props: LoginProps) {
               <Reactstrap.Input
                 className={css(sharedStyles.input, sharedStyles.input_layout)}
                 onChange={e => { setPassword(e.target.value) }}
-                disabled={props.state[0] === 'IN_PROGRESS'}
+                disabled={loginState.state[0] === 'IN_PROGRESS'}
               />
               <h3 className={css(styles.subtitle, styles.subtitle_layout)} >
                 <a onClick={() => void alert("Not implemented yet")}>
@@ -116,24 +112,24 @@ export function SignIn(props: LoginProps) {
                   onClick={() => {
                     login
                     && password
-                    && props.state[0] !== 'IN_PROGRESS'
-                    && props.requestLogin(login, password)
+                    && loginState.state[0] !== 'IN_PROGRESS'
+                    && dispatch(SignUpSlicer.actionCreators.requestLogin(login, password))
                   }}
-                  disabled={login === '' || password === '' || props.state[0] === 'IN_PROGRESS'}
+                  disabled={login === '' || password === '' || loginState.state[0] === 'IN_PROGRESS'}
                 >
                   <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
                     {'Sign In'}
                   </h1>
                 </Reactstrap.Button>
-                { props.state[0] === 'IN_PROGRESS' && (
+                { loginState.state[0] === 'IN_PROGRESS' && (
                     <Reactstrap.Spinner role="status">
                       Loading...
                     </Reactstrap.Spinner>
                 )}
                 <Call f={() => {
-                  switch (props.state[0]) {
+                  switch (loginState.state[0]) {
                     case 'RESOLVED':
-                      const res = props.state[1]
+                      const res = loginState.state[1]
                       switch (res[0]) {
                         case 'OK':
                           return (<div>Ok</div>)
@@ -169,8 +165,3 @@ export function SignIn(props: LoginProps) {
     </div>
   )
 }
-
-export default connect(
-  (state: ApplicationState) => state.login, // Selects which state properties are merged into the component's props
-  Login.actionCreators, // Selects which action creators are merged into the component's props
-)(SignIn as any) // eslint-disable-line @typescript-eslint/no-explicit-any
