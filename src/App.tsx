@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Route, Switch, useLocation } from 'react-router'
-import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container } from 'reactstrap'
 
 import { ApplicationState } from './store'
@@ -12,10 +12,13 @@ import * as SessionSlice from './store/sessionSlice'
 
 import './custom.css'
 
-const App = (props: SessionSlice.Session) => {
-  const loc = useLocation()
+export default function App() {
+  const sessionState = useSelector(
+    (state: ApplicationState) => state.session,
+  )
+  const dispatch = useDispatch()
 
-  if (props.isLogin) {
+  if (sessionState.isLogin) {
     return (
       <>
         <NavMenu />
@@ -37,8 +40,3 @@ const App = (props: SessionSlice.Session) => {
     </Switch>
   )
 }
-
-export default connect(
-  (state: ApplicationState) => state.session, // Selects which state properties are merged into the component's props
-  // SessionSlicer.actionCreators // Selects which action creators are merged into the component's props
-)(App as any) // eslint-disable-line @typescript-eslint/no-explicit-any
