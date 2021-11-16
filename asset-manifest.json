@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/durudex-frontend-sample/static/css/main.7c0c3832.chunk.css",
+    "main.js": "/durudex-frontend-sample/static/js/main.e3a93c5d.chunk.js",
+    "main.js.map": "/durudex-frontend-sample/static/js/main.e3a93c5d.chunk.js.map",
+    "runtime-main.js": "/durudex-frontend-sample/static/js/runtime-main.aa0d9745.js",
+    "runtime-main.js.map": "/durudex-frontend-sample/static/js/runtime-main.aa0d9745.js.map",
+    "static/css/2.d400a5f0.chunk.css": "/durudex-frontend-sample/static/css/2.d400a5f0.chunk.css",
+    "static/js/2.3682a141.chunk.js": "/durudex-frontend-sample/static/js/2.3682a141.chunk.js",
+    "static/js/2.3682a141.chunk.js.map": "/durudex-frontend-sample/static/js/2.3682a141.chunk.js.map",
+    "index.html": "/durudex-frontend-sample/index.html",
+    "static/css/2.d400a5f0.chunk.css.map": "/durudex-frontend-sample/static/css/2.d400a5f0.chunk.css.map",
+    "static/css/main.7c0c3832.chunk.css.map": "/durudex-frontend-sample/static/css/main.7c0c3832.chunk.css.map",
+    "static/js/2.3682a141.chunk.js.LICENSE.txt": "/durudex-frontend-sample/static/js/2.3682a141.chunk.js.LICENSE.txt",
+    "static/media/community-icon.8b42fd91.svg": "/durudex-frontend-sample/static/media/community-icon.8b42fd91.svg",
+    "static/media/home-icon.881d6ac2.svg": "/durudex-frontend-sample/static/media/home-icon.881d6ac2.svg",
+    "static/media/logoBackground.3b9656fc.jpg": "/durudex-frontend-sample/static/media/logoBackground.3b9656fc.jpg",
+    "static/media/logoBackground2.201acb4d.jpg": "/durudex-frontend-sample/static/media/logoBackground2.201acb4d.jpg",
+    "static/media/logoBackground3.98bc9b8d.jpg": "/durudex-frontend-sample/static/media/logoBackground3.98bc9b8d.jpg",
+    "static/media/logoBackground4.3f688b9a.jpg": "/durudex-frontend-sample/static/media/logoBackground4.3f688b9a.jpg",
+    "static/media/messages-icon.f47a9402.svg": "/durudex-frontend-sample/static/media/messages-icon.f47a9402.svg",
+    "static/media/notifications-icon.83748fd8.svg": "/durudex-frontend-sample/static/media/notifications-icon.83748fd8.svg",
+    "static/media/photos-icon.2e2f9558.svg": "/durudex-frontend-sample/static/media/photos-icon.2e2f9558.svg",
+    "static/media/preference-icon.e1422cbb.svg": "/durudex-frontend-sample/static/media/preference-icon.e1422cbb.svg",
+    "static/media/right-arrow.18c05778.svg": "/durudex-frontend-sample/static/media/right-arrow.18c05778.svg",
+    "static/media/user-avatar-icon.dac81922.svg": "/durudex-frontend-sample/static/media/user-avatar-icon.dac81922.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aa0d9745.js",
+    "static/css/2.d400a5f0.chunk.css",
+    "static/js/2.3682a141.chunk.js",
+    "static/css/main.7c0c3832.chunk.css",
+    "static/js/main.e3a93c5d.chunk.js"
+  ]
+}
