@@ -16,6 +16,10 @@ export const sharedStyles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
   },
+  verticalCenter: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   group_layout: {
     width: initWidth,
     marginTop: resizeByHeight(42),
@@ -168,5 +172,22 @@ export const sharedStyles = StyleSheet.create({
     marginRight: 'auto',
     marginBottom: resizeByHeight(18),
     marginLeft: 'auto',
+  },
+
+  level: {
+    display: 'flex',
+  },
+  levelLeft: {
+    flexGrow: 1,
+  },
+  levelRight: {
+    marginLeft: 10,
+  },
+
+  columns: {
+    display: 'flex',
+    gap: 10,
+  },
+  column: {
   },
 })
