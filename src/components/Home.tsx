@@ -87,21 +87,21 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
   leftSidenav: {
-    minWidth: 320,
     top: 0,
     position: 'sticky',
     zIndex: 1000,
     height: '100vh',
-    background: 'linear-gradient(175.38deg, #BA03FB 0%, #2200F1 99.41%)',
-  },
-
-  verticalLogo: {
-    position: 'absolute',
-    backgroundImage: `url('${VerticalLogo}')`,
+    background: `url('${VerticalLogo}'), linear-gradient(175.38deg, #BA03FB 0%, #2200F1 99.41%)`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    height: '100vh',
-    width: '100%',
+  },
+
+  sidenav: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: 40,
+    marginRight: 10,
+    height: '100%',
   },
 
   mainContainer: {
@@ -120,20 +120,27 @@ const styles = StyleSheet.create({
     height: '100vh',
     paddingRight: 10,
   },
-
-  currentUserWrapper: {
-    marginTop: 112,
-    marginLeft: 50,
+  topSpace: {
+    flexBasis: 112,
+    flexShrink: 1,
   },
-
-
+  currentUserWrapper: {
+  },
+  userAndItemsSpace: {
+    flexBasis: 88 - sidenavItemsSpaceBetween,
+    flexShrink: 2,
+  },
   sidenavItems: {
-    marginLeft: 50,
-    marginTop: 88 - sidenavItemsSpaceBetween,
+  },
+  itemSettingsSpace: {
+    flexBasis: 248 - sidenavItemsSpaceBetween,
+    flexShrink: 2,
   },
   sidenavItemSettings: {
-    marginLeft: 50,
-    marginTop: 248 - sidenavItemsSpaceBetween,
+  },
+  bottomSpace: {
+    flexBasis: 50,
+    flexShrink: 1,
   },
 })
 
@@ -826,12 +833,12 @@ export default function Home() {
   return (
     <div className={css(styles.container)}>
       <header className={css(styles.leftSidenav)}>
-        <div className={css(styles.verticalLogo)}></div>
-        <div>
+        <div className={css(styles.sidenav)}>
+          <div className={css(styles.topSpace)} />
           <div className={css(styles.currentUserWrapper)}>
             <CurrentUserCardView userCard={ currentUserCard } />
           </div>
-
+          <div className={css(styles.userAndItemsSpace)} />
           <div className={css(styles.sidenavItems)}>
             <SidenavItem name="Home" iconPath={HomeIcon} isActive={true} />
             <SidenavItem name="Notifications" iconPath={NotificationsIcon} isActive={false} />
@@ -840,10 +847,11 @@ export default function Home() {
             <SidenavItem name="Photos" iconPath={PhotosIcon} isActive={false} />
             <SidenavItem name="Profile" iconPath={ProfileIcon} isActive={false} />
           </div>
-
+          <div className={css(styles.itemSettingsSpace)} />
           <div className={css(styles.sidenavItemSettings)}>
             <SidenavItem name="Settings" iconPath={SettingsIcon} isActive={false} />
           </div>
+          <div className={css(styles.bottomSpace)} />
         </div>
       </header>
       <div className={css(styles.mainContainer)}>
