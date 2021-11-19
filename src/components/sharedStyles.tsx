@@ -16,6 +16,10 @@ export const sharedStyles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
   },
+  verticalCenter: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   group_layout: {
     width: initWidth,
     marginTop: resizeByHeight(42),
@@ -80,8 +84,10 @@ export const sharedStyles = StyleSheet.create({
 
   sign_in: {
     display: 'flex',
-    font: '700 32px/1.2 "Montserrat", Helvetica, Arial, serif',
+
     fontSize: resizeByHeight(32),
+    fontWeight: 700,
+
     color: 'rgb(0,0,0)',
   },
   sign_in_layout: {
@@ -95,8 +101,9 @@ export const sharedStyles = StyleSheet.create({
     },
   },
   inputTitle: {
-    font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
     fontSize: resizeByHeight(25),
+    fontWeight: 700,
+
     color: 'rgb(0,0,0)',
   },
   inputTitle_layout: {
@@ -107,8 +114,10 @@ export const sharedStyles = StyleSheet.create({
     backgroundColor: 'rgb(255,255,255)',
     border: '1px solid rgb(3,99,245)',
     borderRadius: '5px 5px 5px 5px',
-    font: '700 25px/1.2 "Montserrat", Helvetica, Arial, serif',
+
     fontSize: resizeByHeight(25),
+    fontWeight: 700,
+
     padding: '0.375rem 0.75rem',
     color: '#495057',
     backgroundClip: 'padding-box',
@@ -158,8 +167,10 @@ export const sharedStyles = StyleSheet.create({
   },
   buttonLabel: {
     display: 'flex',
-    font: '700 30px/1.2 "Montserrat", Helvetica, Arial, serif',
+
     fontSize: resizeByHeight(30),
+    fontWeight: 700,
+
     color: 'rgb(255,255,255)',
   },
   buttonLabel_layout: {
@@ -168,5 +179,22 @@ export const sharedStyles = StyleSheet.create({
     marginRight: 'auto',
     marginBottom: resizeByHeight(18),
     marginLeft: 'auto',
+  },
+
+  level: {
+    display: 'flex',
+  },
+  levelLeft: {
+    flexGrow: 1,
+  },
+  levelRight: {
+    marginLeft: 10,
+  },
+
+  columns: {
+    display: 'flex',
+    gap: 10,
+  },
+  column: {
   },
 })
