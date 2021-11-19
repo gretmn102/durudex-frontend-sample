@@ -163,6 +163,7 @@ export const userCardStyles = StyleSheet.create({
     display: 'flex',
   },
   avatar: {
+    flexShrink: 0,
     width: resizeByHeight(50),
     height: resizeByHeight(50),
     borderRadius: '50%',
@@ -213,6 +214,7 @@ function UserCardView(params: { userCard: UserCard }) {
 
 export const currentUserCardStyles = StyleSheet.create({
   avatar: {
+    flexShrink: 0,
     width: resizeByHeight(60),
     height: resizeByHeight(60),
     borderRadius: '50%',
