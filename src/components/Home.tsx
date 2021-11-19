@@ -22,6 +22,9 @@ import RepostIcon from './Assets/repost-icon.png'
 import EyeIcon from './Assets/eye-icon.svg'
 import VerticalLogo from './vertical-logo.png'
 
+const initHeight = 768
+const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
+
 const sidenavItemsSpaceBetween = 30
 
 const sidenavItemsStyles = StyleSheet.create({
@@ -31,29 +34,29 @@ const sidenavItemsStyles = StyleSheet.create({
   },
 
   sidenavItemIconActive: {
-    width: 40,
-    height: 40,
+    width: resizeByHeight(40),
+    height: resizeByHeight(40),
   },
 
   sidenavItemTextActive: {
     marginLeft: 15,
 
-    fontSize: 20,
+    fontSize: resizeByHeight(20),
     fontWeight: 'bold',
 
     color: 'white',
   },
 
   sidenavItemIcon: {
-    width: 40,
-    height: 40,
+    width: resizeByHeight(40),
+    height: resizeByHeight(40),
     opacity: 0.6,
   },
 
   sidenavItemText: {
     marginLeft: 15,
 
-    fontSize: 20,
+    fontSize: resizeByHeight(20),
     fontWeight: 'bold',
 
     color: 'white',
@@ -162,26 +165,26 @@ export const userCardStyles = StyleSheet.create({
     display: 'flex',
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: resizeByHeight(50),
+    height: resizeByHeight(50),
     borderRadius: '50%',
     backgroundColor: '#b2b2b2',
   },
   undefinedAvatar: {
-    width: 25,
-    height: 25,
+    width: resizeByHeight(25),
+    height: resizeByHeight(25),
   },
   userContent: {
     marginLeft: 15,
   },
   userName: {
-    fontSize: 18,
+    fontSize: resizeByHeight(18),
     fontWeight: 'bold',
 
     color: 'black',
   },
   userMention: {
-    fontSize: 13,
+    fontSize: resizeByHeight(13),
     fontWeight: 'normal',
 
     color: 'black',
@@ -212,19 +215,19 @@ function UserCardView(params: { userCard: UserCard }) {
 
 export const currentUserCardStyles = StyleSheet.create({
   avatar: {
-    width: 60,
-    height: 60,
+    width: resizeByHeight(60),
+    height: resizeByHeight(60),
     borderRadius: '50%',
     backgroundColor: '#b2b2b2',
   },
   userName: {
-    fontSize: 18,
+    fontSize: resizeByHeight(18),
     fontWeight: 'bold',
 
     color: 'white',
   },
   userMention: {
-    fontSize: 13,
+    fontSize: resizeByHeight(13),
     fontWeight: 'normal',
 
     color: 'white',
@@ -257,15 +260,15 @@ const trendStyles = StyleSheet.create({
   trend: {
   },
   name: {
-    fontSize: 14,
+    fontSize: resizeByHeight(14),
     fontWeight: 'normal',
   },
   tag: {
-    fontSize: 20,
+    fontSize: resizeByHeight(20),
     fontWeight: 'bold',
   },
   likes: {
-    fontSize: 12,
+    fontSize: resizeByHeight(12),
     fontWeight: 'normal',
   },
 })
@@ -307,14 +310,14 @@ const recomendationStyles = StyleSheet.create({
     flexGrow: 1,
   },
   follow: {
-    width: 90,
-    height: 25,
+    width: resizeByHeight(90),
+    height: resizeByHeight(25),
     backgroundColor: '#9104FF',
     border: 'none',
     borderRadius: 5,
     color: 'white',
 
-    fontSize: 16,
+    fontSize: resizeByHeight(16),
     fontWeight: 'bold',
   },
   followContainer: {
@@ -341,13 +344,13 @@ function Recomendation(params: { userCard: UserCard }) {
 
 const rightSidenavNotifications = StyleSheet.create({
   notificationIcon: {
-    width: 50,
-    height: 50,
+    width: resizeByHeight(50),
+    height: resizeByHeight(50),
     borderRadius: '50%',
     backgroundColor: '#ba03fb',
   },
   notificationText: {
-    fontSize: 17,
+    fontSize: resizeByHeight(17),
     fontWeight: 'normal',
 
     color: 'white',
@@ -389,7 +392,7 @@ const rightSidenavStyles = StyleSheet.create({
   },
   trendsHeaderText: {
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: resizeByHeight(24),
   },
   trendListContainer: {
     marginTop: 15,
@@ -406,7 +409,7 @@ const rightSidenavStyles = StyleSheet.create({
     gap: 15,
   },
   trendSeemore: {
-    fontSize: 20,
+    fontSize: resizeByHeight(20),
     fontWeight: 600,
 
     color: '#9104ff',
@@ -417,7 +420,7 @@ const rightSidenavStyles = StyleSheet.create({
   },
 
   recomendationsHeader: {
-    fontSize: 24,
+    fontSize: resizeByHeight(24),
     fontWeight: 'bold',
   },
 
@@ -522,8 +525,8 @@ function RightSidenav() {
 
 function createMediaStyle(src: string) {
   return {
-    height: 35,
-    width: 35,
+    height: resizeByHeight(35),
+    width: resizeByHeight(35),
 
     backgroundSize: 'cover',
     backgroundImage: `url('${src}')`,
@@ -538,6 +541,9 @@ const mainStyles = StyleSheet.create({
   },
   searchInput: {
     marginLeft: 25,
+
+    fontSize: resizeByHeight(22),
+    fontWeight: 'normal',
 
     border: 'none',
     borderBottomColor: '#bbbbbb',
@@ -562,7 +568,7 @@ const mainStyles = StyleSheet.create({
   submitInput: {
     width: '100%',
 
-    fontSize: 22,
+    fontSize: resizeByHeight(22),
     fontWeight: 'normal',
 
     border: 'none',
@@ -584,12 +590,12 @@ const mainStyles = StyleSheet.create({
   mediaMic: createMediaStyle(MicIcon),
 
   submitPublish: {
-    width: 120,
-    height: 45,
+    width: resizeByHeight(120),
+    height: resizeByHeight(45),
     border: 'none',
     borderRadius: 20,
 
-    fontSize: 16,
+    fontSize: resizeByHeight(16),
     fontWeight: 'bold',
 
     color: 'white',
@@ -651,10 +657,13 @@ const postStyles = StyleSheet.create({
     marginTop: 10,
   },
   dots: {
-    width: 32,
+    width: resizeByHeight(32),
     height: '100%',
+
     backgroundColor: '#9104FF',
-    mask: `url('${DotsIcon}') no-repeat center`,
+    mask: `url('${DotsIcon}') no-repeat`,
+    maskPosition: 'center',
+    maskSize: 'contain',
   },
 
   footerItems: {
@@ -670,35 +679,35 @@ const postStyles = StyleSheet.create({
   footerItemValue: {
     color: '#7A7A7A',
 
-    fontSize: 22,
+    fontSize: resizeByHeight(22),
     fontWeight: 'bold',
   },
 
   like: {
-    width: 34,
-    height: 34,
+    width: resizeByHeight(34),
+    height: resizeByHeight(34),
     backgroundColor: '#9104FF',
     mask: `url('${HeartIcon}') no-repeat`,
     maskSize: 'cover',
   },
   comment: {
-    width: 35,
-    height: 33,
+    width: resizeByHeight(35),
+    height: resizeByHeight(33),
     fill: '#9104FF',
     backgroundColor: '#9104FF',
     mask: `url('${MessagesIcon}') no-repeat`,
     maskSize: 'cover',
   },
   repost: {
-    width: 34,
-    height: 34,
+    width: resizeByHeight(34),
+    height: resizeByHeight(34),
     backgroundColor: '#9104FF',
     mask: `url('${RepostIcon}') no-repeat center`,
     maskSize: 'cover',
   },
   view: {
-    width: 40,
-    height: 28,
+    width: resizeByHeight(40),
+    height: resizeByHeight(28),
     backgroundColor: '#9104FF',
     mask: `url('${EyeIcon}') no-repeat center`,
     maskSize: 'cover',
