@@ -20,9 +20,10 @@ const styles = StyleSheet.create({
     borderRadius: '20px 0px 0px 20px',
   },
   welcome: {
-    font: '700 40px/1.2 "Montserrat", Helvetica, Arial, serif',
-    color: 'rgb(3,99,245)',
     fontSize: resizeByHeight(40),
+    fontWeight: 700,
+
+    color: 'rgb(3,99,245)',
   },
   welcome_layout: {
     position: 'relative',
@@ -34,8 +35,10 @@ const styles = StyleSheet.create({
   subtitle: {
     display: 'flex',
     justifyContent: 'flex-end',
-    font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
+
     fontSize: resizeByHeight(20),
+    fontWeight: 700,
+
     color: 'rgb(0,0,0)',
     textAlign: 'right',
   },
@@ -44,8 +47,9 @@ const styles = StyleSheet.create({
     marginTop: resizeByHeight(35),
   },
   create_account: {
-    font: '700 20px/1.2 "Montserrat", Helvetica, Arial, serif',
     fontSize: resizeByHeight(20),
+    fontWeight: 700,
+
     color: 'rgb(0,0,0)',
   },
   create_account_layout: {

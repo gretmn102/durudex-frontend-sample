@@ -37,7 +37,10 @@ const sidenavItemsStyles = StyleSheet.create({
 
   sidenavItemTextActive: {
     marginLeft: 15,
-    font: 'bold 20px "Montserrat", Helvetica, Arial, serif',
+
+    fontSize: 20,
+    fontWeight: 'bold',
+
     color: 'white',
   },
 
@@ -49,7 +52,10 @@ const sidenavItemsStyles = StyleSheet.create({
 
   sidenavItemText: {
     marginLeft: 15,
-    font: 'bold 20px "Montserrat", Helvetica, Arial, serif',
+
+    fontSize: 20,
+    fontWeight: 'bold',
+
     color: 'white',
     opacity: 0.6,
   },
@@ -169,11 +175,15 @@ export const userCardStyles = StyleSheet.create({
     marginLeft: 15,
   },
   userName: {
-    font: 'bold 18px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 18,
+    fontWeight: 'bold',
+
     color: 'black',
   },
   userMention: {
-    font: 'normal 13px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 13,
+    fontWeight: 'normal',
+
     color: 'black',
   },
 })
@@ -208,11 +218,15 @@ export const currentUserCardStyles = StyleSheet.create({
     backgroundColor: '#b2b2b2',
   },
   userName: {
-    font: 'bold 18px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 18,
+    fontWeight: 'bold',
+
     color: 'white',
   },
   userMention: {
-    font: 'normal 13px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 13,
+    fontWeight: 'normal',
+
     color: 'white',
   },
 })
@@ -243,13 +257,16 @@ const trendStyles = StyleSheet.create({
   trend: {
   },
   name: {
-    font: 'normal 14px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 14,
+    fontWeight: 'normal',
   },
   tag: {
-    font: 'bold 20px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   likes: {
-    font: 'normal 12px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 12,
+    fontWeight: 'normal',
   },
 })
 
@@ -296,7 +313,9 @@ const recomendationStyles = StyleSheet.create({
     border: 'none',
     borderRadius: 5,
     color: 'white',
-    font: 'bold 16px "Montserrat", Helvetica, Arial, serif',
+
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   followContainer: {
     display: 'flex',
@@ -328,7 +347,9 @@ const rightSidenavNotifications = StyleSheet.create({
     backgroundColor: '#ba03fb',
   },
   notificationText: {
-    font: 'normal 17px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 17,
+    fontWeight: 'normal',
+
     color: 'white',
   },
 })
@@ -367,8 +388,6 @@ const rightSidenavStyles = StyleSheet.create({
   trendsHeader: {
   },
   trendsHeaderText: {
-    fontFamily: 'Montserrat, Helvetica, Arial, serif',
-    fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 24,
   },
@@ -387,7 +406,9 @@ const rightSidenavStyles = StyleSheet.create({
     gap: 15,
   },
   trendSeemore: {
-    font: '600 20px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 20,
+    fontWeight: 600,
+
     color: '#9104ff',
   },
 
@@ -396,7 +417,8 @@ const rightSidenavStyles = StyleSheet.create({
   },
 
   recomendationsHeader: {
-    font: 'bold 24px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 
   recomendationsList: {
@@ -539,7 +561,9 @@ const mainStyles = StyleSheet.create({
 
   submitInput: {
     width: '100%',
-    font: 'normal 22px "Montserrat", Helvetica, Arial, serif',
+
+    fontSize: 22,
+    fontWeight: 'normal',
 
     border: 'none',
     borderBottomColor: '#bbbbbb',
@@ -565,7 +589,9 @@ const mainStyles = StyleSheet.create({
     border: 'none',
     borderRadius: 20,
 
-    font: 'bold 16px "Montserrat", Helvetica, Arial, serif',
+    fontSize: 16,
+    fontWeight: 'bold',
+
     color: 'white',
     backgroundColor: '#9104FF',
   },
@@ -643,8 +669,9 @@ const postStyles = StyleSheet.create({
 
   footerItemValue: {
     color: '#7A7A7A',
-    font: 'bold 22px "Montserrat", Helvetica, Arial, serif',
 
+    fontSize: 22,
+    fontWeight: 'bold',
   },
 
   like: {
