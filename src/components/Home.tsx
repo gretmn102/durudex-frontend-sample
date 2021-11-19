@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     background: `url('${VerticalLogo}'), linear-gradient(175.38deg, #BA03FB 0%, #2200F1 99.41%)`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
+    backgroundSize: 'contain',
   },
 
   sidenav: {
