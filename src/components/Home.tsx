@@ -124,9 +124,6 @@ const styles = StyleSheet.create({
   },
   rightSidenav: {
     top: 0,
-    position: 'sticky',
-    zIndex: 1000,
-    height: '100vh',
     paddingRight: 10,
   },
   topSpace: {
