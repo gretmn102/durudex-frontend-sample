@@ -2,7 +2,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import Logo from './logo.png'
 
 export const initHeight = 1050
-export const initWidth = 1680
+export const initWidth = 1920
 
 export const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
 export const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
@@ -21,28 +21,36 @@ export const sharedStyles = StyleSheet.create({
     alignItems: 'center',
   },
   group_layout: {
-    width: initWidth,
-    marginTop: resizeByHeight(42),
-    marginRight: resizeByWidth(73),
-    marginBottom: resizeByHeight(48),
+    height: resizeByHeight(960),
+
+    flexGrow: 1,
+    maxWidth: resizeByHeight(1744),
+
     marginLeft: resizeByWidth(73),
+    marginRight: resizeByWidth(73),
   },
   window_box: {
     display: 'flex',
     borderRadius: 20,
     boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
     background: 'rgb(255,255,255)',
+    width: '100%',
+    height: '100%',
   },
   flex_logo: {
     display: 'flex',
-    flex: '0 1 584px',
+    flexBasis: 584,
+    [`@media (max-width:  ${breakSize}px)`]: {
+      display: 'none',
+    },
   },
   flex_content: {
     display: 'flex',
-    flex: '1 1 694px',
+    flexBasis: 1160,
     [`@media (max-width:  ${breakSize}px)`]: {
-      flex: '0 0 100%',
+      display: 'initial',
     },
+    justifyContent: 'center',
   },
   flex_content_box: {
     display: 'flex',
@@ -53,11 +61,10 @@ export const sharedStyles = StyleSheet.create({
     overflow: 'visible',
     flexGrow: 1,
     marginTop: resizeByHeight(128),
-    marginRight: resizeByWidth(115),
-    marginLeft: resizeByWidth(115),
+    marginRight: resizeByWidth(183),
+    marginLeft: resizeByWidth(183),
   },
   cover_group_layout: {
-    height: resizeByHeight(960),
     flexGrow: 1,
   },
 
