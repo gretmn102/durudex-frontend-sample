@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/durudex-frontend-sample/static/css/main.7c0c3832.chunk.css",
-    "main.js": "/durudex-frontend-sample/static/js/main.dee37e72.chunk.js",
-    "main.js.map": "/durudex-frontend-sample/static/js/main.dee37e72.chunk.js.map",
+    "main.js": "/durudex-frontend-sample/static/js/main.e952bbc2.chunk.js",
+    "main.js.map": "/durudex-frontend-sample/static/js/main.e952bbc2.chunk.js.map",
     "runtime-main.js": "/durudex-frontend-sample/static/js/runtime-main.aa0d9745.js",
     "runtime-main.js.map": "/durudex-frontend-sample/static/js/runtime-main.aa0d9745.js.map",
     "static/css/2.d400a5f0.chunk.css": "/durudex-frontend-sample/static/css/2.d400a5f0.chunk.css",
-    "static/js/2.3682a141.chunk.js": "/durudex-frontend-sample/static/js/2.3682a141.chunk.js",
-    "static/js/2.3682a141.chunk.js.map": "/durudex-frontend-sample/static/js/2.3682a141.chunk.js.map",
+    "static/js/2.1e17c17f.chunk.js": "/durudex-frontend-sample/static/js/2.1e17c17f.chunk.js",
+    "static/js/2.1e17c17f.chunk.js.map": "/durudex-frontend-sample/static/js/2.1e17c17f.chunk.js.map",
     "index.html": "/durudex-frontend-sample/index.html",
     "static/css/2.d400a5f0.chunk.css.map": "/durudex-frontend-sample/static/css/2.d400a5f0.chunk.css.map",
     "static/css/main.7c0c3832.chunk.css.map": "/durudex-frontend-sample/static/css/main.7c0c3832.chunk.css.map",
-    "static/js/2.3682a141.chunk.js.LICENSE.txt": "/durudex-frontend-sample/static/js/2.3682a141.chunk.js.LICENSE.txt",
+    "static/js/2.1e17c17f.chunk.js.LICENSE.txt": "/durudex-frontend-sample/static/js/2.1e17c17f.chunk.js.LICENSE.txt",
     "static/media/community-icon.8b42fd91.svg": "/durudex-frontend-sample/static/media/community-icon.8b42fd91.svg",
     "static/media/dots-icon.b1b1f492.svg": "/durudex-frontend-sample/static/media/dots-icon.b1b1f492.svg",
     "static/media/eye-icon.bff79846.svg": "/durudex-frontend-sample/static/media/eye-icon.bff79846.svg",
     "static/media/gif-icon.9d578fed.svg": "/durudex-frontend-sample/static/media/gif-icon.9d578fed.svg",
     "static/media/heart-icon.b9674228.svg": "/durudex-frontend-sample/static/media/heart-icon.b9674228.svg",
     "static/media/home-icon.38633710.svg": "/durudex-frontend-sample/static/media/home-icon.38633710.svg",
-    "static/media/logoBackground.3b9656fc.jpg": "/durudex-frontend-sample/static/media/logoBackground.3b9656fc.jpg",
+    "static/media/logoBackground.1e6202e0.jpg": "/durudex-frontend-sample/static/media/logoBackground.1e6202e0.jpg",
     "static/media/logoBackground2.201acb4d.jpg": "/durudex-frontend-sample/static/media/logoBackground2.201acb4d.jpg",
     "static/media/logoBackground3.98bc9b8d.jpg": "/durudex-frontend-sample/static/media/logoBackground3.98bc9b8d.jpg",
     "static/media/logoBackground4.3f688b9a.jpg": "/durudex-frontend-sample/static/media/logoBackground4.3f688b9a.jpg",
@@ -37,8 +37,8 @@
   "entrypoints": [
     "static/js/runtime-main.aa0d9745.js",
     "static/css/2.d400a5f0.chunk.css",
-    "static/js/2.3682a141.chunk.js",
+    "static/js/2.1e17c17f.chunk.js",
     "static/css/main.7c0c3832.chunk.css",
-    "static/js/main.dee37e72.chunk.js"
+    "static/js/main.e952bbc2.chunk.js"
   ]
 }
