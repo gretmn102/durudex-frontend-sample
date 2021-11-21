@@ -51,6 +51,7 @@ export const sharedStyles = StyleSheet.create({
       display: 'initial',
     },
     justifyContent: 'center',
+    flexGrow: 1,
   },
   flex_content_box: {
     display: 'flex',
