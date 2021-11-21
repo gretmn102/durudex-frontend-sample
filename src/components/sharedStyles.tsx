@@ -2,7 +2,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import Logo from './logo.png'
 
 export const initHeight = 1050
-export const initWidth = 1680
+export const initWidth = 1920
 
 export const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${initHeight})`
 export const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
@@ -21,28 +21,37 @@ export const sharedStyles = StyleSheet.create({
     alignItems: 'center',
   },
   group_layout: {
-    width: initWidth,
-    marginTop: resizeByHeight(42),
-    marginRight: resizeByWidth(73),
-    marginBottom: resizeByHeight(48),
+    height: resizeByHeight(960),
+
+    flexGrow: 1,
+    maxWidth: resizeByHeight(1744),
+
     marginLeft: resizeByWidth(73),
+    marginRight: resizeByWidth(73),
   },
   window_box: {
     display: 'flex',
     borderRadius: 20,
     boxShadow: "0 .25rem .75rem rgba(0, 0, 0, .05)",
     background: 'rgb(255,255,255)',
+    width: '100%',
+    height: '100%',
   },
   flex_logo: {
     display: 'flex',
-    flex: '0 1 584px',
+    flexBasis: 584,
+    [`@media (max-width:  ${breakSize}px)`]: {
+      display: 'none',
+    },
   },
   flex_content: {
     display: 'flex',
-    flex: '1 1 694px',
+    flexBasis: 1160,
     [`@media (max-width:  ${breakSize}px)`]: {
-      flex: '0 0 100%',
+      display: 'initial',
     },
+    justifyContent: 'center',
+    flexGrow: 1,
   },
   flex_content_box: {
     display: 'flex',
@@ -53,11 +62,10 @@ export const sharedStyles = StyleSheet.create({
     overflow: 'visible',
     flexGrow: 1,
     marginTop: resizeByHeight(128),
-    marginRight: resizeByWidth(115),
-    marginLeft: resizeByWidth(115),
+    marginRight: resizeByWidth(183),
+    marginLeft: resizeByWidth(183),
   },
   cover_group_layout: {
-    height: resizeByHeight(960),
     flexGrow: 1,
   },
 
@@ -67,7 +75,7 @@ export const sharedStyles = StyleSheet.create({
   logo_grid: {
     display: 'grid',
     gridTemplateColumns: '1fr',
-    gridTemplateRows: '2.1fr 0.7fr 0.2fr',
+    gridTemplateRows: `${719/977 * 100}% auto ${173/977 * 100}%`,
     gap: '0px 0px',
     gridAutoFlow: 'row',
     gridTemplateAreas: '\n' +
@@ -75,6 +83,8 @@ export const sharedStyles = StyleSheet.create({
     '  "logo_layout"\n' +
     '  "."\n' +
     '',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   logo_grid_layout: {
     position: 'relative',
@@ -83,8 +93,6 @@ export const sharedStyles = StyleSheet.create({
   logo_layout: { gridArea: 'logo_layout' },
 
   sign_in: {
-    display: 'flex',
-
     fontSize: resizeByHeight(32),
     fontWeight: 700,
 
@@ -102,23 +110,24 @@ export const sharedStyles = StyleSheet.create({
   },
   inputTitle: {
     fontSize: resizeByHeight(25),
-    fontWeight: 700,
+    fontWeight: 'bold',
 
-    color: 'rgb(0,0,0)',
+    color: '#4F506A',
   },
   inputTitle_layout: {
     position: 'relative',
-    marginTop: resizeByHeight(34),
+    marginLeft: 8,
+    marginBottom: 7,
   },
   input: {
     backgroundColor: 'rgb(255,255,255)',
     border: '1px solid rgb(3,99,245)',
-    borderRadius: '5px 5px 5px 5px',
+    borderRadius: '8px',
 
     fontSize: resizeByHeight(25),
     fontWeight: 700,
 
-    padding: '0.375rem 0.75rem',
+    padding: '4px 8px',
     color: '#495057',
     backgroundClip: 'padding-box',
     width: '100%',
@@ -136,8 +145,8 @@ export const sharedStyles = StyleSheet.create({
     marginTop: resizeByHeight(15),
   },
   button: {
-    display: 'flex',
     width: '100%',
+    height: '100%',
     padding: 0,
     backgroundColor: 'rgb(3,99,245)',
     borderRadius: '7px 7px 7px 7px',
@@ -167,11 +176,12 @@ export const sharedStyles = StyleSheet.create({
   },
   buttonLabel: {
     display: 'flex',
-
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: resizeByHeight(30),
     fontWeight: 700,
 
-    color: 'rgb(255,255,255)',
+    color: 'white',
   },
   buttonLabel_layout: {
     position: 'relative',
