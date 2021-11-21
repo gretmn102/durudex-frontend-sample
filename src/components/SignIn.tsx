@@ -32,19 +32,9 @@ const styles = StyleSheet.create({
       margin: '0px auto 0px',
     },
   },
-  subtitle: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-
+  forgotPassword: {
     fontSize: resizeByHeight(20),
     fontWeight: 700,
-
-    color: 'rgb(0,0,0)',
-    textAlign: 'right',
-  },
-  subtitle_layout: {
-    position: 'relative',
-    marginTop: resizeByHeight(35),
   },
   create_account: {
     fontSize: resizeByHeight(20),
@@ -52,16 +42,111 @@ const styles = StyleSheet.create({
 
     color: 'rgb(0,0,0)',
   },
-  create_account_layout: {
-    position: 'relative',
-    display: 'block',
-    marginTop: resizeByHeight(28),
-    marginRight: 'auto',
-    marginLeft: 'auto',
+  container: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: `${141/977 * 100}% min-content ${35/977 * 100}% auto ${144/977 * 100}%`,
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '"."\n' +
+      '"welcome-container"\n' +
+      '"."\n' +
+      '"form-container"\n' +
+      '"."\n' +
+      '',
+    height: '100%',
+    flexGrow: 1,
+  },
+  welcomeContainer: {
+    display: 'grid',
+    gridTemplateColumns: `${118/1160 * 100}% min-content ${843/1160 * 100}%`,
+    gridTemplateRows: 'auto',
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '". welcome-text ."\n' +
+      '',
+    gridArea: 'welcome-container',
+    [`@media (max-width:  ${breakSize}px)`]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+  welcomeText: {
+    gridArea: 'welcome-text',
+  },
+  formContainer: {
+    display: 'grid',
+    gridTemplateColumns: `${182/1160 * 100}% auto ${182/1160 * 100}%`,
+    gridTemplateRows: `${39/608 * 100}% ${37/608 * 100}% ${102/608 * 100}% ${15/608 * 100}% ${102/608 * 100}% ${60/608 * 100}% ${24/608 * 100}% ${123/608 * 100}% auto ${12/608 * 100}% ${24/608 * 100}%`,
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '". sign-in-text ."\n' +
+      '". . ."\n' +
+      '". login-input-container ."\n' +
+      '". . ."\n' +
+      '". password-input-container ."\n' +
+      '". . ."\n' +
+      '". forgot-password-container ."\n' +
+      '". . ."\n' +
+      '". signin-button-container ."\n' +
+      '". . ."\n' +
+      '". create-account-container ."\n' +
+      '',
+    gridArea: 'form-container',
+    height: '100%',
+  },
+  signInText: {
+    gridArea: 'sign-in-text',
+
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  loginInputContainer: {
+    gridArea: 'login-input-container',
+  },
+  passwordInputContainer: {
+    gridArea: 'password-input-container',
+  },
+  forgotPasswordContainer: {
+    display: 'grid',
+    gridTemplateColumns: '10fr auto 0.5fr',
+    gridTemplateRows: 'min-content',
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '". forgot-password-text ."\n' +
+      '',
+    gridArea: 'forgot-password-container',
+  },
+  forgotPasswordText: {
+    gridArea: 'forgot-password-text',
+  },
+  signinButtonContainer: {
+    display: 'grid',
+    gridTemplateColumns: `${42.5/796 * 100}% auto ${42.5/796 * 100}%`,
+    gridTemplateRows: '1fr',
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '". signin-button ."\n' +
+      '',
+    gridArea: 'signin-button-container',
+  },
+  signinButton: {
+    gridArea: 'signin-button',
+  },
+  createAccountContainer: {
+    gridArea: 'create-account-container',
+
+    display: 'flex',
+    justifyContent: 'center',
   },
 })
 
-export default function SignIn() {
+function Form() {
   const [ login, setLogin ] = React.useState<string>('')
   const [ password, setPassword ] = React.useState<string>('')
 
@@ -70,6 +155,102 @@ export default function SignIn() {
   )
   const dispatch = useDispatch()
 
+  return (
+    <div className={css(styles.container)}>
+      <div className={css(styles.welcomeContainer)}>
+        <div className={css(styles.welcomeText, styles.welcome)}>
+          {'Welcome'}
+        </div>
+      </div>
+      <div className={css(styles.formContainer)}>
+        <div className={css(styles.signInText, sharedStyles.sign_in)}>
+          {'Sign In'}
+        </div>
+        <div className={css(styles.loginInputContainer)}>
+          <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+            {'Email or phone'}
+          </div>
+          <input
+            className={css(sharedStyles.input)}
+            onChange={e => { setLogin(e.target.value)  }}
+            disabled={loginState.state[0] === 'IN_PROGRESS'}
+          />
+        </div>
+        <div className={css(styles.passwordInputContainer)}>
+          <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+            {'Password'}
+          </div>
+          <input
+            className={css(sharedStyles.input)}
+            onChange={e => { setPassword(e.target.value) }}
+            disabled={loginState.state[0] === 'IN_PROGRESS'}
+          />
+        </div>
+        <div className={css(styles.forgotPasswordContainer)}>
+          <div className={css(styles.forgotPasswordText, styles.forgotPassword)}>
+            <a onClick={() => void alert("Not implemented yet")}>
+              {'Forgot Password?'}
+            </a>
+          </div>
+        </div>
+        <div className={css(styles.signinButtonContainer)}>
+          <div className={css(styles.signinButton)}>
+            <button
+              className={css(sharedStyles.button)}
+              onClick={() => {
+                login
+                && password
+                && loginState.state[0] !== 'IN_PROGRESS'
+                && dispatch(SignUpSlicer.actionCreators.requestLogin(login, password))
+              }}
+              disabled={login === '' || password === '' || loginState.state[0] === 'IN_PROGRESS'}
+            >
+              <div className={css(sharedStyles.buttonLabel)}>
+                {'Sign In'}
+              </div>
+            </button>
+            { loginState.state[0] === 'IN_PROGRESS' && (
+                <Reactstrap.Spinner role="status">
+                  Loading...
+                </Reactstrap.Spinner>
+            )}
+            <Call f={() => {
+              switch (loginState.state[0]) {
+                case 'RESOLVED':
+                  const res = loginState.state[1]
+                  switch (res[0]) {
+                    case 'OK':
+                      return (<div>Ok</div>)
+                      break
+                    case "ERROR":
+                      return (<div style={{color: "red"}}>{res[1]}</div>)
+                      break
+                  }
+                  break
+                case "HAS_NOT_STARTED_YET":
+                  return null
+                  break
+                case "IN_PROGRESS":
+                  return null
+                  break
+              }
+              return null
+            }} />
+          </div>
+        </div>
+        <div className={css(styles.createAccountContainer)}>
+          <div className={css(styles.create_account)}>
+            <Link to="/sign-up">
+              {'Create Account'}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function SignIn() {
   return (
     <div className={css(sharedStyles.centerContainer)}>
       <div className={css(sharedStyles.group_layout)}>
@@ -82,87 +263,7 @@ export default function SignIn() {
             </div>
           </div>
           <div className={css(sharedStyles.flex_content)}>
-            <div className={css(sharedStyles.flex_content_box, sharedStyles.flex_content_box_layout)}>
-              <h1 className={css(styles.welcome, styles.welcome_layout)}>
-                {'Welcome'}
-              </h1>
-              <h1 className={css(sharedStyles.sign_in, sharedStyles.sign_in_layout)}>
-                {'Sign In'}
-              </h1>
-              <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-                {'Email or phone'}
-              </h2>
-              <input
-                className={css(sharedStyles.input, sharedStyles.input_layout)}
-                onChange={e => { setLogin(e.target.value)  }}
-                disabled={loginState.state[0] === 'IN_PROGRESS'}
-              />
-              <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-                {'Password'}
-              </h2>
-              <input
-                className={css(sharedStyles.input, sharedStyles.input_layout)}
-                onChange={e => { setPassword(e.target.value) }}
-                disabled={loginState.state[0] === 'IN_PROGRESS'}
-              />
-              <h3 className={css(styles.subtitle, styles.subtitle_layout)} >
-                <a onClick={() => void alert("Not implemented yet")}>
-                  {'Forgot Password?'}
-                </a>
-              </h3>
-              <div>
-                <button
-                  className={css(sharedStyles.button, sharedStyles.button_layout)}
-                  onClick={() => {
-                    login
-                    && password
-                    && loginState.state[0] !== 'IN_PROGRESS'
-                    && dispatch(SignUpSlicer.actionCreators.requestLogin(login, password))
-                  }}
-                  disabled={login === '' || password === '' || loginState.state[0] === 'IN_PROGRESS'}
-                >
-                  <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
-                    {'Sign In'}
-                  </h1>
-                </button>
-                { loginState.state[0] === 'IN_PROGRESS' && (
-                    <Reactstrap.Spinner role="status">
-                      Loading...
-                    </Reactstrap.Spinner>
-                )}
-                <Call f={() => {
-                  switch (loginState.state[0]) {
-                    case 'RESOLVED':
-                      const res = loginState.state[1]
-                      switch (res[0]) {
-                        case 'OK':
-                          return (<div>Ok</div>)
-                          break
-                        case "ERROR":
-                          return (<div style={{color: "red"}}>{res[1]}</div>)
-                          break
-                      }
-                      break
-                    case "HAS_NOT_STARTED_YET":
-                      return null
-                      break
-                    case "IN_PROGRESS":
-                      return null
-                      break
-                  }
-                  return null
-                }} />
-              </div>
-              <h3
-                className={css(
-                  styles.create_account,
-                  styles.create_account_layout,
-                )}>
-                <Link to="/sign-up">
-                  {'Create Account'}
-                </Link>
-              </h3>
-            </div>
+            <Form />
           </div>
         </div>
       </div>

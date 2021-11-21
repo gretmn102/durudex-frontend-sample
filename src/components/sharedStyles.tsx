@@ -90,8 +90,6 @@ export const sharedStyles = StyleSheet.create({
   logo_layout: { gridArea: 'logo_layout' },
 
   sign_in: {
-    display: 'flex',
-
     fontSize: resizeByHeight(32),
     fontWeight: 700,
 
@@ -109,23 +107,24 @@ export const sharedStyles = StyleSheet.create({
   },
   inputTitle: {
     fontSize: resizeByHeight(25),
-    fontWeight: 700,
+    fontWeight: 'bold',
 
-    color: 'rgb(0,0,0)',
+    color: '#4F506A',
   },
   inputTitle_layout: {
     position: 'relative',
-    marginTop: resizeByHeight(34),
+    marginLeft: 8,
+    marginBottom: 7,
   },
   input: {
     backgroundColor: 'rgb(255,255,255)',
     border: '1px solid rgb(3,99,245)',
-    borderRadius: '5px 5px 5px 5px',
+    borderRadius: '8px',
 
     fontSize: resizeByHeight(25),
     fontWeight: 700,
 
-    padding: '0.375rem 0.75rem',
+    padding: '4px 8px',
     color: '#495057',
     backgroundClip: 'padding-box',
     width: '100%',
@@ -143,8 +142,8 @@ export const sharedStyles = StyleSheet.create({
     marginTop: resizeByHeight(15),
   },
   button: {
-    display: 'flex',
     width: '100%',
+    height: '100%',
     padding: 0,
     backgroundColor: 'rgb(3,99,245)',
     borderRadius: '7px 7px 7px 7px',
@@ -174,11 +173,12 @@ export const sharedStyles = StyleSheet.create({
   },
   buttonLabel: {
     display: 'flex',
-
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: resizeByHeight(30),
     fontWeight: 700,
 
-    color: 'rgb(255,255,255)',
+    color: 'white',
   },
   buttonLabel_layout: {
     position: 'relative',
