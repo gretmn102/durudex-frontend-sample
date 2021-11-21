@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   cover_group: {
     display: 'flex',
-    background: `url(${LogoBackground}) center center / cover no-repeat`,
+    background: `linear-gradient(0deg, rgba(115, 91, 135, 0.4), rgba(115, 91, 135, 0.4)), url(${LogoBackground}) center center / cover no-repeat`,
     borderRadius: '20px 0px 0px 20px',
   },
   welcome: {
