@@ -75,7 +75,7 @@ export const sharedStyles = StyleSheet.create({
   logo_grid: {
     display: 'grid',
     gridTemplateColumns: '1fr',
-    gridTemplateRows: '2.1fr 0.7fr 0.2fr',
+    gridTemplateRows: `${719/977 * 100}% auto ${173/977 * 100}%`,
     gap: '0px 0px',
     gridAutoFlow: 'row',
     gridTemplateAreas: '\n' +
@@ -83,6 +83,8 @@ export const sharedStyles = StyleSheet.create({
     '  "logo_layout"\n' +
     '  "."\n' +
     '',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   logo_grid_layout: {
     position: 'relative',
