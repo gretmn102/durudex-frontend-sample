@@ -6,7 +6,7 @@ import * as Reactstrap from 'reactstrap'
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignUp'
 import { Call, Deferred, deferredMatch } from '../common'
-import { sharedStyles } from './sharedStyles'
+import { resizeByHeight, sharedStyles } from './sharedStyles'
 import LogoBackground2 from './logoBackground2.jpg'
 import LogoBackground3 from './logoBackground3.jpg'
 import LogoBackground4 from './logoBackground4.jpg'
@@ -62,6 +62,12 @@ const styles = StyleSheet.create({
     paddingRight: '0.75rem',
     paddingLeft: '0.75rem',
   },
+  signup: {
+    fontWeight: 'bold',
+    fontSize: resizeByHeight(50),
+    color: '#0263F4',
+    lineHeight: 'normal',
+  },
 })
 
 
@@ -71,9 +77,7 @@ function Page(props: { coverStyle: StyleDeclarationValue, children?: JSX.Element
       <div className={css(sharedStyles.group_layout)}>
         <div className={css(sharedStyles.window_box)}>
           <div className={css(sharedStyles.flex_content)}>
-            <div className={css(sharedStyles.flex_content_box, sharedStyles.flex_content_box_layout)}>
-              {props.children}
-            </div>
+            {props.children}
           </div>
           <div className={css(sharedStyles.flex_logo)}>
             <div className={css(props.coverStyle, sharedStyles.cover_group_layout)}>
@@ -87,6 +91,60 @@ function Page(props: { coverStyle: StyleDeclarationValue, children?: JSX.Element
     </div>
   )
 }
+
+const firstPageStyles = StyleSheet.create({
+  container: {
+    display: 'grid',
+    gridTemplateColumns: `${182/1160 * 100}% auto ${182/1160 * 100}%`,
+    gridTemplateRows: `${178/977 * 100}% min-content ${40/977 * 100}% ${100/977 * 100}% ${15/977 * 100}% ${100/977 * 100}% ${15/977 * 100}% ${100/977 * 100}% auto ${73/977 * 100}% ${178/977 * 100}%`,
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '". . ."\n' +
+      '". signup-container ."\n' +
+      '". . ."\n' +
+      '". name-container ."\n' +
+      '". . ."\n' +
+      '". email-container ."\n' +
+      '". . ."\n' +
+      '". username-container ."\n' +
+      '". . ."\n' +
+      '". next-container ."\n' +
+      '". . ."\n' +
+      '',
+    flexGrow: 1,
+    height: '100%',
+  },
+  signupContainer: {
+    gridArea: 'signup-container',
+
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  nameContainer: {
+    gridArea: 'name-container',
+  },
+  emailContainer: {
+    gridArea: 'email-container',
+  },
+  usernameContainer: {
+    gridArea: 'username-container',
+  },
+  nextContainer: {
+    display: 'grid',
+    gridTemplateColumns: `${42.5/796 * 100}% auto ${42.5/796 * 100}%`,
+    gridTemplateRows: '1fr',
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '". next ."\n' +
+      '',
+    gridArea: 'next-container',
+  },
+  next: {
+    gridArea: 'next',
+  },
+})
 
 function FirstPage() {
   const state = useSelector(
@@ -103,28 +161,30 @@ function FirstPage() {
     && isAvailable(state.isValidUsername)
 
   return (
-    <>
-      <h1 className={css(sharedStyles.sign_in, sharedStyles.sign_in_layout)}>
-        {'Sign Up'}
-      </h1>
-      <div>
-        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+    <div className={css(firstPageStyles.container)}>
+      <div className={css(firstPageStyles.signupContainer)}>
+        <div className={css(styles.signup)}>
+          {'Sign Up'}
+        </div>
+      </div>
+      <div className={css(firstPageStyles.nameContainer)}>
+        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Name'}
-        </h2>
+        </div>
         <input
-          className={css(sharedStyles.input, sharedStyles.input_layout)}
+          className={css(sharedStyles.input)}
           value={user.name}
           onChange={e => {
             dispatch(SignUpSlicer.setName(e.target.value))
           }}
         />
       </div>
-      <div>
-        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+      <div className={css(firstPageStyles.emailContainer)}>
+        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Email'}
-        </h2>
+        </div>
         <input
-          className={css(sharedStyles.input, sharedStyles.input_layout)}
+          className={css(sharedStyles.input)}
           value={user.email}
           onChange={e => {
             // setEmail(e.target.value)
@@ -158,12 +218,12 @@ function FirstPage() {
           return null
         }} />
       </div>
-      <div>
-        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+      <div className={css(firstPageStyles.usernameContainer)}>
+        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Username'}
-        </h2>
+        </div>
         <input
-          className={css(sharedStyles.input, sharedStyles.input_layout)}
+          className={css(sharedStyles.input)}
           value={user.username}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
@@ -172,19 +232,23 @@ function FirstPage() {
         />
         <div>{state.isValidUsername}</div>
       </div>
-      <button
-        className={css(sharedStyles.button, sharedStyles.button_layout)}
-        onClick={() => {
-          isValid
-          && dispatch(SignUpSlicer.setPage('SECOND'))
-        }}
-        disabled={!isValid}
-      >
-        <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
-          {'Next'}
-        </h1>
-      </button>
-    </>
+      <div className={css(firstPageStyles.nextContainer)}>
+        <div className={css(firstPageStyles.next)}>
+          <button
+            className={css(sharedStyles.button)}
+            onClick={() => {
+              isValid
+              && dispatch(SignUpSlicer.setPage('SECOND'))
+            }}
+            disabled={!isValid}
+          >
+            <div className={css(sharedStyles.buttonLabel)}>
+              {'Next'}
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
