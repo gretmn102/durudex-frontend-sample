@@ -96,18 +96,14 @@ const firstPageStyles = StyleSheet.create({
   container: {
     display: 'grid',
     gridTemplateColumns: `${182/1160 * 100}% auto ${182/1160 * 100}%`,
-    gridTemplateRows: `${178/977 * 100}% min-content ${40/977 * 100}% ${100/977 * 100}% ${15/977 * 100}% ${100/977 * 100}% ${15/977 * 100}% ${100/977 * 100}% auto ${73/977 * 100}% ${178/977 * 100}%`,
+    gridTemplateRows: `${178/977 * 100}% min-content ${40/977 * 100}% auto ${113/977 * 100}% ${73/977 * 100}% ${178/977 * 100}%`,
     gap: '0px 0px',
     gridAutoFlow: 'row',
     gridTemplateAreas: '\n' +
       '". . ."\n' +
       '". signup-container ."\n' +
       '". . ."\n' +
-      '". name-container ."\n' +
-      '". . ."\n' +
-      '". email-container ."\n' +
-      '". . ."\n' +
-      '". username-container ."\n' +
+      '". form-container ."\n' +
       '". . ."\n' +
       '". next-container ."\n' +
       '". . ."\n' +
@@ -120,6 +116,21 @@ const firstPageStyles = StyleSheet.create({
 
     display: 'flex',
     justifyContent: 'center',
+  },
+  formContainer: {
+    display: 'grid',
+    gridTemplateColumns: `auto`,
+    gridTemplateRows: `${100/330 * 100}% auto ${100/330 * 100}% auto ${100/330 * 100}%`,
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridTemplateAreas: '\n' +
+      '"name-container"\n' +
+      '"."\n' +
+      '"email-container"\n' +
+      '"."\n' +
+      '"username-container"\n' +
+      '',
+    gridArea: 'form-container',
   },
   nameContainer: {
     gridArea: 'name-container',
@@ -167,78 +178,80 @@ function FirstPage() {
           {'Sign Up'}
         </div>
       </div>
-      <div className={css(firstPageStyles.nameContainer)}>
-        <Input
-          inputTitle="Name"
-          value={user.name}
-          onChange={e => {
-            dispatch(SignUpSlicer.setName(e.target.value))
-          }}
-          isDisabled={false}
-          isLoading={false}
-        />
-      </div>
-      <div className={css(firstPageStyles.emailContainer)}>
-        <Input
-          inputTitle="Email"
-          value={user.email}
-          onChange={e => {
-            dispatch(SignUpSlicer.actionCreators.validateEmail(e.target.value))
-          }}
-          isDisabled={false}
-          isLoading={state.isValidEmail[0] === 'IN_PROGRESS'}
-          subtitle={(() => {
-            const res = state.isValidEmail
-            switch (res[0]) {
-              case "RESOLVED": {
-                const [, val] = res
-                switch (val[0]) {
-                  case "ERROR": {
-                    return { color: 'red', text: val[1].toString() }
-                  } break
-                  case 'AVAILABLE':
-                    return undefined
-                    break
-                }
-              } break
+      <div className={css(firstPageStyles.formContainer)}>
+        <div className={css(firstPageStyles.nameContainer)}>
+          <Input
+            inputTitle="Name"
+            value={user.name}
+            onChange={e => {
+              dispatch(SignUpSlicer.setName(e.target.value))
+            }}
+            isDisabled={false}
+            isLoading={false}
+          />
+        </div>
+        <div className={css(firstPageStyles.emailContainer)}>
+          <Input
+            inputTitle="Email"
+            value={user.email}
+            onChange={e => {
+              dispatch(SignUpSlicer.actionCreators.validateEmail(e.target.value))
+            }}
+            isDisabled={false}
+            isLoading={state.isValidEmail[0] === 'IN_PROGRESS'}
+            subtitle={(() => {
+              const res = state.isValidEmail
+              switch (res[0]) {
+                case "RESOLVED": {
+                  const [, val] = res
+                  switch (val[0]) {
+                    case "ERROR": {
+                      return { color: 'red', text: val[1].toString() }
+                    } break
+                    case 'AVAILABLE':
+                      return undefined
+                      break
+                  }
+                } break
 
-              default:
-                return undefined
-            }
-            return undefined
-          })()}
-        />
-      </div>
-      <div className={css(firstPageStyles.usernameContainer)}>
-        <Input
-          inputTitle="Username"
-          value={user.username}
-          onChange={e => {
-            dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
-          }}
-          isDisabled={false}
-          isLoading={state.isValidUsername[0] === 'IN_PROGRESS'}
-          subtitle={(() => {
-            const res = state.isValidUsername
-            switch (res[0]) {
-              case "RESOLVED": {
-                const [, val] = res
-                switch (val[0]) {
-                  case "ERROR": {
-                    return { color: 'red', text: val[1].toString() }
-                  } break
-                  case 'AVAILABLE':
-                    return undefined
-                    break
-                }
-              } break
+                default:
+                  return undefined
+              }
+              return undefined
+            })()}
+          />
+        </div>
+        <div className={css(firstPageStyles.usernameContainer)}>
+          <Input
+            inputTitle="Username"
+            value={user.username}
+            onChange={e => {
+              dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
+            }}
+            isDisabled={false}
+            isLoading={state.isValidUsername[0] === 'IN_PROGRESS'}
+            subtitle={(() => {
+              const res = state.isValidUsername
+              switch (res[0]) {
+                case "RESOLVED": {
+                  const [, val] = res
+                  switch (val[0]) {
+                    case "ERROR": {
+                      return { color: 'red', text: val[1].toString() }
+                    } break
+                    case 'AVAILABLE':
+                      return undefined
+                      break
+                  }
+                } break
 
-              default:
-                return undefined
-            }
-            return undefined
-          })()}
-        />
+                default:
+                  return undefined
+              }
+              return undefined
+            })()}
+          />
+        </div>
       </div>
       <div className={css(firstPageStyles.nextContainer)}>
         <div className={css(firstPageStyles.next)}>
