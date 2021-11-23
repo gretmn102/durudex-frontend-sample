@@ -116,6 +116,8 @@ export const sharedStyles = StyleSheet.create({
     fontWeight: 'bold',
 
     color: '#4F506A',
+
+    whiteSpace: 'nowrap',
   },
   inputTitle_layout: {
     position: 'relative',
@@ -185,13 +187,11 @@ export const sharedStyles = StyleSheet.create({
     fontWeight: 700,
 
     color: 'white',
-  },
-  buttonLabel_layout: {
-    position: 'relative',
-    marginTop: resizeByHeight(18),
-    marginRight: 'auto',
-    marginBottom: resizeByHeight(18),
-    marginLeft: 'auto',
+
+    marginRight: '0.3rem',
+    marginLeft: '0.3rem',
+
+    whiteSpace: 'nowrap',
   },
 
   level: {

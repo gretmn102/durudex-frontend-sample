@@ -59,14 +59,29 @@ const styles = StyleSheet.create({
     flexBasis: 0,
     flexGrow: 1,
     flexShrink: 1,
-    paddingRight: '0.75rem',
-    paddingLeft: '0.75rem',
   },
   signup: {
     fontWeight: 'bold',
     fontSize: resizeByHeight(50),
     color: '#0263F4',
     lineHeight: 'normal',
+  },
+  footerButtonsContainer: {
+    display: 'grid',
+    grid: `
+      "left-button . right-button" auto
+      /
+      1fr 0.1fr 1fr
+    `,
+    gap: '0px 0px',
+    gridAutoFlow: 'row',
+    gridArea: 'next',
+  },
+  leftButton: {
+    gridArea: 'left-button',
+  },
+  rightButton: {
+    gridArea: 'right-button',
   },
 })
 
@@ -288,100 +303,103 @@ function SecondPage() {
     && isAvailable(state.isValidPhone)
 
   return (
-    <>
-      <h1 className={css(sharedStyles.sign_in, sharedStyles.sign_in_layout)}>
-        {'Sign Up'}
-      </h1>
-      <div>
-        <Input
-          inputTitle="Password"
-          value={user.password}
-          onChange={e => {
-            dispatch(SignUpSlicer.setPassword(e.target.value))
-          }}
-          isDisabled={false}
-          isLoading={false}
-        />
+    <div className={css(firstPageStyles.container)}>
+      <div className={css(firstPageStyles.signupContainer)}>
+        <div className={css(styles.signup)}>
+          {'Sign Up'}
+        </div>
       </div>
-      <div>
-        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-          {'Confirm the password'}
-        </h2>
-        <Input
-          inputTitle="Password"
-          value={passwordConfirmation}
-          onChange={e => {
-            setPasswordConfirmation(e.target.value)
-          }}
-          isDisabled={false}
-          isLoading={false}
-          subtitle={
-            user.password !== passwordConfirmation ?
-              {color: 'red', text: 'Password mismatch'}
-            : undefined
-          }
-        />
-      </div>
-      <div>
-        <Input
-          inputTitle="Phone"
-          value={user.phone}
-          onChange={e => {
-            dispatch(SignUpSlicer.actionCreators.validatePhone(e.target.value))
-          }}
-          isDisabled={false}
-          isLoading={state.isValidPhone[0] === 'IN_PROGRESS'}
-          subtitle={(() => {
-            const res = state.isValidPhone
-            switch (res[0]) {
-              case "RESOLVED": {
-                const [, val] = res
-                switch (val[0]) {
-                  case "ERROR": {
-                    return { color: 'red', text: val[1].toString() }
-                  } break
-                  case 'AVAILABLE':
-                    return undefined
-                    break
-                }
-              } break
-
-              default:
-                return undefined
+      <div className={css(firstPageStyles.formContainer)}>
+        <div className={css(firstPageStyles.nameContainer)}>
+          <Input
+            inputTitle="Password"
+            value={user.password}
+            onChange={e => {
+              dispatch(SignUpSlicer.setPassword(e.target.value))
+            }}
+            isDisabled={false}
+            isLoading={false}
+          />
+        </div>
+        <div className={css(firstPageStyles.emailContainer)}>
+          <Input
+            inputTitle="Confirm password"
+            value={passwordConfirmation}
+            onChange={e => {
+              setPasswordConfirmation(e.target.value)
+            }}
+            isDisabled={false}
+            isLoading={false}
+            subtitle={
+              user.password !== passwordConfirmation ?
+                {color: 'red', text: 'Password mismatch'}
+              : undefined
             }
-            return undefined
-          })()}
-        />
-      </div>
-      <div className={css(styles.columns, sharedStyles.button_layout)}>
-        <div className={css(styles.column)}>
-          <button
-            className={css(sharedStyles.button)}
-            onClick={e => {
-              dispatch(SignUpSlicer.setPage('FIRST'))
-            }}
-          >
-            <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
-              {'Previous'}
-            </h1>
-          </button>
+          />
         </div>
-        <div className={css(styles.column)}>
-          <button
-            className={css(sharedStyles.button)}
-            onClick={e => {
-              isValid
-              && dispatch(SignUpSlicer.setPage('THIRD'))
+        <div className={css(firstPageStyles.usernameContainer)}>
+          <Input
+            inputTitle="Phone"
+            value={user.phone}
+            onChange={e => {
+              dispatch(SignUpSlicer.actionCreators.validatePhone(e.target.value))
             }}
-            disabled={!isValid}
-          >
-            <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
-              {'Next'}
-            </h1>
-          </button>
+            isDisabled={false}
+            isLoading={state.isValidPhone[0] === 'IN_PROGRESS'}
+            subtitle={(() => {
+              const res = state.isValidPhone
+              switch (res[0]) {
+                case "RESOLVED": {
+                  const [, val] = res
+                  switch (val[0]) {
+                    case "ERROR": {
+                      return { color: 'red', text: val[1].toString() }
+                    } break
+                    case 'AVAILABLE':
+                      return undefined
+                      break
+                  }
+                } break
+
+                default:
+                  return undefined
+              }
+              return undefined
+            })()}
+          />
         </div>
       </div>
-    </>
+      <div className={css(firstPageStyles.nextContainer)}>
+        <div className={css(styles.footerButtonsContainer)}>
+          <div className={css(styles.leftButton)}>
+            <button
+              className={css(sharedStyles.button)}
+              onClick={e => {
+                dispatch(SignUpSlicer.setPage('FIRST'))
+              }}
+            >
+              <div className={css(sharedStyles.buttonLabel)}>
+                {'Previous'}
+              </div>
+            </button>
+          </div>
+          <div className={css(styles.rightButton)}>
+            <button
+              className={css(sharedStyles.button)}
+              onClick={e => {
+                isValid
+                && dispatch(SignUpSlicer.setPage('THIRD'))
+              }}
+              disabled={!isValid}
+            >
+              <div className={css(sharedStyles.buttonLabel)}>
+                {'Next'}
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -393,30 +411,39 @@ function ThirdPage() {
   const isValid = true
 
   return (
-    <div className={css(styles.columns, sharedStyles.button_layout)}>
-      <div className={css(styles.column)}>
-        <button
-          className={css(sharedStyles.button)}
-          onClick={e => {
-            isValid
-            && dispatch(SignUpSlicer.setPage('SECOND'))
-          }}
-          disabled={!isValid}
-        >
-          <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
-            {'Previous'}
-          </h1>
-        </button>
+    <div className={css(firstPageStyles.container)}>
+      <div className={css(firstPageStyles.signupContainer)}>
+        <div className={css(styles.signup)}>
+          {'Sign Up'}
+        </div>
       </div>
-      <div className={css(styles.column)}>
-        <button
-          className={css(sharedStyles.button)}
-          onClick={() => alert('Not implemented yet')}
-        >
-          <h1 className={css(sharedStyles.buttonLabel, sharedStyles.buttonLabel_layout)}>
-            {'Done'}
-          </h1>
-        </button>
+      <div className={css(firstPageStyles.formContainer)}>
+      </div>
+      <div className={css(firstPageStyles.nextContainer)}>
+        <div className={css(styles.footerButtonsContainer)}>
+          <div className={css(styles.leftButton)}>
+            <button
+              className={css(sharedStyles.button)}
+              onClick={e => {
+                dispatch(SignUpSlicer.setPage('SECOND'))
+              }}
+            >
+              <div className={css(sharedStyles.buttonLabel)}>
+                {'Previous'}
+              </div>
+            </button>
+          </div>
+          <div className={css(styles.rightButton)}>
+            <button
+              className={css(sharedStyles.button)}
+              onClick={() => alert('Not implemented yet')}
+            >
+              <div className={css(sharedStyles.buttonLabel)}>
+                {'Done'}
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
