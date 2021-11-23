@@ -1,4 +1,7 @@
 import { StyleSheet, css } from 'aphrodite/no-important'
+import React from 'react'
+import * as Reactstrap from 'reactstrap'
+
 import Logo from './logo.png'
 
 export const initHeight = 1050
@@ -208,3 +211,41 @@ export const sharedStyles = StyleSheet.create({
   column: {
   },
 })
+
+export function Input(props: {
+  inputTitle?: string
+  onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void)
+  isDisabled: boolean
+  isLoading: boolean
+  subtitle?: { color: string | undefined, text: string }
+  value?: string | string []
+}) {
+  const { inputTitle } = props
+  const subtitle = props.subtitle
+
+  return (
+    <div>
+      {inputTitle && (
+        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+          {inputTitle}
+        </div>
+      )}
+      <input
+        className={css(sharedStyles.input)}
+        onChange={props.onChange}
+        disabled={props.isDisabled}
+        value={props.value}
+      />
+      {props.isLoading && (
+        <Reactstrap.Spinner role="status">
+          Loading...
+        </Reactstrap.Spinner>
+      )}
+      {subtitle && (
+        <div style={subtitle.color ? {color: subtitle.color} : {}}>
+          {subtitle.text}
+        </div>
+      )}
+    </div>
+  )
+}

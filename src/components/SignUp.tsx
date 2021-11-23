@@ -6,7 +6,7 @@ import * as Reactstrap from 'reactstrap'
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignUp'
 import { Call, Deferred, deferredMatch } from '../common'
-import { resizeByHeight, sharedStyles } from './sharedStyles'
+import { Input, resizeByHeight, sharedStyles } from './sharedStyles'
 import LogoBackground2 from './logoBackground2.jpg'
 import LogoBackground3 from './logoBackground3.jpg'
 import LogoBackground4 from './logoBackground4.jpg'
@@ -168,69 +168,77 @@ function FirstPage() {
         </div>
       </div>
       <div className={css(firstPageStyles.nameContainer)}>
-        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-          {'Name'}
-        </div>
-        <input
-          className={css(sharedStyles.input)}
+        <Input
+          inputTitle="Name"
           value={user.name}
           onChange={e => {
             dispatch(SignUpSlicer.setName(e.target.value))
           }}
+          isDisabled={false}
+          isLoading={false}
         />
       </div>
       <div className={css(firstPageStyles.emailContainer)}>
-        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-          {'Email'}
-        </div>
-        <input
-          className={css(sharedStyles.input)}
+        <Input
+          inputTitle="Email"
           value={user.email}
           onChange={e => {
-            // setEmail(e.target.value)
             dispatch(SignUpSlicer.actionCreators.validateEmail(e.target.value))
           }}
-          // disabled={props.isValidEmail[0] === 'IN_PROGRESS'}
+          isDisabled={false}
+          isLoading={state.isValidEmail[0] === 'IN_PROGRESS'}
+          subtitle={(() => {
+            const res = state.isValidEmail
+            switch (res[0]) {
+              case "RESOLVED": {
+                const [, val] = res
+                switch (val[0]) {
+                  case "ERROR": {
+                    return { color: 'red', text: val[1].toString() }
+                  } break
+                  case 'AVAILABLE':
+                    return undefined
+                    break
+                }
+              } break
+
+              default:
+                return undefined
+            }
+            return undefined
+          })()}
         />
-        <Call f={() => {
-          const res = state.isValidEmail
-          switch (res[0]) {
-            case "RESOLVED": {
-              const [, val] = res
-              switch (val[0]) {
-                case "ERROR": {
-                  return <div style={{ color:'red' }}>{val[1]}</div>
-                } break
-                case 'AVAILABLE':
-                  return null
-                  break
-              }
-            } break
-            case "HAS_NOT_STARTED_YET": { return null } break
-            case "IN_PROGRESS": {
-              return (
-                <Reactstrap.Spinner role="status">
-                  Loading...
-                </Reactstrap.Spinner>
-              )
-            } break
-          }
-          return null
-        }} />
       </div>
       <div className={css(firstPageStyles.usernameContainer)}>
-        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-          {'Username'}
-        </div>
-        <input
-          className={css(sharedStyles.input)}
+        <Input
+          inputTitle="Username"
           value={user.username}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validateUsername(e.target.value))
           }}
-          // disabled={props.isValidUsername[0] === 'IN_PROGRESS'}
+          isDisabled={false}
+          isLoading={state.isValidUsername[0] === 'IN_PROGRESS'}
+          subtitle={(() => {
+            const res = state.isValidUsername
+            switch (res[0]) {
+              case "RESOLVED": {
+                const [, val] = res
+                switch (val[0]) {
+                  case "ERROR": {
+                    return { color: 'red', text: val[1].toString() }
+                  } break
+                  case 'AVAILABLE':
+                    return undefined
+                    break
+                }
+              } break
+
+              default:
+                return undefined
+            }
+            return undefined
+          })()}
         />
-        <div>{state.isValidUsername}</div>
       </div>
       <div className={css(firstPageStyles.nextContainer)}>
         <div className={css(firstPageStyles.next)}>
@@ -272,48 +280,65 @@ function SecondPage() {
         {'Sign Up'}
       </h1>
       <div>
-        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-          {'Password'}
-        </h2>
-        <input
-          className={css(sharedStyles.input, sharedStyles.input_layout)}
-          id="password"
+        <Input
+          inputTitle="Password"
           value={user.password}
           onChange={e => {
             dispatch(SignUpSlicer.setPassword(e.target.value))
           }}
+          isDisabled={false}
+          isLoading={false}
         />
       </div>
       <div>
         <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
           {'Confirm the password'}
         </h2>
-        <input
-          className={css(sharedStyles.input, sharedStyles.input_layout)}
+        <Input
+          inputTitle="Password"
           value={passwordConfirmation}
           onChange={e => {
             setPasswordConfirmation(e.target.value)
           }}
-        />
-        <Call f={() => {
-          if (user.password !== passwordConfirmation) {
-            return <div style={{ color:'red' }}>Password mismatch</div>
+          isDisabled={false}
+          isLoading={false}
+          subtitle={
+            user.password !== passwordConfirmation ?
+              {color: 'red', text: 'Password mismatch'}
+            : undefined
           }
-          return null
-        }} />
+        />
       </div>
       <div>
-        <h2 className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-          {'Phone'}
-        </h2>
-        <input
-          className={css(sharedStyles.input, sharedStyles.input_layout)}
+        <Input
+          inputTitle="Phone"
           value={user.phone}
           onChange={e => {
             dispatch(SignUpSlicer.actionCreators.validatePhone(e.target.value))
           }}
+          isDisabled={false}
+          isLoading={state.isValidPhone[0] === 'IN_PROGRESS'}
+          subtitle={(() => {
+            const res = state.isValidPhone
+            switch (res[0]) {
+              case "RESOLVED": {
+                const [, val] = res
+                switch (val[0]) {
+                  case "ERROR": {
+                    return { color: 'red', text: val[1].toString() }
+                  } break
+                  case 'AVAILABLE':
+                    return undefined
+                    break
+                }
+              } break
+
+              default:
+                return undefined
+            }
+            return undefined
+          })()}
         />
-        <div>{state.isValidPhone}</div>
       </div>
       <div className={css(styles.columns, sharedStyles.button_layout)}>
         <div className={css(styles.column)}>

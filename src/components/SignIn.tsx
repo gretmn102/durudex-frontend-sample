@@ -8,7 +8,7 @@ import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignIn'
 import LogoBackground from './logoBackground.jpg'
 import { Deferred, deferredMatch, Call } from '../common'
-import { breakSize, resizeByHeight, resizeByWidth, sharedStyles } from './sharedStyles'
+import { breakSize, Input, resizeByHeight, resizeByWidth, sharedStyles } from './sharedStyles'
 
 const styles = StyleSheet.create({
   white: {
@@ -167,23 +167,19 @@ function Form() {
           {'Sign In'}
         </div>
         <div className={css(styles.loginInputContainer)}>
-          <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-            {'Email or phone'}
-          </div>
-          <input
-            className={css(sharedStyles.input)}
-            onChange={e => { setLogin(e.target.value)  }}
-            disabled={loginState.state[0] === 'IN_PROGRESS'}
+          <Input
+            inputTitle="Email or phone"
+            onChange={e => { setLogin(e.target.value) }}
+            isDisabled={loginState.state[0] === 'IN_PROGRESS'}
+            isLoading={false}
           />
         </div>
         <div className={css(styles.passwordInputContainer)}>
-          <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
-            {'Password'}
-          </div>
-          <input
-            className={css(sharedStyles.input)}
+          <Input
+            inputTitle="Password"
             onChange={e => { setPassword(e.target.value) }}
-            disabled={loginState.state[0] === 'IN_PROGRESS'}
+            isDisabled={loginState.state[0] === 'IN_PROGRESS'}
+            isLoading={false}
           />
         </div>
         <div className={css(styles.forgotPasswordContainer)}>
