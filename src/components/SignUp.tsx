@@ -95,19 +95,19 @@ function Page(props: { coverStyle: StyleDeclarationValue, children?: JSX.Element
 const firstPageStyles = StyleSheet.create({
   container: {
     display: 'grid',
-    gridTemplateColumns: `${182/1160 * 100}% auto ${182/1160 * 100}%`,
-    gridTemplateRows: `${178/977 * 100}% min-content ${40/977 * 100}% auto ${113/977 * 100}% ${73/977 * 100}% ${178/977 * 100}%`,
+    grid: `
+      ". . ." ${178/977 * 100}%
+      ". signup-container ." min-content
+      ". . ." ${40/977 * 100}%
+      ". form-container ."
+      ". . ." ${113/977 * 100}%
+      ". next-container ." ${73/977 * 100}%
+      ". . ." ${178/977 * 100}%
+      /
+      auto ${796/1160 * 100}% auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '". . ."\n' +
-      '". signup-container ."\n' +
-      '". . ."\n' +
-      '". form-container ."\n' +
-      '". . ."\n' +
-      '". next-container ."\n' +
-      '". . ."\n' +
-      '',
     flexGrow: 1,
     height: '100%',
   },
@@ -119,17 +119,17 @@ const firstPageStyles = StyleSheet.create({
   },
   formContainer: {
     display: 'grid',
-    gridTemplateColumns: `auto`,
-    gridTemplateRows: `${100/330 * 100}% auto ${100/330 * 100}% auto ${100/330 * 100}%`,
+    grid: `
+      "name-container" ${100/330 * 100}%
+      "."
+      "email-container" ${100/330 * 100}%
+      "."
+      "username-container" ${100/330 * 100}%
+      /
+      auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '"name-container"\n' +
-      '"."\n' +
-      '"email-container"\n' +
-      '"."\n' +
-      '"username-container"\n' +
-      '',
     gridArea: 'form-container',
   },
   nameContainer: {
@@ -143,13 +143,13 @@ const firstPageStyles = StyleSheet.create({
   },
   nextContainer: {
     display: 'grid',
-    gridTemplateColumns: `${42.5/796 * 100}% auto ${42.5/796 * 100}%`,
-    gridTemplateRows: '1fr',
+    grid: `
+      ". next ." 1fr
+      /
+      auto ${711/796 * 100}% auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '". next ."\n' +
-      '',
     gridArea: 'next-container',
   },
   next: {

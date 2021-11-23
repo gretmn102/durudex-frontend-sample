@@ -77,15 +77,15 @@ export const sharedStyles = StyleSheet.create({
   },
   logo_grid: {
     display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: `${719/977 * 100}% auto ${173/977 * 100}%`,
+    grid: `
+      "." ${719/977 * 100}%
+      "logo_layout"
+      "." ${173/977 * 100}%
+      /
+      auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-    '  "."\n' +
-    '  "logo_layout"\n' +
-    '  "."\n' +
-    '',
     paddingLeft: 10,
     paddingRight: 10,
   },

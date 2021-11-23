@@ -44,29 +44,29 @@ const styles = StyleSheet.create({
   },
   container: {
     display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: `${141/977 * 100}% min-content ${35/977 * 100}% auto ${144/977 * 100}%`,
+    grid: `
+      "." ${141/977 * 100}%
+      "welcome-container" min-content
+      "." ${35/977 * 100}%
+      "form-container"
+      "." ${144/977 * 100}%
+      /
+      auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '"."\n' +
-      '"welcome-container"\n' +
-      '"."\n' +
-      '"form-container"\n' +
-      '"."\n' +
-      '',
     height: '100%',
     flexGrow: 1,
   },
   welcomeContainer: {
     display: 'grid',
-    gridTemplateColumns: `${118/1160 * 100}% min-content ${843/1160 * 100}%`,
-    gridTemplateRows: 'auto',
+    grid: `
+      ". welcome-text ."
+      /
+      ${118/1160 * 100}% min-content ${843/1160 * 100}%
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '". welcome-text ."\n' +
-      '',
     gridArea: 'welcome-container',
     [`@media (max-width:  ${breakSize}px)`]: {
       display: 'flex',
@@ -78,23 +78,23 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     display: 'grid',
-    gridTemplateColumns: `${182/1160 * 100}% auto ${182/1160 * 100}%`,
-    gridTemplateRows: `${39/608 * 100}% ${37/608 * 100}% ${102/608 * 100}% ${15/608 * 100}% ${102/608 * 100}% ${60/608 * 100}% ${24/608 * 100}% ${123/608 * 100}% auto ${12/608 * 100}% ${24/608 * 100}%`,
+    grid: `
+      ". sign-in-text ." ${39/608 * 100}%
+      ". . ." ${37/608 * 100}%
+      ". login-input-container ." ${102/608 * 100}%
+      ". . ." ${15/608 * 100}%
+      ". password-input-container ." ${102/608 * 100}%
+      ". . ." ${60/608 * 100}%
+      ". forgot-password-container ." ${24/608 * 100}%
+      ". . ." ${123/608 * 100}%
+      ". signin-button-container ."
+      ". . ." ${12/608 * 100}%
+      ". create-account-container ." ${24/608 * 100}%
+      /
+      auto ${796/1160 * 100}% auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '". sign-in-text ."\n' +
-      '". . ."\n' +
-      '". login-input-container ."\n' +
-      '". . ."\n' +
-      '". password-input-container ."\n' +
-      '". . ."\n' +
-      '". forgot-password-container ."\n' +
-      '". . ."\n' +
-      '". signin-button-container ."\n' +
-      '". . ."\n' +
-      '". create-account-container ."\n' +
-      '',
     gridArea: 'form-container',
     height: '100%',
   },
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
   },
   forgotPasswordContainer: {
     display: 'grid',
-    gridTemplateColumns: '10fr auto 0.5fr',
-    gridTemplateRows: 'min-content',
+    grid: `
+      ". forgot-password-text ." min-content
+      /
+      10fr auto 0.5fr
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '". forgot-password-text ."\n' +
-      '',
     gridArea: 'forgot-password-container',
   },
   forgotPasswordText: {
@@ -126,13 +126,13 @@ const styles = StyleSheet.create({
   },
   signinButtonContainer: {
     display: 'grid',
-    gridTemplateColumns: `${42.5/796 * 100}% auto ${42.5/796 * 100}%`,
-    gridTemplateRows: '1fr',
+    grid: `
+      ". signin-button ."
+      /
+      auto ${711/796 * 100}% auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-      '". signin-button ."\n' +
-      '',
     gridArea: 'signin-button-container',
   },
   signinButton: {
