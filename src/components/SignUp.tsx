@@ -403,12 +403,167 @@ function SecondPage() {
   )
 }
 
+const dropdownStyles = StyleSheet.create({
+  rightBorders: {
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16,
+  },
+  leftBorders: {
+    borderTopLeftRadius: 16,
+    borderBottomLeftRadius: 16,
+  },
+  select: {
+    background: '#fff',
+    border: '1px solid #0363f5',
+    height: '36px',
+    overflow: 'hidden',
+    position: 'relative',
+
+    ':after': {
+      borderColor: 'grey transparent transparent transparent',
+      borderStyle: 'solid',
+      borderWidth: '9px 7px 0 9px',
+      content: '\'\'',
+      height: '0',
+      pointerEvents: 'none',
+      position: 'absolute',
+      right: '10px',
+      speak: 'none',
+      top: '14px',
+      width: '0',
+    },
+  },
+  clearSelect: {
+    '-webkit-appearance': 'none',
+    '-moz-appearance': 'none',
+    appearance: 'none',
+    background: 'none',
+    border: '0',
+    color: '#000',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    height: '100%',
+    margin: '0',
+    paddingLeft: 10,
+    paddingRight: 28,
+    width: '100%',
+    zIndex: 2,
+  },
+})
+
+const range = (start: number, end: number) => {
+  const length = end - start
+
+  return length > 0 ? Array.from({ length }, (_, i) => start + i) : []
+}
+
+function daysInMonth(year: number, month: number) {
+  return new Date(year, month + 1, 0).getDate()
+}
+
+function Days(props: {
+  daysInMonth: number,
+  state: number,
+  setState: (state: number) => void,
+}) {
+  const { daysInMonth, state, setState } = props
+
+  return (
+    <div>
+      <div className={css(dropdownStyles.select)}>
+        <select
+          className={css(dropdownStyles.clearSelect)}
+          value={state}
+          onChange={e => {
+            setState(Number(e.target.value))
+          }}
+        >
+          {range(1, daysInMonth + 1).map(day => {
+            return (
+              <option key={day} value={day}>{day}</option>
+            )
+          })}
+        </select>
+      </div>
+    </div>
+  )
+}
+
+function Months(props: {
+  state: number,
+  setState: (state: number) => void,
+}) {
+  const { state, setState } = props
+
+  return (
+    <div>
+      <div className={css(dropdownStyles.select, dropdownStyles.leftBorders)}>
+        <select
+          className={css(dropdownStyles.clearSelect)}
+          value={state}
+          onChange={e => {
+            setState(Number(e.target.value))
+          }}
+        >
+          {Array.from({length: 12}, (_, monthIndex) => {
+            const month = new Date(0, monthIndex).toLocaleString('en-EN', { month: 'long' })
+            return (
+              <option key={monthIndex} value={monthIndex}>{month}</option>
+            )
+          })}
+        </select>
+      </div>
+    </div>
+  )
+}
+
+const Years = (() => {
+  const minYear = new Date(0).getFullYear()
+  const maxYear = new Date().getFullYear() - 13
+  const years = range(minYear, maxYear + 1).reverse()
+
+  // eslint-disable-next-line react/display-name
+  return (props: {
+    state: number,
+    setState: (state: number) => void,
+  }) => {
+    const { state, setState } = props
+
+    return (
+      <div>
+        <div className={css(dropdownStyles.select, dropdownStyles.rightBorders)}>
+          <select
+            className={css(dropdownStyles.clearSelect)}
+            value={state}
+            onChange={e => {
+              setState(Number(e.target.value))
+            }}
+          >
+            {years.map(year => {
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+      </div>
+    )
+  }
+})()
+
+
+
 function ThirdPage() {
   const state = useSelector(
     (state: ApplicationState) => state.signUp,
   )
   const dispatch = useDispatch()
-  const isValid = true
+  const birthDate = state.user.dateOfBirth
+  const currentYear = birthDate.getFullYear()
+  const currentMonth = birthDate.getMonth()
+  const currentDay = birthDate.getDate()
 
   return (
     <div className={css(firstPageStyles.container)}>
@@ -418,6 +573,35 @@ function ThirdPage() {
         </div>
       </div>
       <div className={css(firstPageStyles.formContainer)}>
+        <div className={css(sharedStyles.columns, sharedStyles.centerContainer)}>
+          <Months
+            state={currentMonth}
+            setState={newMonth => {
+              const date = new Date(currentYear, newMonth, currentDay)
+
+              dispatch(SignUpSlicer.setBirthDate(date))
+            }}
+          />
+          <Days
+            daysInMonth={
+              daysInMonth(currentYear, currentMonth)
+            }
+            state={currentDay}
+            setState={newDay => {
+              const date = new Date(currentYear, currentMonth, newDay)
+
+              dispatch(SignUpSlicer.setBirthDate(date))
+            }}
+          />
+          <Years
+            state={currentYear}
+            setState={newYear => {
+              const date = new Date(newYear, currentMonth, currentDay)
+
+              dispatch(SignUpSlicer.setBirthDate(date))
+            }}
+          />
+        </div>
       </div>
       <div className={css(firstPageStyles.nextContainer)}>
         <div className={css(styles.footerButtonsContainer)}>
