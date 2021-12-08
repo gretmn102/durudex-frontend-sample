@@ -171,6 +171,15 @@ const firstPageStyles = StyleSheet.create({
   next: {
     gridArea: 'next',
   },
+  agreeWithConditions: {
+    display: 'flex',
+    gap: 10,
+  },
+  agreeWithConditionsText: {
+    fontSize: resizeByHeight(15),
+    display: 'flex',
+    alignItems: 'center',
+  },
 })
 
 function FirstPage() {
@@ -591,6 +600,10 @@ function ThirdPage() {
   const currentMonth = birthDate.getMonth()
   const currentDay = birthDate.getDate()
 
+  const [agreeWithConditions, setAgreeWithConditions] = React.useState(false)
+
+  const isValid = agreeWithConditions
+
   return (
     <div className={css(firstPageStyles.container)}>
       <div className={css(firstPageStyles.signupContainer)}>
@@ -644,6 +657,20 @@ function ThirdPage() {
               }}
           />
         </div>
+        <div className={css(firstPageStyles.usernameContainer, firstPageStyles.agreeWithConditions)}>
+          <input
+            type='checkbox'
+            id='agreeWithConditions'
+            checked={agreeWithConditions}
+            onChange={_ => void setAgreeWithConditions(!agreeWithConditions)}
+          />
+          <label
+            className={css(firstPageStyles.agreeWithConditionsText)}
+            htmlFor='agreeWithConditions'
+          >
+            I have read all the terms of Durudex and conditions and I agree with them.
+          </label>
+        </div>
       </div>
       <div className={css(firstPageStyles.nextContainer)}>
         <div className={css(styles.footerButtonsContainer)}>
@@ -662,7 +689,12 @@ function ThirdPage() {
           <div className={css(styles.rightButton)}>
             <button
               className={css(sharedStyles.button)}
-              onClick={() => alert('Not implemented yet')}
+              disabled={!isValid}
+              onClick={() => {
+                if (isValid) {
+                  alert('Not implemented yet')
+                }
+              }}
             >
               <div className={css(sharedStyles.buttonLabel)}>
                 {'Done'}
