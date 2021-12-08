@@ -10,6 +10,7 @@ import { Input, resizeByHeight, sharedStyles } from './sharedStyles'
 import LogoBackground2 from './logoBackground2.jpg'
 import LogoBackground3 from './logoBackground3.jpg'
 import LogoBackground4 from './logoBackground4.jpg'
+import * as SessionSlice from '../store/sessionSlice'
 
 
 function isAvailable(res: Deferred<SignUpSlicer.Result>) {
@@ -553,7 +554,32 @@ const Years = (() => {
   }
 })()
 
+const GenderInput = (props: {
+  state: SessionSlice.Gender,
+  setState: (state: SessionSlice.Gender) => void,
+}) => {
+  const { state, setState } = props
 
+  return (
+    <div>
+      <div className={css(dropdownStyles.select)}>
+        <select
+          className={css(dropdownStyles.clearSelect)}
+          value={state}
+          onChange={e => {
+            setState(e.target.value as SessionSlice.Gender)
+          }}
+        >
+          {SessionSlice.genders.map(([genderKey, genderValue]) => {
+            return (
+              <option key={genderKey} value={genderKey}>{genderValue}</option>
+            )
+          })}
+        </select>
+      </div>
+    </div>
+  )
+}
 
 function ThirdPage() {
   const state = useSelector(
@@ -573,33 +599,49 @@ function ThirdPage() {
         </div>
       </div>
       <div className={css(firstPageStyles.formContainer)}>
-        <div className={css(sharedStyles.columns, sharedStyles.centerContainer)}>
-          <Months
-            state={currentMonth}
-            setState={newMonth => {
-              const date = new Date(currentYear, newMonth, currentDay)
+        <div className={css(firstPageStyles.nameContainer)}>
+          <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+            Date of birth
+          </div>
+          <div className={css(sharedStyles.columns)}>
+            <Months
+              state={currentMonth}
+              setState={newMonth => {
+                const date = new Date(currentYear, newMonth, currentDay)
 
-              dispatch(SignUpSlicer.setBirthDate(date))
-            }}
-          />
-          <Days
-            daysInMonth={
-              daysInMonth(currentYear, currentMonth)
-            }
-            state={currentDay}
-            setState={newDay => {
-              const date = new Date(currentYear, currentMonth, newDay)
+                dispatch(SignUpSlicer.setBirthDate(date))
+              }}
+            />
+            <Days
+              daysInMonth={
+                daysInMonth(currentYear, currentMonth)
+              }
+              state={currentDay}
+              setState={newDay => {
+                const date = new Date(currentYear, currentMonth, newDay)
 
-              dispatch(SignUpSlicer.setBirthDate(date))
-            }}
-          />
-          <Years
-            state={currentYear}
-            setState={newYear => {
-              const date = new Date(newYear, currentMonth, currentDay)
+                dispatch(SignUpSlicer.setBirthDate(date))
+              }}
+            />
+            <Years
+              state={currentYear}
+              setState={newYear => {
+                const date = new Date(newYear, currentMonth, currentDay)
 
-              dispatch(SignUpSlicer.setBirthDate(date))
-            }}
+                dispatch(SignUpSlicer.setBirthDate(date))
+              }}
+            />
+          </div>
+        </div>
+        <div className={css(firstPageStyles.emailContainer)}>
+          <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+            Gender
+          </div>
+          <GenderInput
+              state={state.user.gender}
+              setState={newGender => {
+                dispatch(SignUpSlicer.setGender(newGender))
+              }}
           />
         </div>
       </div>

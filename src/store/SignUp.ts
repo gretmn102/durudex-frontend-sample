@@ -120,6 +120,11 @@ type SetBirthDate = {
   newBirthDate: Date
 }
 
+type SetGender = {
+  type: 'SET_GENDER'
+  newGender: Common.Gender
+}
+
 type KnownAction =
   | EmailValidate
   | UsernameValidate
@@ -128,6 +133,7 @@ type KnownAction =
   | SetName
   | SetPassword
   | SetBirthDate
+  | SetGender
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
@@ -170,6 +176,9 @@ export const setPassword = (password: string): SetPassword => {
 }
 export const setBirthDate = (newDate: Date): SetBirthDate => {
   return { type: 'SET_BIRTH_DATE', newBirthDate: newDate }
+}
+export const setGender = (newGender: Common.Gender): SetGender => {
+  return { type: 'SET_GENDER', newGender: newGender }
 }
 
 // ----------------
@@ -291,6 +300,16 @@ export const reducer: Reducer<LoginState> = (
         user: {
           ...state.user,
           dateOfBirth: newBirthDate,
+        },
+      }
+    } break
+    case "SET_GENDER": {
+      const newGender = action.newGender
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          gender: newGender,
         },
       }
     } break
