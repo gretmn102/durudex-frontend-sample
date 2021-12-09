@@ -1,5 +1,18 @@
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { StyleSheet, css, CSSProperties } from 'aphrodite/no-important'
+import React from 'react'
+import {
+  library,
+} from '@fortawesome/fontawesome-svg-core'
+import {
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons'
+
 import Logo from './logo.png'
+
+library.add(
+  faSpinner,
+)
 
 export const initHeight = 1050
 export const initWidth = 1920
@@ -8,6 +21,8 @@ export const resizeByHeight = (coeff: number) => `calc((100vh * ${coeff}) / ${in
 export const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${initWidth})`
 
 export const breakSize = 450
+
+export const invalidColor = '#F40202'
 
 export const sharedStyles = StyleSheet.create({
   centerContainer: {
@@ -74,15 +89,15 @@ export const sharedStyles = StyleSheet.create({
   },
   logo_grid: {
     display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: `${719/977 * 100}% auto ${173/977 * 100}%`,
+    grid: `
+      "." ${719/977 * 100}%
+      "logo_layout"
+      "." ${173/977 * 100}%
+      /
+      auto
+    `,
     gap: '0px 0px',
     gridAutoFlow: 'row',
-    gridTemplateAreas: '\n' +
-    '  "."\n' +
-    '  "logo_layout"\n' +
-    '  "."\n' +
-    '',
     paddingLeft: 10,
     paddingRight: 10,
   },
@@ -113,6 +128,8 @@ export const sharedStyles = StyleSheet.create({
     fontWeight: 'bold',
 
     color: '#4F506A',
+
+    whiteSpace: 'nowrap',
   },
   inputTitle_layout: {
     position: 'relative',
@@ -138,11 +155,31 @@ export const sharedStyles = StyleSheet.create({
       outline: 'currentcolor none 0px',
       boxShadow: 'rgba(0, 123, 255, 0.25) 0px 0px 0px 0.2rem',
     },
+    ':invalid': {
+      borderColor: invalidColor,
+    },
   },
   input_layout: {
     position: 'relative',
     height: resizeByHeight(52),
     marginTop: resizeByHeight(15),
+  },
+  inputContainer: {
+    position: 'relative',
+  },
+  inputInvalid: {
+    borderColor: invalidColor,
+  },
+  inputSuccess: {
+    borderColor: '#15F402',
+  },
+  inputSpinner: {
+    position: 'absolute',
+    top: 0,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    right: '.625em',
   },
   button: {
     width: '100%',
@@ -182,13 +219,11 @@ export const sharedStyles = StyleSheet.create({
     fontWeight: 700,
 
     color: 'white',
-  },
-  buttonLabel_layout: {
-    position: 'relative',
-    marginTop: resizeByHeight(18),
-    marginRight: 'auto',
-    marginBottom: resizeByHeight(18),
-    marginLeft: 'auto',
+
+    marginRight: '0.3rem',
+    marginLeft: '0.3rem',
+
+    whiteSpace: 'nowrap',
   },
 
   level: {
@@ -208,3 +243,71 @@ export const sharedStyles = StyleSheet.create({
   column: {
   },
 })
+
+type InputBorderColor =
+  | 'NORMAL'
+  | 'INVALID'
+  | 'SUCCESS'
+
+export function Input(props: {
+  inputTitle?: string
+  onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void)
+  isDisabled: boolean
+  isLoading: boolean
+  isInvalid?: InputBorderColor
+  subtitle?: { color: string | undefined, text: string }
+  value?: string | string []
+  type?: string
+}) {
+  const { inputTitle } = props
+  const subtitle = props.subtitle
+
+  let borderColorStyle: CSSProperties | undefined
+  switch (props.isInvalid) {
+    case "INVALID":
+      borderColorStyle = sharedStyles.inputInvalid as CSSProperties
+      break
+
+    case "SUCCESS":
+      borderColorStyle = sharedStyles.inputSuccess as CSSProperties
+      break
+
+    case 'NORMAL':
+    case undefined:
+      borderColorStyle = undefined
+      break
+  }
+
+  return (
+    <div>
+      {inputTitle && (
+        <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
+          {inputTitle}
+        </div>
+      )}
+      <div className={css(sharedStyles.inputContainer)}>
+        <input
+          type={props.type}
+          className={css(sharedStyles.input, borderColorStyle)}
+          onChange={props.onChange}
+          disabled={props.isDisabled}
+          value={props.value}
+        />
+        {props.isLoading && (
+          <div className={css(sharedStyles.inputSpinner)}>
+            <FontAwesomeIcon
+              icon={['fas', 'spinner']}
+              spin
+              fixedWidth
+            />
+          </div>
+        )}
+      </div>
+      {subtitle && (
+        <div style={subtitle.color ? {color: subtitle.color} : {}}>
+          {subtitle.text}
+        </div>
+      )}
+    </div>
+  )
+}

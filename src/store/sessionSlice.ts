@@ -5,6 +5,12 @@ export type Gender =
   | 'MALE'
   | 'FEMALE'
 
+export const genders: [Gender, string] [] = [
+  ['UNDEFINED', 'Non-binary'],
+  ['MALE', 'Male'],
+  ['FEMALE', 'Female'],
+]
+
 export type CurrentUser = {
   name: string
   email: string

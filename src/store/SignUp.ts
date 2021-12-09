@@ -115,6 +115,16 @@ type SetPassword = {
   newPassword: string
 }
 
+type SetBirthDate = {
+  type: 'SET_BIRTH_DATE'
+  newBirthDate: Date
+}
+
+type SetGender = {
+  type: 'SET_GENDER'
+  newGender: Common.Gender
+}
+
 type KnownAction =
   | EmailValidate
   | UsernameValidate
@@ -122,6 +132,8 @@ type KnownAction =
   | SetPage
   | SetName
   | SetPassword
+  | SetBirthDate
+  | SetGender
 
 // ----------------
 // ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
@@ -129,26 +141,26 @@ type KnownAction =
 export const actionCreators = {
   validateEmail: (email: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
     validate (
-      email
+      email,
     )(
       x => dispatch({ type: 'EMAIL_VALIDATE_KNOWNACTION', value: x }),
-      getState
+      getState,
     )
   },
   validateUsername: (username: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
     validate (
-      username
+      username,
     )(
       x => dispatch({ type: 'USERNAME_VALIDATE_KNOWNACTION', value: x }),
-      getState
+      getState,
     )
   },
   validatePhone: (username: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
     validate (
-      username
+      username,
     )(
       x => dispatch({ type: 'PHONE_VALIDATE_KNOWNACTION', value: x }),
-      getState
+      getState,
     )
   },
 }
@@ -161,6 +173,12 @@ export const setName = (name: string): SetName => {
 }
 export const setPassword = (password: string): SetPassword => {
   return { type: 'SET_PASSWORD', newPassword: password }
+}
+export const setBirthDate = (newDate: Date): SetBirthDate => {
+  return { type: 'SET_BIRTH_DATE', newBirthDate: newDate }
+}
+export const setGender = (newGender: Common.Gender): SetGender => {
+  return { type: 'SET_GENDER', newGender: newGender }
 }
 
 // ----------------
@@ -272,6 +290,26 @@ export const reducer: Reducer<LoginState> = (
         user: {
           ...state.user,
           password: newPassword,
+        },
+      }
+    } break
+    case "SET_BIRTH_DATE": {
+      const newBirthDate = action.newBirthDate
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          dateOfBirth: newBirthDate,
+        },
+      }
+    } break
+    case "SET_GENDER": {
+      const newGender = action.newGender
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          gender: newGender,
         },
       }
     } break
