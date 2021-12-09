@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import * as Reactstrap from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignIn'
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     gridArea: 'signin-button-container',
   },
   signinButton: {
+    position: 'relative',
     gridArea: 'signin-button',
   },
   createAccountContainer: {
@@ -143,6 +144,21 @@ const styles = StyleSheet.create({
 
     display: 'flex',
     justifyContent: 'center',
+  },
+  signinButtonSpinnerContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signinButtonSpinner: {
+    width: '100%',
+    height: '100%',
+    color: 'white',
   },
 })
 
@@ -204,12 +220,20 @@ function Form() {
               <div className={css(sharedStyles.buttonLabel)}>
                 {'Sign In'}
               </div>
+              { loginState.state[0] === 'IN_PROGRESS' && (
+                <div
+                  className={css(styles.signinButtonSpinnerContainer)}
+                >
+                  <FontAwesomeIcon
+                    className={css(styles.signinButtonSpinner)}
+                    icon={['fas', 'spinner']}
+                    fixedWidth={true}
+                    size="2x"
+                    pulse
+                  />
+                </div>
+              )}
             </button>
-            { loginState.state[0] === 'IN_PROGRESS' && (
-                <Reactstrap.Spinner role="status">
-                  Loading...
-                </Reactstrap.Spinner>
-            )}
             <Call f={() => {
               switch (loginState.state[0]) {
                 case 'RESOLVED':

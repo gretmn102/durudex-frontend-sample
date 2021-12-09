@@ -1,8 +1,18 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import React from 'react'
-import * as Reactstrap from 'reactstrap'
+import {
+  library,
+} from '@fortawesome/fontawesome-svg-core'
+import {
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons'
 
 import Logo from './logo.png'
+
+library.add(
+  faSpinner,
+)
 
 export const initHeight = 1050
 export const initWidth = 1920
@@ -149,6 +159,17 @@ export const sharedStyles = StyleSheet.create({
     height: resizeByHeight(52),
     marginTop: resizeByHeight(15),
   },
+  inputContainer: {
+    position: 'relative',
+  },
+  inputSpinner: {
+    position: 'absolute',
+    top: 0,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    right: '.625em',
+  },
   button: {
     width: '100%',
     height: '100%',
@@ -230,17 +251,23 @@ export function Input(props: {
           {inputTitle}
         </div>
       )}
-      <input
-        className={css(sharedStyles.input)}
-        onChange={props.onChange}
-        disabled={props.isDisabled}
-        value={props.value}
-      />
-      {props.isLoading && (
-        <Reactstrap.Spinner role="status">
-          Loading...
-        </Reactstrap.Spinner>
-      )}
+      <div className={css(sharedStyles.inputContainer)}>
+        <input
+          className={css(sharedStyles.input)}
+          onChange={props.onChange}
+          disabled={props.isDisabled}
+          value={props.value}
+        />
+        {props.isLoading && (
+          <div className={css(sharedStyles.inputSpinner)}>
+            <FontAwesomeIcon
+              icon={['fas', 'spinner']}
+              spin
+              fixedWidth
+            />
+          </div>
+        )}
+      </div>
       {subtitle && (
         <div style={subtitle.color ? {color: subtitle.color} : {}}>
           {subtitle.text}
