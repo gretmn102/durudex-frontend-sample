@@ -1,17 +1,15 @@
 {
   "files": {
-    "main.css": "/durudex-frontend-sample/static/css/main.7c0c3832.chunk.css",
-    "main.js": "/durudex-frontend-sample/static/js/main.e952bbc2.chunk.js",
-    "main.js.map": "/durudex-frontend-sample/static/js/main.e952bbc2.chunk.js.map",
+    "main.css": "/durudex-frontend-sample/static/css/main.cf7bdc85.chunk.css",
+    "main.js": "/durudex-frontend-sample/static/js/main.c818ea8e.chunk.js",
+    "main.js.map": "/durudex-frontend-sample/static/js/main.c818ea8e.chunk.js.map",
     "runtime-main.js": "/durudex-frontend-sample/static/js/runtime-main.aa0d9745.js",
     "runtime-main.js.map": "/durudex-frontend-sample/static/js/runtime-main.aa0d9745.js.map",
-    "static/css/2.d400a5f0.chunk.css": "/durudex-frontend-sample/static/css/2.d400a5f0.chunk.css",
-    "static/js/2.1e17c17f.chunk.js": "/durudex-frontend-sample/static/js/2.1e17c17f.chunk.js",
-    "static/js/2.1e17c17f.chunk.js.map": "/durudex-frontend-sample/static/js/2.1e17c17f.chunk.js.map",
+    "static/js/2.2ab12254.chunk.js": "/durudex-frontend-sample/static/js/2.2ab12254.chunk.js",
+    "static/js/2.2ab12254.chunk.js.map": "/durudex-frontend-sample/static/js/2.2ab12254.chunk.js.map",
     "index.html": "/durudex-frontend-sample/index.html",
-    "static/css/2.d400a5f0.chunk.css.map": "/durudex-frontend-sample/static/css/2.d400a5f0.chunk.css.map",
-    "static/css/main.7c0c3832.chunk.css.map": "/durudex-frontend-sample/static/css/main.7c0c3832.chunk.css.map",
-    "static/js/2.1e17c17f.chunk.js.LICENSE.txt": "/durudex-frontend-sample/static/js/2.1e17c17f.chunk.js.LICENSE.txt",
+    "static/css/main.cf7bdc85.chunk.css.map": "/durudex-frontend-sample/static/css/main.cf7bdc85.chunk.css.map",
+    "static/js/2.2ab12254.chunk.js.LICENSE.txt": "/durudex-frontend-sample/static/js/2.2ab12254.chunk.js.LICENSE.txt",
     "static/media/community-icon.8b42fd91.svg": "/durudex-frontend-sample/static/media/community-icon.8b42fd91.svg",
     "static/media/dots-icon.b1b1f492.svg": "/durudex-frontend-sample/static/media/dots-icon.b1b1f492.svg",
     "static/media/eye-icon.bff79846.svg": "/durudex-frontend-sample/static/media/eye-icon.bff79846.svg",
@@ -36,9 +34,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.aa0d9745.js",
-    "static/css/2.d400a5f0.chunk.css",
-    "static/js/2.1e17c17f.chunk.js",
-    "static/css/main.7c0c3832.chunk.css",
-    "static/js/main.e952bbc2.chunk.js"
+    "static/js/2.2ab12254.chunk.js",
+    "static/css/main.cf7bdc85.chunk.css",
+    "static/js/main.c818ea8e.chunk.js"
   ]
 }
