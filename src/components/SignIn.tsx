@@ -8,7 +8,7 @@ import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignIn'
 import LogoBackground from './logoBackground.jpg'
 import { Deferred, deferredMatch, Call } from '../common'
-import { breakSize, Input, resizeByHeight, resizeByWidth, sharedStyles } from './sharedStyles'
+import { breakSize, Input, invalidColor, resizeByHeight, resizeByWidth, sharedStyles } from './sharedStyles'
 
 const styles = StyleSheet.create({
   white: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   errorText: {
-    color: '#F40202',
+    color: invalidColor,
     fontSize: resizeByHeight(25),
   },
   signinButtonContainer: {
@@ -183,7 +183,17 @@ function Form() {
   const loginState = useSelector(
     (state: ApplicationState) => state.login,
   )
+  const [ responseResult, setResponseResult ] = React.useState(loginState.state)
+
+  React.useEffect(() => {
+    setResponseResult(loginState.state)
+  }, [loginState.state])
+
   const dispatch = useDispatch()
+
+  const isResponseError =
+    responseResult[0] === 'RESOLVED'
+    && responseResult[1][0] === 'ERROR'
 
   return (
     <div className={css(styles.container)}>
@@ -199,17 +209,26 @@ function Form() {
         <div className={css(styles.loginInputContainer)}>
           <Input
             inputTitle="Email or phone"
-            onChange={e => { setLogin(e.target.value) }}
-            isDisabled={loginState.state[0] === 'IN_PROGRESS'}
+            onChange={e => {
+              setResponseResult(['HAS_NOT_STARTED_YET'])
+              setLogin(e.target.value)
+            }}
+            isDisabled={responseResult[0] === 'IN_PROGRESS'}
             isLoading={false}
+            isInvalid={isResponseError}
           />
         </div>
         <div className={css(styles.passwordInputContainer)}>
           <Input
             inputTitle="Password"
-            onChange={e => { setPassword(e.target.value) }}
-            isDisabled={loginState.state[0] === 'IN_PROGRESS'}
+            onChange={e => {
+              setResponseResult(['HAS_NOT_STARTED_YET'])
+              setPassword(e.target.value)
+            }}
+            isDisabled={responseResult[0] === 'IN_PROGRESS'}
             isLoading={false}
+            isInvalid={isResponseError}
+            type="password"
           />
         </div>
         <div className={css(styles.forgotPasswordContainer)}>
@@ -220,9 +239,9 @@ function Form() {
           </div>
         </div>
         <Call f={() => {
-          switch (loginState.state[0]) {
+          switch (responseResult[0]) {
             case 'RESOLVED':
-              const res = loginState.state[1]
+              const res = responseResult[1]
               switch (res[0]) {
                 case 'OK':
                   return (<div>Ok</div>)
@@ -252,15 +271,15 @@ function Form() {
               onClick={() => {
                 login
                 && password
-                && loginState.state[0] !== 'IN_PROGRESS'
+                && responseResult[0] !== 'IN_PROGRESS'
                 && dispatch(SignUpSlicer.actionCreators.requestLogin(login, password))
               }}
-              disabled={login === '' || password === '' || loginState.state[0] === 'IN_PROGRESS'}
+              disabled={login === '' || password === '' || responseResult[0] === 'IN_PROGRESS'}
             >
               <div className={css(sharedStyles.buttonLabel)}>
                 {'Sign In'}
               </div>
-              { loginState.state[0] === 'IN_PROGRESS' && (
+              { responseResult[0] === 'IN_PROGRESS' && (
                 <div
                   className={css(styles.signinButtonSpinnerContainer)}
                 >

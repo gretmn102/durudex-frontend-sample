@@ -22,6 +22,8 @@ export const resizeByWidth = (coeff: number) => `calc((100vw * ${coeff}) / ${ini
 
 export const breakSize = 450
 
+export const invalidColor = '#F40202'
+
 export const sharedStyles = StyleSheet.create({
   centerContainer: {
     display: 'flex',
@@ -153,6 +155,9 @@ export const sharedStyles = StyleSheet.create({
       outline: 'currentcolor none 0px',
       boxShadow: 'rgba(0, 123, 255, 0.25) 0px 0px 0px 0.2rem',
     },
+    ':invalid': {
+      borderColor: invalidColor,
+    },
   },
   input_layout: {
     position: 'relative',
@@ -161,6 +166,9 @@ export const sharedStyles = StyleSheet.create({
   },
   inputContainer: {
     position: 'relative',
+  },
+  inputInvalid: {
+    borderColor: invalidColor,
   },
   inputSpinner: {
     position: 'absolute',
@@ -238,8 +246,10 @@ export function Input(props: {
   onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void)
   isDisabled: boolean
   isLoading: boolean
+  isInvalid?: boolean
   subtitle?: { color: string | undefined, text: string }
   value?: string | string []
+  type?: string
 }) {
   const { inputTitle } = props
   const subtitle = props.subtitle
@@ -253,7 +263,8 @@ export function Input(props: {
       )}
       <div className={css(sharedStyles.inputContainer)}>
         <input
-          className={css(sharedStyles.input)}
+          type={props.type}
+          className={css(sharedStyles.input, props.isInvalid && sharedStyles.inputInvalid)}
           onChange={props.onChange}
           disabled={props.isDisabled}
           value={props.value}
