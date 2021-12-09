@@ -468,6 +468,23 @@ const dropdownStyles = StyleSheet.create({
   },
 })
 
+
+const thirdPageStyles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    gap: 5,
+  },
+  yearsContainer: {
+    flexGrow: 2,
+  },
+  monthsContainer: {
+    flexGrow: 5,
+  },
+  daysContainer: {
+    flexGrow: 1,
+  },
+})
+
 const range = (start: number, end: number) => {
   const length = end - start
 
@@ -486,7 +503,7 @@ function Days(props: {
   const { daysInMonth, state, setState } = props
 
   return (
-    <div>
+    <div className={css(thirdPageStyles.daysContainer)}>
       <div className={css(dropdownStyles.select)}>
         <select
           className={css(dropdownStyles.clearSelect)}
@@ -513,7 +530,7 @@ function Months(props: {
   const { state, setState } = props
 
   return (
-    <div>
+    <div className={css(thirdPageStyles.monthsContainer)}>
       <div className={css(dropdownStyles.select, dropdownStyles.leftBorders)}>
         <select
           className={css(dropdownStyles.clearSelect)}
@@ -547,7 +564,7 @@ const Years = (() => {
     const { state, setState } = props
 
     return (
-      <div>
+      <div className={css(thirdPageStyles.yearsContainer)}>
         <div className={css(dropdownStyles.select, dropdownStyles.rightBorders)}>
           <select
             className={css(dropdownStyles.clearSelect)}
@@ -623,7 +640,7 @@ function ThirdPage() {
           <div className={css(sharedStyles.inputTitle, sharedStyles.inputTitle_layout)}>
             Date of birth
           </div>
-          <div className={css(sharedStyles.columns)}>
+          <div className={css(thirdPageStyles.container)}>
             <Months
               state={currentMonth}
               setState={newMonth => {
