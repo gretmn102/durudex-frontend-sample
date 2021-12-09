@@ -13,3 +13,11 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+a {
+  text-decoration: none;
+}

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container } from 'reactstrap'
 
 import { ApplicationState } from './store'
 import Home from './components/Home'

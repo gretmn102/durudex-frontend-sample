@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, css, StyleDeclarationValue } from 'aphrodite/no-important'
-import * as Reactstrap from 'reactstrap'
 
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignUp'
