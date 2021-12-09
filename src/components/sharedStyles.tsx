@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { StyleSheet, css, CSSProperties } from 'aphrodite/no-important'
 import React from 'react'
 import {
   library,
@@ -170,6 +170,9 @@ export const sharedStyles = StyleSheet.create({
   inputInvalid: {
     borderColor: invalidColor,
   },
+  inputSuccess: {
+    borderColor: '#15F402',
+  },
   inputSpinner: {
     position: 'absolute',
     top: 0,
@@ -241,18 +244,39 @@ export const sharedStyles = StyleSheet.create({
   },
 })
 
+type InputBorderColor =
+  | 'NORMAL'
+  | 'INVALID'
+  | 'SUCCESS'
+
 export function Input(props: {
   inputTitle?: string
   onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void)
   isDisabled: boolean
   isLoading: boolean
-  isInvalid?: boolean
+  isInvalid?: InputBorderColor
   subtitle?: { color: string | undefined, text: string }
   value?: string | string []
   type?: string
 }) {
   const { inputTitle } = props
   const subtitle = props.subtitle
+
+  let borderColorStyle: CSSProperties | undefined
+  switch (props.isInvalid) {
+    case "INVALID":
+      borderColorStyle = sharedStyles.inputInvalid as CSSProperties
+      break
+
+    case "SUCCESS":
+      borderColorStyle = sharedStyles.inputSuccess as CSSProperties
+      break
+
+    case 'NORMAL':
+    case undefined:
+      borderColorStyle = undefined
+      break
+  }
 
   return (
     <div>
@@ -264,7 +288,7 @@ export function Input(props: {
       <div className={css(sharedStyles.inputContainer)}>
         <input
           type={props.type}
-          className={css(sharedStyles.input, props.isInvalid && sharedStyles.inputInvalid)}
+          className={css(sharedStyles.input, borderColorStyle)}
           onChange={props.onChange}
           disabled={props.isDisabled}
           value={props.value}

@@ -215,7 +215,7 @@ function Form() {
             }}
             isDisabled={responseResult[0] === 'IN_PROGRESS'}
             isLoading={false}
-            isInvalid={isResponseError}
+            isInvalid={isResponseError ? 'INVALID' : 'NORMAL'}
           />
         </div>
         <div className={css(styles.passwordInputContainer)}>
@@ -227,7 +227,7 @@ function Form() {
             }}
             isDisabled={responseResult[0] === 'IN_PROGRESS'}
             isLoading={false}
-            isInvalid={isResponseError}
+            isInvalid={isResponseError ? 'INVALID' : 'NORMAL'}
             type="password"
           />
         </div>

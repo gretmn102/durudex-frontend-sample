@@ -5,7 +5,7 @@ import { StyleSheet, css, StyleDeclarationValue } from 'aphrodite/no-important'
 import { ApplicationState } from '../store'
 import * as SignUpSlicer from '../store/SignUp'
 import { Call, Deferred, deferredMatch } from '../common'
-import { Input, resizeByHeight, sharedStyles } from './sharedStyles'
+import { Input, invalidColor, resizeByHeight, sharedStyles } from './sharedStyles'
 import LogoBackground2 from './logoBackground2.jpg'
 import LogoBackground3 from './logoBackground3.jpg'
 import LogoBackground4 from './logoBackground4.jpg'
@@ -305,9 +305,13 @@ function SecondPage() {
   const user = state.user
 
   const [passwordConfirmation, setPasswordConfirmation] = React.useState(user.password)
+
+  const isPasswordEquals =
+    user.password === passwordConfirmation
+
   const isValid =
     user.password !== ''
-    && user.password === passwordConfirmation
+    && isPasswordEquals
     && user.phone !== ''
     && isAvailable(state.isValidPhone)
 
@@ -321,6 +325,7 @@ function SecondPage() {
       <div className={css(firstPageStyles.formContainer)}>
         <div className={css(firstPageStyles.nameContainer)}>
           <Input
+            type="password"
             inputTitle="Password"
             value={user.password}
             onChange={e => {
@@ -328,10 +333,12 @@ function SecondPage() {
             }}
             isDisabled={false}
             isLoading={false}
+            isInvalid={isPasswordEquals ? 'SUCCESS' : 'INVALID'}
           />
         </div>
         <div className={css(firstPageStyles.emailContainer)}>
           <Input
+            type="password"
             inputTitle="Confirm password"
             value={passwordConfirmation}
             onChange={e => {
@@ -341,9 +348,10 @@ function SecondPage() {
             isLoading={false}
             subtitle={
               user.password !== passwordConfirmation ?
-                {color: 'red', text: 'Password mismatch'}
+                { color: invalidColor, text: 'Password mismatch' }
               : undefined
             }
+            isInvalid={isPasswordEquals ? 'SUCCESS': 'INVALID'}
           />
         </div>
         <div className={css(firstPageStyles.usernameContainer)}>
@@ -362,7 +370,7 @@ function SecondPage() {
                   const [, val] = res
                   switch (val[0]) {
                     case "ERROR": {
-                      return { color: 'red', text: val[1].toString() }
+                      return { color: invalidColor, text: val[1].toString() }
                     } break
                     case 'AVAILABLE':
                       return undefined
