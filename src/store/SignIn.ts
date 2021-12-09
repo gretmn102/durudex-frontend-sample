@@ -51,7 +51,7 @@ export const actionCreators = {
         if (login === 'admin' && password === 'admin') {
           ok = ['OK', { ...SessionSlice.userEmpty, name: 'admin', password: 'admin'}]
         } else {
-          ok = ['ERROR', 'Login or password error']
+          ok = ['ERROR', 'Incorrect email or phone and / or password']
         }
         const res = new Response(JSON.stringify(ok))
         setTimeout(() => resolve(res), 500)

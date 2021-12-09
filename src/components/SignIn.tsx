@@ -86,8 +86,10 @@ const styles = StyleSheet.create({
       ". password-input-container ." ${102/608 * 100}%
       ". . ." ${60/608 * 100}%
       ". forgot-password-container ." ${24/608 * 100}%
-      ". . ." ${123/608 * 100}%
-      ". signin-button-container ."
+      ". . ." ${15/608 * 100}%
+      ". error-container ." auto
+      ". . ." ${15/608 * 100}%
+      ". signin-button-container ." ${73/608 * 100}%
       ". . ." ${12/608 * 100}%
       ". create-account-container ." ${24/608 * 100}%
       /
@@ -123,6 +125,18 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     gridArea: 'forgot-password-text',
+  },
+  errorContainer: {
+    gridArea: 'error-container',
+
+    display: 'flex',
+    alignItems: 'center',
+
+    marginLeft: 8,
+  },
+  errorText: {
+    color: '#F40202',
+    fontSize: resizeByHeight(25),
   },
   signinButtonContainer: {
     display: 'grid',
@@ -205,6 +219,32 @@ function Form() {
             </a>
           </div>
         </div>
+        <Call f={() => {
+          switch (loginState.state[0]) {
+            case 'RESOLVED':
+              const res = loginState.state[1]
+              switch (res[0]) {
+                case 'OK':
+                  return (<div>Ok</div>)
+                  break
+                case "ERROR":
+                  return (
+                    <div className={css(styles.errorContainer, styles.errorText)}>
+                      {res[1]}
+                    </div>
+                  )
+                  break
+              }
+              break
+            case "HAS_NOT_STARTED_YET":
+              return null
+              break
+            case "IN_PROGRESS":
+              return null
+              break
+          }
+          return null
+        }} />
         <div className={css(styles.signinButtonContainer)}>
           <div className={css(styles.signinButton)}>
             <button
@@ -234,28 +274,6 @@ function Form() {
                 </div>
               )}
             </button>
-            <Call f={() => {
-              switch (loginState.state[0]) {
-                case 'RESOLVED':
-                  const res = loginState.state[1]
-                  switch (res[0]) {
-                    case 'OK':
-                      return (<div>Ok</div>)
-                      break
-                    case "ERROR":
-                      return (<div style={{color: "red"}}>{res[1]}</div>)
-                      break
-                  }
-                  break
-                case "HAS_NOT_STARTED_YET":
-                  return null
-                  break
-                case "IN_PROGRESS":
-                  return null
-                  break
-              }
-              return null
-            }} />
           </div>
         </div>
         <div className={css(styles.createAccountContainer)}>
